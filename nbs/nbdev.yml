@@ -1,0 +1,9 @@
+project:
+  output-dir: _docs
+
+website:
+  title: "underwater-systems"
+  site-url: "https://andreamunafo.github.io/underwater-systems"
+  description: "Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy"
+  repo-branch: main
+  repo-url: "https://github.com/andreamunafo/underwater-systems"
