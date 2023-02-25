@@ -149,3 +149,10 @@ checklink/cookies.txt
 
 # Quarto
 .quarto
+
+# Specific foldes/files I do not want to commit
+archived
+ppts
+video-bookmarks.txt
+videos
+more-nbs
