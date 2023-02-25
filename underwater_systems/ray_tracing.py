@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import copy
 import collections
 
-# %% ../nbs/04_ray_tracing.ipynb 23
+# %% ../nbs/04_ray_tracing.ipynb 24
 class SSP:
     """
     Defines one sound speed profile (depth (m) and speed (m/s) at each depth)
@@ -135,7 +135,7 @@ class SoundParticle:
     def __str__(self):
         return f"range (m): {self._r:.2f}, depth (m): {self._d:.2f}, angle (deg): {np.rad2deg(self._theta):.2f}, speed (m/s): {self._c:.2f}"
 
-# %% ../nbs/04_ray_tracing.ipynb 31
+# %% ../nbs/04_ray_tracing.ipynb 32
 class RayTracer:
     def __init__(self, time, source_depth, min_range, thetas, ssp):
         """
