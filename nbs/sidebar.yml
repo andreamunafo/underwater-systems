@@ -1,0 +1,17 @@
+website:
+  sidebar:
+    contents:
+      - index.ipynb
+      - 00_Getting_started_with_Python_and_Jupyter_Notebook.ipynb
+      - 01_intro.ipynb
+      - 02_ocean_acoustics.ipynb
+      - 03_the_acoustic_channel.ipynb
+      - 04_ray_tracing.ipynb
+      - 05_environmental-variability.ipynb
+      - 06_oceanographic_sensors.ipynb
+      - 07_the_wave_equation.ipynb
+      - 08_acoustic_systems.ipynb
+      - 09_the_sonar_equations.ipynb
+      - 10_sonar_practical_applications.ipynb
+      - 11_underwater_navigation.ipynb
+      - 12_References.ipynb
