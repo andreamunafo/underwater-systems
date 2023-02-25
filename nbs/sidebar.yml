@@ -1,6 +1,7 @@
 website:
   sidebar:
     contents:
+      - index.ipynb
       - 00_Getting_started_with_Python_and_Jupyter_Notebook.ipynb
       - 01_intro.ipynb
       - 02_ocean_acoustics.ipynb
