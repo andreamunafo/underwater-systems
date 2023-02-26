@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>underwater-systems - Oceanographic Sensors</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="underwater-systems - Oceanographic Sensors">
+<meta property="og:description" content="They have a settling time, typically between 0.2-0.6 s. This must be taken into account when installed as a payload on a robot.">
+<meta property="og:site-name" content="underwater-systems">
+<meta name="twitter:title" content="underwater-systems - Oceanographic Sensors">
+<meta name="twitter:description" content="They have a settling time, typically between 0.2-0.6 s. This must be taken into account when installed as a payload on a robot.">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">Oceanographic Sensors</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">Underwater Systems</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">Getting Started with Python and Jupyter Notebooks</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_intro.html" class="sidebar-item-text sidebar-link">Introduction</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_ocean_acoustics.html" class="sidebar-item-text sidebar-link">Ocean Acoustics</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03_the_acoustic_channel.html" class="sidebar-item-text sidebar-link">The Acoustic Channel</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">Ray Tracing</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">Environmental Variability</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link active">Oceanographic Sensors</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">The Wave Equation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">Acoustic systems</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">The SONAR equations</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">SONAR Practical Applications</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">Underwater Navigation</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">References</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#conductivity-temperature-and-depth" id="toc-conductivity-temperature-and-depth" class="nav-link active" data-scroll-target="#conductivity-temperature-and-depth">Conductivity, Temperature and Depth</a></li>
+  <li><a href="#multi-parameters-probes" id="toc-multi-parameters-probes" class="nav-link" data-scroll-target="#multi-parameters-probes">Multi-parameters probes</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">Oceanographic Sensors</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<section id="conductivity-temperature-and-depth" class="level2">
+<h2 class="anchored" data-anchor-id="conductivity-temperature-and-depth">Conductivity, Temperature and Depth</h2>
+<ul>
+<li><p>Salinity and Temperature as a function of Depth are commonly measured by sensor probes called <strong>CTD</strong> (Conductivity-Temperature-Depth)</p></li>
+<li><p>A CTD device’s primary function is to detect how the conductivity and temperature of the water column changes relative to depth.</p></li>
+<li><p>Remember that Conductivity is a proxy for Salinity, which is then calculated using non-linear regression equations</p></li>
+<li><p>Temperature: Thermometers</p></li>
+<li><p>Depth: pressure sensors (strain gauge that measure deformations, or quartz-based sensors that measure vibration frequency)</p></li>
+</ul>
+<p>They have a settling time, typically between 0.2-0.6 s. This must be taken into account when installed as a payload on a robot.</p>
+<ul>
+<li>Often, CTDs are attached to a much larger metal frame called a rosette, which may hold water-sampling bottles that are used to collect water at different depths, as well as other sensors that can measure additional physical or chemical properties.</li>
+</ul>
+
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/ctd_1280x720.mp4" width="600" height="400" frameborder="0">
+</video>
+<figcaption class="figure-caption">
+</figcaption>
+</figure>
+</td>
+</tr>
+
+</tbody></table>
+<p>The CTD (standing for “Conductivity, Temperature, and Depth”) is a vital instrument when conducting scientific research on ships. Learn more about the CTD and how it functions in this video from The Hidden Ocean 2016: Chukchi Borderlands expedition. Video courtesy of Caitlin Bailey, GFOE, The Hidden Ocean 2016: Chukchi Borderlands, Oceaneering-DSSI. Available at https://oceanexplorer.noaa.gov/facts/ctd.html.</p>
+<p>Knowledge obtained from CTD devices can provide a more detailed understanding of the ocean water’s characteristic through the entire water column, which is crucial for understanding the physics involved. The physics in turn allow biologists to understand why the biology is present or not present at different depths and why the chemical makeup of the water changes over depth. The CTD is the key to understanding the physics, chemistry, and biology of the water column.</p>
+
+<table>
+<tbody><tr>
+<td>
+<img src="./images/6.oceanographic-sensors/1.dst-ctd.jpg" alt="dst-ctd" style="height: 300px;">
+</td>
+<td>
+<img src="./images/6.oceanographic-sensors/2.Remus_AUV.png" alt="2.remus-ctd" style="height: 300px;">
+</td>
+</tr>
+
+</tbody></table>
+<p>Left: <a href="https://www.star-oddi.com/products/submersible-water-sensors/salinity-logger-probe-CTD#gallery-2">Star-Oddi mini CTD</a> Right: <a href="http://www.soest.hawaii.edu/UMC/cms/remus-auv/">Deployment of a Remus AUV, University of Hawaii at Manoa</a></p>
+<ul>
+<li>Smaller CTDs have limited computations and memory. Need to be carefully programmed depending on the mission length.</li>
+<li>Installing it on a robot can overcome some of these limitations.</li>
+</ul>
+</section>
+<section id="multi-parameters-probes" class="level2">
+<h2 class="anchored" data-anchor-id="multi-parameters-probes">Multi-parameters probes</h2>
+<ul>
+<li>CTD plus water quality measurements</li>
+<li>pH</li>
+<li>Dissolverd Oxigen</li>
+<li>Clorophyll</li>
+<li>Turbidity</li>
+<li>Nitrate/Nitrogen</li>
+<li>Ammonium</li>
+<li>Chloride</li>
+<li>…</li>
+</ul>
+<p><strong>Some examples</strong></p>
+
+<table>
+<tbody><tr>
+<td>
+<img src="./images/6.oceanographic-sensors/4.multi-parameters-probes.png" alt="4.multi-parameters-probes" style="height: 500px;">
+</td>
+</tr>
+
+</tbody></table>
+<p><strong>Multi-parameter probe on a robot</strong></p>
+
+<table>
+<tbody><tr>
+<td>
+<img src="./images/6.oceanographic-sensors/3.folaga-probes.png" alt="3.folaga-probes" style="height: 300px;">
+</td>
+</tr>
+
+</tbody></table>
+<p>There are much more sensors!</p>
+<p>See for example this great page from <a href="https://www.whoi.edu/what-we-do/explore/instruments/instruments-sensors-samplers/">WHOI</a></p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
