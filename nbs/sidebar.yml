@@ -2,10 +2,12 @@ website:
   sidebar:
     contents:
       - index.ipynb
+      - 00_FAQ.ipynb
       - 00_Getting_started_with_Python_and_Jupyter_Notebook.ipynb
+      - 00_MSc_Thesis_Program.ipynb
+      - 00_Syllabus.ipynb
       - 01_intro.ipynb
       - 02_ocean_acoustics.ipynb
-      - 03_the_acoustic_channel-Copy1.ipynb
       - 03_the_acoustic_channel.ipynb
       - 04_ray_tracing.ipynb
       - 05_environmental-variability.ipynb
@@ -16,5 +18,4 @@ website:
       - 10_sonar_practical_applications.ipynb
       - 11_underwater_navigation.ipynb
       - 12_References.ipynb
-      - estimating-range-of-sss.ipynb
       - news.ipynb
