@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['SSP', 'SoundParticle', 'RayTracer']
 
-# %% ../nbs/04_ray_tracing.ipynb 2
+# %% ../nbs/04_ray_tracing.ipynb 1
 import numpy as np
 from scipy.interpolate import interp1d 
 import matplotlib.pyplot as plt
