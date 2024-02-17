@@ -44,6 +44,48 @@ await page.goto(f"file:///{html_file}", {"timeout": 0, "waitUntil": ["networkidl
 
 This change eliminates the timeout restriction, allowing for the complete loading of pages, thereby resolving the timeout issue during PDF creation.
 
+## Fix for 
+
+If you encounter the error 
+
+`VersionConflict(dist, req).with_context(dependent_req)
+pkg_resources.ContextualVersionConflict: (mdit-py-plugins 0.4.0 (lib/python3.10/site-packages), Requirement.parse('mdit-py-plugins~=0.3.1'), {'myst-parser'})`
+
+This error is a dependency conflict, specifically with the `mdit-py-plugins` package. The core of the issue is that your environment has `mdit-py-plugins` version 0.4.0 installed, but `myst-parser`, a dependency for Jupyter Book, requires a version close to `0.3.1` (`~=0.3.1` indicates a version compatible with `0.3.1` but less than `0.4.0`).
+
+To resolve this issue, you need to downgrade `mdit-py-plugins` to a version compatible with `myst-parser`. Here's how you can do it:
+
+1. **Activate your environment**: Ensure you're working in the correct environment where Jupyter Book is installed.
+
+   ```bash
+   source activate underwatersystems
+   ```
+
+2. **Downgrade `mdit-py-plugins`**: Use `pip` to install a version of `mdit-py-plugins` that is compatible with `myst-parser`.
+
+   ```bash
+   pip install "mdit-py-plugins~=0.3.1"
+   ```
+
+   This command will uninstall the current version of `mdit-py-plugins` and install a version that is compatible with your current setup.
+
+3. **Verify the installation**: After downgrading, it's a good practice to check if the correct versions are installed and if there are any other conflicting dependencies.
+
+   ```bash
+   pip list
+   ```
+
+   Look through the list to confirm that `mdit-py-plugins` is now the correct version and there are no other conflicting packages.
+
+4. **Retry building your Jupyter Book**: Once the dependencies are sorted out, try rebuilding your Jupyter Book.
+
+   ```bash
+   python bin/build_jupyterbook_with_images.py
+   ```
+
+5. **Check for further dependency conflicts**: If you encounter additional dependency issues, you might need to repeat a similar process—identifying the conflict and adjusting package versions accordingly.
+
+
 
 ## Specifying Page Breaks in Jupyter Notebooks for PDF Output
 

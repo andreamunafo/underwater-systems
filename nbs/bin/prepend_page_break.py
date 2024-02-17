@@ -16,7 +16,7 @@ def prepend_page_break_to_notebook(notebook_path):
         notebook = json.load(file)
 
     # Define the HTML for the page break
-    page_break_cell = {"cell_type": "raw", "metadata": {}, "source": ["<div style=\"page-break-before: always;\"></div>"]}
+    page_break_cell = {"cell_type": "markdown", "metadata": {}, "source": ["<div style=\"page-break-before: always;\"></div>"]}
 
     # Check if the first cell is already a page break
     if notebook['cells'] and notebook['cells'][0]['source'] != page_break_cell['source']:
