@@ -5,6 +5,7 @@ website:
       - 00_FAQ.ipynb
       - 00_Getting_started_with_Python_and_Jupyter_Notebook.ipynb
       - 00_MSc_Thesis_Program.ipynb
+      - 00_ROS.ipynb
       - 00_Syllabus.ipynb
       - 00_TOC.ipynb
       - 01_intro-short.ipynb
@@ -20,5 +21,4 @@ website:
       - 10_sonar_practical_applications.ipynb
       - 11_underwater_navigation.ipynb
       - 12_References.ipynb
-      - ROS.ipynb
       - news.ipynb
