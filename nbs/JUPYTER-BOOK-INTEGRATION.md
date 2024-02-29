@@ -25,7 +25,7 @@ The `build_jupyterbook_with_images.py` script has been developed to streamline t
 2. Run the script using the command:
 
    ```bash
-   python bin/build_jupyterbook_with_images.py
+   python bin/build_jupyterbook_with_images.py [notebooks_dir]
    ```
 
 The script prompts for confirmation before proceeding with the operations, ensuring user control over the process.
