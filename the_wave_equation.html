@@ -1,0 +1,2162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Wave Equation – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="The Wave Equation – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/7.wave-equation/1.Longitudinal Waves.gif">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="p-wave">
+<meta name="twitter:title" content="The Wave Equation – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/7.wave-equation/1.Longitudinal Waves.gif">
+<meta name="twitter:image:alt" content="p-wave">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./the_wave_equation.html">The Wave Equation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#objectives" id="toc-objectives" class="nav-link active" data-scroll-target="#objectives">Objectives</a></li>
+  <li><a href="#the-wave-equation-in-a-fluid" id="toc-the-wave-equation-in-a-fluid" class="nav-link" data-scroll-target="#the-wave-equation-in-a-fluid">The wave equation in a fluid</a>
+  <ul class="collapse">
+  <li><a href="#conservation-of-mass" id="toc-conservation-of-mass" class="nav-link" data-scroll-target="#conservation-of-mass">1. Conservation of mass</a></li>
+  <li><a href="#newtons-2nd-law-eulers-equation" id="toc-newtons-2nd-law-eulers-equation" class="nav-link" data-scroll-target="#newtons-2nd-law-eulers-equation">2. Newton’s 2nd law (Euler’s equation)</a></li>
+  <li><a href="#adiabatic-state-equation" id="toc-adiabatic-state-equation" class="nav-link" data-scroll-target="#adiabatic-state-equation">3. Adiabatic state equation</a></li>
+  </ul></li>
+  <li><a href="#small-perturbations-and-our-linear-approximation" id="toc-small-perturbations-and-our-linear-approximation" class="nav-link" data-scroll-target="#small-perturbations-and-our-linear-approximation">Small perturbations and our linear approximation</a>
+  <ul class="collapse">
+  <li><a href="#linear-wave-equation-with-respect-to-pressure" id="toc-linear-wave-equation-with-respect-to-pressure" class="nav-link" data-scroll-target="#linear-wave-equation-with-respect-to-pressure">Linear Wave Equation with respect to Pressure</a></li>
+  <li><a href="#linear-wave-equation-with-respect-to-velocity" id="toc-linear-wave-equation-with-respect-to-velocity" class="nav-link" data-scroll-target="#linear-wave-equation-with-respect-to-velocity">Linear Wave Equation with respect to Velocity:</a></li>
+  </ul></li>
+  <li><a href="#wave-potential" id="toc-wave-potential" class="nav-link" data-scroll-target="#wave-potential">Wave Potential</a></li>
+  <li><a href="#the-helmholtz-equation" id="toc-the-helmholtz-equation" class="nav-link" data-scroll-target="#the-helmholtz-equation">The Helmholtz Equation</a></li>
+  <li><a href="#solutions-to-the-helmholtz-equation" id="toc-solutions-to-the-helmholtz-equation" class="nav-link" data-scroll-target="#solutions-to-the-helmholtz-equation">Solutions to the Helmholtz Equation</a>
+  <ul class="collapse">
+  <li><a href="#ray-theory-solution" id="toc-ray-theory-solution" class="nav-link" data-scroll-target="#ray-theory-solution">Ray-Theory Solution</a></li>
+  <li><a href="#normal-modes-and-fast-field-solution" id="toc-normal-modes-and-fast-field-solution" class="nav-link" data-scroll-target="#normal-modes-and-fast-field-solution">Normal Modes and Fast Field Solution</a></li>
+  <li><a href="#parabolic-equation" id="toc-parabolic-equation" class="nav-link" data-scroll-target="#parabolic-equation">Parabolic equation</a></li>
+  </ul></li>
+  <li><a href="#water-seabed-interface" id="toc-water-seabed-interface" class="nav-link" data-scroll-target="#water-seabed-interface">Water-Seabed Interface</a>
+  <ul class="collapse">
+  <li><a href="#reflection-at-a-fluid-fluid-interface" id="toc-reflection-at-a-fluid-fluid-interface" class="nav-link" data-scroll-target="#reflection-at-a-fluid-fluid-interface">Reflection at a fluid-fluid interface</a></li>
+  <li><a href="#critical-angle" id="toc-critical-angle" class="nav-link" data-scroll-target="#critical-angle">Critical Angle</a></li>
+  </ul></li>
+  <li><a href="#intromission-angle" id="toc-intromission-angle" class="nav-link" data-scroll-target="#intromission-angle">Intromission Angle</a></li>
+  <li><a href="#propagation-in-shallow-water" id="toc-propagation-in-shallow-water" class="nav-link" data-scroll-target="#propagation-in-shallow-water">Propagation in shallow water</a>
+  <ul class="collapse">
+  <li><a href="#more-realistic-seabeds" id="toc-more-realistic-seabeds" class="nav-link" data-scroll-target="#more-realistic-seabeds">More Realistic Seabeds</a></li>
+  <li><a href="#waves-in-an-elastic-medium" id="toc-waves-in-an-elastic-medium" class="nav-link" data-scroll-target="#waves-in-an-elastic-medium">Waves in an elastic medium</a></li>
+  <li><a href="#interface-waves-surface-waves" id="toc-interface-waves-surface-waves" class="nav-link" data-scroll-target="#interface-waves-surface-waves">Interface waves (surface waves)</a></li>
+  <li><a href="#headwaves" id="toc-headwaves" class="nav-link" data-scroll-target="#headwaves">Headwaves</a></li>
+  </ul></li>
+  <li><a href="#reflection-at-a-fluidsolid-interface" id="toc-reflection-at-a-fluidsolid-interface" class="nav-link" data-scroll-target="#reflection-at-a-fluidsolid-interface">Reflection at a Fluid/Solid interface</a></li>
+  <li><a href="#hard-vs-soft-bottoms" id="toc-hard-vs-soft-bottoms" class="nav-link" data-scroll-target="#hard-vs-soft-bottoms">Hard vs Soft Bottoms</a>
+  <ul class="collapse">
+  <li><a href="#sedimentation" id="toc-sedimentation" class="nav-link" data-scroll-target="#sedimentation">Sedimentation</a></li>
+  <li><a href="#geoacoustic-properties" id="toc-geoacoustic-properties" class="nav-link" data-scroll-target="#geoacoustic-properties">Geoacoustic Properties</a></li>
+  <li><a href="#reflection-coefficient-for-different-seabeds" id="toc-reflection-coefficient-for-different-seabeds" class="nav-link" data-scroll-target="#reflection-coefficient-for-different-seabeds">Reflection Coefficient for different seabeds</a></li>
+  <li><a href="#more-geoacoustic-properties" id="toc-more-geoacoustic-properties" class="nav-link" data-scroll-target="#more-geoacoustic-properties">More geoacoustic properties</a></li>
+  </ul></li>
+  <li><a href="#is-the-water-seabed-interface-flat" id="toc-is-the-water-seabed-interface-flat" class="nav-link" data-scroll-target="#is-the-water-seabed-interface-flat">Is the water-seabed interface flat?</a></li>
+  <li><a href="#diffuse-reflection-scattering" id="toc-diffuse-reflection-scattering" class="nav-link" data-scroll-target="#diffuse-reflection-scattering">Diffuse reflection: scattering</a></li>
+  <li><a href="#scattering-strength-reverberation" id="toc-scattering-strength-reverberation" class="nav-link" data-scroll-target="#scattering-strength-reverberation">Scattering Strength: Reverberation</a></li>
+  <li><a href="#lamberts-law" id="toc-lamberts-law" class="nav-link" data-scroll-target="#lamberts-law">Lambert’s law</a></li>
+  <li><a href="#parting-comments" id="toc-parting-comments" class="nav-link" data-scroll-target="#parting-comments">Parting comments</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Wave Equation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<section id="objectives" class="level2">
+<h2 class="anchored" data-anchor-id="objectives">Objectives</h2>
+<ul>
+<li>Give a formal definition of acoustic propagation.</li>
+<li>Define the (Linear) Wave Equation</li>
+<li>Introduce numerical methods to solve it.</li>
+</ul>
+</section>
+<section id="the-wave-equation-in-a-fluid" class="level2">
+<h2 class="anchored" data-anchor-id="the-wave-equation-in-a-fluid">The wave equation in a fluid</h2>
+<ul>
+<li>Longitudinal waves due to pressure variations</li>
+<li>The perturbation that propagates in the medium is the wave (mass does not propagate)</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/1.Longitudinal Waves.gif" alt="p-wave" style="width: 550px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/P-wave_animation.gif" alt="p-wave" style="width: 550px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure from Dan Russel <a href="https://www.acs.psu.edu/drussell/demos.html">Acoustics and Vibration Animations</a></em></p>
+<ul>
+<li>The medium under consideration is treated as consisting of numerous small volumes, referred to as particles. This approach allows us to analyze the medium’s behavior in detail.</li>
+<li>Each of these volumes, or particles, possesses mass and exhibits both kinetic and potential energy, key properties for understanding their dynamics.</li>
+<li>For analysis, we establish a coordinate system defined by the axes <span class="math inline">\(x, y, z\)</span>. This system serves as a framework for describing the positions and movements of the particles.</li>
+<li>The orientation of each particle is aligned with this coordinate system, ensuring a standardized approach to describing their positions and movements.</li>
+</ul>
+<p>Regarding the motion of these particles: - The term <strong>displacement</strong> is denoted by <span class="math inline">\(\textbf{u}\)</span>, representing the change in a particle’s position relative to its original, or equilibrium, position. It’s important to note here that the particles themselves do not move from their positions; rather, they experience changes in shape, such as stretching or compression, relative to their equilibrium state. - The <strong>velocity of a particle</strong>, represented by <span class="math inline">\(\textbf{v}=\frac{\partial \textbf{u}}{\partial t}\)</span>, is defined as the rate of change of displacement over time. - This velocity is a <strong>partial derivative</strong>, reflecting the fact that displacement can vary based on a particle’s specific location within the coordinate system (<span class="math inline">\(x, y, z\)</span>) and time (<span class="math inline">\(t\)</span>). This approach accounts for the infinite variety of particles’ behaviors, recognizing that, at any given moment, the displacement of one particle (for example, one of the black particle above) can differ from that of others due to its unique position and the specific time. This differential displacement underscores the complexity of the medium’s dynamics, where each particle’s movement is influenced by its spatial coordinates and the temporal dimension.</p>
+<p>Let’s define some key general equations (no linear approximation yet)</p>
+<section id="conservation-of-mass" class="level3">
+<h3 class="anchored" data-anchor-id="conservation-of-mass">1. Conservation of mass</h3>
+<p><span class="math display">\[
+\frac{\partial \rho}{\partial t} = -\nabla \cdot \rho \textbf{v}
+\]</span></p>
+<p>where <span class="math inline">\(\rho\)</span> is the density, and <span class="math inline">\(\textbf{v}\)</span> is the velocity.</p>
+<p>This is the eq. of conservation of mass (for a unit volume) - Mass is density times volume.</p>
+<ul>
+<li>The equation is telling us that the variation of mass depends on how much the velocity converges or diverges: converging vectors, increasing mass and vice versa</li>
+<li>The equation of the conservation of mass is normalised w.r.t to volume <span class="math inline">\(V\)</span> (<span class="math inline">\(m = \rho V\)</span>)
+<ul>
+<li>Each particle has volume <span class="math inline">\(dV = dx dy dz\)</span> and we are considering normalised volume.</li>
+</ul></li>
+</ul>
+<p><span class="math inline">\(\nabla \cdot \textbf{v}\)</span> is the divergence of the velocity and can be interpreted as (the negative of) the fractional rate of change of the density of the fluid element.</p>
+<p>Given a vector <span class="math inline">\(\textbf{v}=[v_x, v_y, v_z]^T\)</span>, its divergence is a scalar defined as: <span class="math display">\[
+\nabla \cdot \textbf{v} = \frac{\partial v_x}{\partial x} + \frac{\partial v_y}{\partial y} + \frac{\partial v_z}{\partial z}
+\]</span></p>
+<p>It tells us, locally, how much the vectors of the vector field <span class="math inline">\(\textbf{v}\)</span> are <a href="https://mathinsight.org/divergence_idea">converging or diverging</a>.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/2.vector_field_explosion.png" alt="2.vector_field_explosion" style="width: 300px;">
+</td><td>
+<img src="./images/7.wave-equation/3.vector_field_implosion.png" alt="3.vector_field_implosion" style="width: 300px;">
+</td></tr>
+</tbody></table>
+<p>Positive divergence (Left); Negative divergence (Right).</p>
+</section>
+<section id="newtons-2nd-law-eulers-equation" class="level3">
+<h3 class="anchored" data-anchor-id="newtons-2nd-law-eulers-equation">2. Newton’s 2nd law (Euler’s equation)</h3>
+<p><span class="math display">\[
+\frac{\partial \textbf{v}}{\partial t} + \textbf{v} \cdot \nabla \textbf{v} = -\frac{1}{\rho}\nabla p (\rho)
+\]</span></p>
+<ul>
+<li><p><span class="math inline">\(F = ma\)</span></p></li>
+<li><p>Normalised with respect to the volume (we divide by <span class="math inline">\(\frac{1}{\rho}\)</span>)</p></li>
+<li><p><span class="math inline">\(\frac{\partial \textbf{v}}{\partial t}\)</span> is the acceleration</p></li>
+<li><p><span class="math inline">\(\nabla p\)</span> is the force</p></li>
+<li><p><span class="math inline">\(\textbf{v} \cdot \nabla \textbf{v}\)</span> is quadratic in the velocity</p>
+<ul>
+<li><span class="math inline">\(\nabla \textbf{v}\)</span> is the Jacobian Matrix (<span class="math inline">\(\textbf{v}\)</span> is a vector)</li>
+<li><span class="math inline">\(\textbf{v} \cdot \nabla \textbf{v}\)</span> is a: vector x matrix $ $ vector</li>
+</ul></li>
+</ul>
+</section>
+<section id="adiabatic-state-equation" class="level3">
+<h3 class="anchored" data-anchor-id="adiabatic-state-equation">3. Adiabatic state equation</h3>
+<ul>
+<li><p>We also need a thermodynamic state equation to relate pressure with density</p></li>
+<li><p>The adiabatic process is a thermodynamic process in which there is no heat transfer from in or out of the system</p></li>
+<li><p>We need it in a form that is generic (Taylor expansion - could be Ideal gas law)</p></li>
+</ul>
+<p><span class="math display">\[
+p = p_0 + \rho' \Big [\frac{\partial p}{\partial \rho} \Big]_{S} + \frac{1}{2}(\rho')^2\Big [\frac{\partial^2 p}{\partial \rho^2} \Big]_{S}  + ...
+\]</span></p>
+<p>We finally define:</p>
+<p><span class="math display">\[
+c^2 = \Big [ \frac{\partial p}{\partial \rho} \Big ] _S
+\]</span></p>
+<ul>
+<li>pressure variation with respect to density, in the adiabatic state equation</li>
+<li><span class="math inline">\(c\)</span> will correspond to the sound speed (we will see this later)</li>
+</ul>
+</section>
+</section>
+<section id="small-perturbations-and-our-linear-approximation" class="level2">
+<h2 class="anchored" data-anchor-id="small-perturbations-and-our-linear-approximation">Small perturbations and our linear approximation</h2>
+<p><strong>We now introduce a linear approximation, considering small enough perturbation so that we can truncate to the first order all perturbations in the medium</strong></p>
+<p>We can then define <em>pressure</em> as: <span class="math display">\[
+p = p_0 + p'
+\]</span></p>
+<p>where <span class="math inline">\(p_0\)</span> is the equilibrium pressure, <span class="math inline">\(p'\)</span> is the pressure variation.</p>
+<p>We can then define <em>density</em> as: <span class="math display">\[
+\rho = \rho_0 + \rho'
+\]</span></p>
+<p>where <span class="math inline">\(\rho_0\)</span> is the equilibrium density, <span class="math inline">\(\rho'\)</span> is the density variation.</p>
+<p>We also assume that:</p>
+<p><span class="math display">\[
+|\textbf{v}(p', \rho')| &lt;&lt; c
+\]</span></p>
+<p>i.e., the particle velocity (which is function of <span class="math inline">\((p', \rho')\)</span>, because at equilibrium the velocity would be zero) is much less than <span class="math inline">\(c = \sqrt{\Big [ \frac{\partial p}{\partial \rho} \Big ] _S}\)</span></p>
+<p>Under these hypothesis, our equations can be simplified as:</p>
+<p>Conservation of mass <span class="math display">\[
+\frac{\partial \rho'}{\partial t} = -\rho_o\nabla\cdot \textbf{v} \;\;\;\;\;\; (1)
+\]</span></p>
+<p>Newton’s 2nd Law: <span class="math display">\[
+\frac{\partial \textbf{v}}{\partial t} = -\frac{1}{\rho_0}\nabla p'(\rho)  \;\;\;\;\;\; (2)
+\]</span></p>
+<p>and the (first-order) relationship between pressure variation and velocity variation becomes:</p>
+<p><span class="math display">\[
+p' = \rho' c^2 \;\;\Rightarrow\;\; c^2 =\frac{p'}{\rho'}
+\]</span></p>
+<p>i.e., <span class="math inline">\(c^2\)</span> is the ratio between pressure variation and velocity variation. This comes from the Taylor expansion of the eq. of state.</p>
+<p>With a slight abuse of notation, in the rest of the calculations we will drop the apostrophe and use:</p>
+<p><span class="math display">\[
+p = p'\;\; \rho = \rho'
+\]</span></p>
+<p>to represent our perturbations.</p>
+<p>The linear differential wave equation can be obtained with respect to pressure and with respect to velocity.</p>
+<section id="linear-wave-equation-with-respect-to-pressure" class="level3">
+<h3 class="anchored" data-anchor-id="linear-wave-equation-with-respect-to-pressure">Linear Wave Equation with respect to Pressure</h3>
+<p>We take the time derivative of the conservation of mass (1):</p>
+<p><span class="math display">\[
+\frac{\partial^2}{\partial t^2}\rho = -\rho_o \frac{\partial}{\partial t} \nabla\cdot \textbf{v}
+\]</span></p>
+<p>and the divergence of Netwton’s second law (2):</p>
+<p><span class="math display">\[
+\nabla \cdot \frac{\partial \textbf{v}}{\partial t} = - \frac{1}{\rho_0}\nabla \cdot \nabla p
+\]</span></p>
+<p>where <span class="math inline">\(p\)</span> and <span class="math inline">\(\rho\)</span> are the variations w.r.t to the respective equilibrium quantities (we called them <span class="math inline">\(p'\)</span> and <span class="math inline">\(\rho'\)</span> before).</p>
+<p>Let’s now assume that we can replace time derivative with the divergence as (true under specific continuity assumptions):</p>
+<p><span class="math display">\[
+\nabla \cdot \frac{\partial \textbf{v}}{\partial t} = \frac{\partial}{\partial t}\nabla \cdot \textbf{v}
+\]</span></p>
+<p>This means that the first term in the second equation is equal to the second term of the first equation.</p>
+<p>Moreover, we know, from the relation between pressure variation and velocity variation, that: <span class="math display">\[
+\rho = \frac{1}{c^2}p
+\]</span></p>
+<p>and assume that <span class="math inline">\(c\)</span> does not vary with time.</p>
+<p>We can hence write:</p>
+<p><span class="math display">\[
+\frac{\partial^2}{\partial t^2}\rho = \frac{1}{c^2} \frac{\partial^2}{\partial t^2}p = -\rho_o \Big (-\frac{1}{\rho_0} \nabla \cdot \nabla p \Big ) \Rightarrow
+\frac{1}{c^2} \frac{\partial^2}{\partial t^2}p = \nabla \cdot \nabla p
+\]</span></p>
+<p>Since</p>
+<p><span class="math display">\[
+\nabla \cdot \nabla p = \nabla^2 p = \Delta p
+\]</span></p>
+<p>Which is the Laplacian of <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\Delta p = \frac{\partial^2}{\partial x^2}p + \frac{\partial^2}{\partial y^2}p + \frac{\partial^2}{\partial z^2}p
+\]</span></p>
+<p>The Laplacian of <span class="math inline">\(p\)</span> is the sum of the second order space derivatives of <span class="math inline">\(p\)</span>.</p>
+<p>So our equation: <span class="math display">\[
+\frac{1}{c^2} \frac{\partial^2}{\partial t^2}p = \nabla \cdot \nabla p = \frac{\partial^2}{\partial x^2}p + \frac{\partial^2}{\partial y^2}p + \frac{\partial^2}{\partial z^2}p
+\]</span></p>
+<p>or</p>
+<p><span class="math display">\[
+\frac{\partial^2}{\partial x^2}p + \frac{\partial^2}{\partial y^2}p + \frac{\partial^2}{\partial z^2}p -\frac{1}{c^2}\frac{\partial^2}{\partial t^2}p = 0  \;\;\;\; \text{(*)}
+\]</span></p>
+<p>which is the <strong>linear wave equation with respect to pressure</strong>.</p>
+<p>More in general:</p>
+<p><strong>all linear wave equations establish the linear relation between second order space derivative of a field (in our case, pressure) with the second order time derivative</strong></p>
+<section id="linear-wave-equation-in-a-fluid-with-respect-to-pressure-final-form" class="level4">
+<h4 class="anchored" data-anchor-id="linear-wave-equation-in-a-fluid-with-respect-to-pressure-final-form">Linear Wave Equation in a Fluid with respect to Pressure (Final form)</h4>
+<p>And we can more generaly write the Linear Wave Equation in a Fluid w.r.t to pressure as:</p>
+<p><span class="math display">\[
+\rho\nabla\cdot \Big (\frac{1}{\rho}\nabla p \Big ) - \frac{1}{c^2}\frac{\partial^2 p}{\partial t^2} = 0 \;\;\;\; (*)
+\]</span></p>
+<ul>
+<li>Note that it is a scalar equation.</li>
+<li>w.r.t to our previous expression <span class="math inline">\(\rho\)</span> is also assumed to be changing. In practise we always assume it constant.</li>
+</ul>
+</section>
+</section>
+<section id="linear-wave-equation-with-respect-to-velocity" class="level3">
+<h3 class="anchored" data-anchor-id="linear-wave-equation-with-respect-to-velocity">Linear Wave Equation with respect to Velocity:</h3>
+<p>We start from the same equations, which are reported here again for convenienence <span class="math display">\[
+\frac{\partial \rho'}{\partial t} = -\rho_o\nabla\cdot \textbf{v} \;\;\;\;\;\; (1)
+\]</span></p>
+<p><span class="math display">\[
+\frac{\partial \textbf{v}}{\partial t} = -\frac{1}{\rho_0}\nabla p'(\rho)  \;\;\;\;\;\; (2)
+\]</span></p>
+<p><span class="math display">\[
+p' = \rho' c^2 \;\;\Rightarrow\;\; c^2 =\frac{p'}{\rho'}
+\]</span></p>
+<p>(remember also that we in our derivation we call <span class="math inline">\(p=p'\)</span> and <span class="math inline">\(\rho = \rho'\)</span> for simplicity)</p>
+<p>And we take the gradient of the conservation of mass (1):</p>
+<p><span class="math display">\[
+\nabla \frac{\partial}{\partial t}\rho = -\rho_0\nabla (\nabla \cdot \textbf{v})
+\]</span></p>
+<p>and the time derivative of Netwton’s second law (2):</p>
+<p><span class="math display">\[
+\frac{\partial^2}{\partial t^2}\textbf{v} = -\frac{1}{\rho_0} \frac{\partial}{\partial t}\nabla p\;\;\;\;\;(3)
+\]</span></p>
+<p>we then use the relation between pressure variation and velocity variation: <span class="math display">\[
+\rho = \frac{1}{c^2}p
+\]</span></p>
+<p>We can again swap the differential operators and write:</p>
+<p><span class="math display">\[
+\nabla\frac{\partial \rho}{\partial t} =  \frac{1}{c^2} \nabla \frac{\partial}{\partial t}{p} = \frac{1}{c^2} \frac{\partial}{\partial t}\nabla p
+\]</span></p>
+<p>And from the first equation: <span class="math display">\[
+\frac{1}{c^2} \frac{\partial}{\partial t}\nabla p = -\rho_0\nabla (\nabla \cdot \textbf{v}) \;\;\;\;\;(4)
+\]</span></p>
+<p>We note that <span class="math inline">\(\frac{\partial}{\partial t}{p}\)</span> is defined in eq. (3) and in (4)</p>
+<p>And hence from equation (2) we can write:</p>
+<p><span class="math display">\[
+\frac{\partial^2}{\partial t^2}\textbf{v} = -\frac{1}{\rho_0} \Big( -c^2 \rho_0\nabla (\nabla \cdot \textbf{v}) \Big ) =   c^2 \nabla (\nabla \cdot \textbf{v})
+\]</span></p>
+<p>Note that this is a vector equation: <span class="math display">\[
+\frac{\partial^2}{\partial t^2}\textbf{v}
+\]</span></p>
+<p>is a vector of the second order time derivative of the components of the velocity, and $ () $ gives the second order space derivative w.r.t <span class="math inline">\((x, y, z)\)</span>.</p>
+<section id="linear-wave-equation-in-a-fluid-with-respect-to-velocity-final-form" class="level4">
+<h4 class="anchored" data-anchor-id="linear-wave-equation-in-a-fluid-with-respect-to-velocity-final-form">Linear Wave Equation in a Fluid with respect to Velocity (Final form)</h4>
+<p>We can then write:</p>
+<p><span class="math display">\[
+\nabla (\nabla \cdot \textbf{v}) = \frac{1}{c^2} \frac{\partial^2}{\partial t^2}\textbf{v} \;\;\;\;\;\; (*)
+\]</span></p>
+<p>which is again in the form of a wave equation (relation between second order spatial derivative of <span class="math inline">\(\textbf{v}\)</span> and second order time derivative of <span class="math inline">\(\textbf{v}\)</span>).</p>
+<p>That we can also re-write as:</p>
+<p><span class="math display">\[
+\frac{1}{\rho}\nabla \Big ( \rho c^2 \nabla \cdot \textbf{v} \Big ) - \frac{\partial^2 \textbf{v}}{\partial t^2} = 0 \;\; (*)
+\]</span></p>
+<p>This equation assumes <span class="math inline">\(\rho\)</span> to be non constant and hence entering into the differential operators. If instead is constant (<span class="math inline">\(\rho_0\)</span>, it can be simplified as in the equation above).</p>
+<p><strong>The wave equations are dynamic equations, that includes both a dependency on time and on space</strong>, and its solution will be a function:</p>
+<p><span class="math display">\[p(x, y, z, t)\]</span></p>
+<p>or</p>
+<p><span class="math display">\[
+\textbf{v} = \begin{pmatrix}
+v_x(x, y, z, t) \\
+v_y(x, y, z, t) \\
+v_z(x, y, z, t)
+\end{pmatrix}
+\]</span></p>
+<p>whose components are a function of <span class="math inline">\((x, y, z, t)\)</span>.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="wave-potential" class="level2">
+<h2 class="anchored" data-anchor-id="wave-potential">Wave Potential</h2>
+<ul>
+<li><p>Solving the wave equation we have the velocity (a vector) and the particle displacement (a vector)</p></li>
+<li><p>Solving vector equations is not trivial</p></li>
+<li><p>We are intested in the velocity field <span class="math inline">\(\textbf{v}\)</span>, a vector-valued function of space and time, but it would be simpler to work with scalar functions of space.</p></li>
+</ul>
+<p><strong>Hypothesis:</strong> - Is it possible that the velocity field <span class="math inline">\(\textbf{v}\)</span>, a vector-valued function is the gradient of a scalar field? - What conditions on the velocity should we have to make it possible for the velocity to be the gradient of a scalar field?</p>
+<p>Let’s suppose that a scalar field <span class="math inline">\(\phi\)</span> exists.</p>
+<p>If <span class="math inline">\(\textbf{v}\)</span> is the gradient of the scalar field <span class="math inline">\(\phi\)</span>, then: <span class="math display">\[
+\textbf{v} = \nabla\phi
+\]</span></p>
+<p>We can now replace this equation in our vector-valued wave equation to obtain (assuming constant density):</p>
+<p><span class="math display">\[
+\nabla \Big ( c^2 \nabla \cdot \textbf{v} \Big ) - \frac{\partial^2 \textbf{v}}{\partial t^2} = 0 \;\; (*)
+\]</span></p>
+<p><span class="math display">\[
+\nabla \Big ( c^2 \nabla^2 \phi  - \frac{\partial^2  \phi}{\partial t^2} \Big ) = 0
+\]</span></p>
+<ul>
+<li>The above equation is zero if its argument is zero:</li>
+</ul>
+<p><span class="math display">\[
+c^2 \nabla^2 \phi  - \frac{\partial^2  \phi}{\partial t^2} = 0 \;\;\Rightarrow\;\; \nabla^2 \phi  - \frac{1}{c^2}\frac{\partial^2  \phi}{\partial t^2} = 0\;\;\;\;\text{Wave potential for particle velocity}
+\]</span></p>
+<ul>
+<li><p>Note that the term within the paranthesis is a scalar wave equation! (the equation is mathematically similar to the pressure wave equation).</p></li>
+<li><p>We call <span class="math inline">\(\phi\)</span> the <em>wave potential for particle velocity</em></p></li>
+<li><p>More in general we say that: <em>a scalar field, whose gradient is a vector field, is the potential of the vector field</em></p>
+<ul>
+<li>In our case <span class="math inline">\(\phi\)</span> is the potential of <span class="math inline">\(\textbf{v}\)</span></li>
+</ul></li>
+<li><p>What this means is that: for <span class="math inline">\(\textbf{v} = \nabla\phi\)</span> (i.e., there exists a velocity potential), <span class="math inline">\(\phi\)</span>, the potential must satisfy the wave equation.</p>
+<ul>
+<li>In other words, if I find a scalar function that satisfies the wave equation, this is a velocity potential.</li>
+</ul></li>
+</ul>
+<p>We can do similar computations for the particle displacement, and obtain a scalar field <span class="math inline">\(\psi\)</span> for the particle displacement:</p>
+<p><span class="math display">\[
+\textbf{u} = \nabla\psi
+\]</span></p>
+<p>And the potential for the displacement must satisfy the same wave equation:</p>
+<p><span class="math display">\[
+\nabla^2 \psi  - \frac{1}{c^2}\frac{\partial^2  \psi}{\partial t^2} = 0 \;\;\;\;\text{Wave potential for particle displacement}
+\]</span></p>
+<p>Finally, (after some additional passages) we can also say that the pressure:</p>
+<p><span class="math display">\[
+p = - K\nabla^2\psi
+\]</span></p>
+<p>(pressure is equal to the Laplacian of the wave potential for the particle displacement)</p>
+<p>Where <span class="math inline">\(K=\rho c^2\)</span></p>
+<p>Since $ ^2= $:</p>
+<p><span class="math display">\[
+p = -\rho\frac{\partial^2\psi}{\partial t^2}
+\]</span></p>
+<p>where <span class="math inline">\(\rho\)</span> is the equilibrium density.</p>
+<hr>
+</section>
+<section id="the-helmholtz-equation" class="level2">
+<h2 class="anchored" data-anchor-id="the-helmholtz-equation">The Helmholtz Equation</h2>
+<ul>
+<li><p>The wave potential equations for particle velocity and displacement are partial differential equation</p></li>
+<li><p>To solve it we can apply the Laplace Transform and then we anti-transform to have the time domain solution</p></li>
+<li><p>In our equations we have <em>four</em> differential operators (we are taking the derivative w.r.t. <span class="math inline">\(x, y, z, t\)</span>)</p></li>
+<li><p>Applying the Laplace Transform only applies to the time dependency that becomes algebric (i.e., no derivatives w.r.t. to time), however we will still have the derivatives w.r.t. space</p></li>
+<li><p>Instead of using the Laplace Transform we use the Fourier Transform of the wave potential equation</p></li>
+<li><p>Roughly speaking, the Laplace Transform and the Fourier Transform are “the same”, where we restrict <span class="math inline">\(s=j\omega\)</span>, and <span class="math inline">\(\omega=(-\inf, +\inf)\)</span>.</p>
+<ul>
+<li>Laplace Transform captures transient effects</li>
+<li>Fourier Transform captures stationary effects</li>
+</ul></li>
+</ul>
+<p>Let’s apply the Fourier Transform to the scalar wave equation</p>
+<p><span class="math display">\[
+\nabla^2 \psi  - \frac{1}{c^2}\frac{\partial^2  \psi}{\partial t^2} = 0 \;\;\;\;\text{Wave potential for particle displacement}
+\]</span></p>
+<ul>
+<li>$^2 $ depends on space and does not depend on time (Fourier/Laplace operator does not apply to the different operator, however it does apply to <span class="math inline">\(\psi\)</span>)</li>
+<li><span class="math inline">\(\frac{1}{c^2}\frac{\partial^2  \psi}{\partial t^2}\)</span> depends on the second order time derivative</li>
+</ul>
+<p>Since:</p>
+<p><span class="math display">\[\ddot{y}(t) \rightarrow \mathcal{L}|_{s=j\omega} \rightarrow  (j\omega)^2Y(j\omega) = -\omega^2Y(j\omega)\]</span></p>
+<p>We obtain (grouping the Fourier transform of <span class="math inline">\(\psi\)</span> together):</p>
+<p><span class="math display">\[
+[\nabla^2 + k^2(\textbf{r})]\psi(\textbf{r}, j\omega)=0 \;\;\;\;\text{Helmholtz equation}
+\]</span></p>
+<p>where - <span class="math inline">\(\psi(\textbf{r}, j\omega)\)</span> is the Fourier Transform of <span class="math inline">\(\psi\)</span>, which depends on a point in space <span class="math inline">\(\textbf{r}\)</span> and on <span class="math inline">\(\omega\)</span>. - <span class="math inline">\(k(\textbf{r}) = \frac{\omega}{c(\textbf{r})}\)</span>, which is the wavenumber (see wave equation). - Note that <span class="math inline">\(k(\textbf{r})\)</span> is a function of <span class="math inline">\(\textbf{r}\)</span> because <span class="math inline">\(c\)</span> is a function of <span class="math inline">\(\textbf{r}\)</span>. The sound velocity is a function of space (and locally constant) because the equation holds everywhere in space - Note also that the Radian frequency <span class="math inline">\(\omega\)</span> is now a parameter of the equation, and the equation does not depend on time anymore.</p>
+<p><strong>We have simplified the equation which is now differential only w.r.t to space</strong></p>
+<p>When we study the wave equation and we restrict ourselves to the Helmholtz equation, this is equivalent to assume that the wave equation has an harmonic solution:</p>
+<p><span class="math display">\[
+\Phi = \phi e^{-i\omega t}
+\]</span> - we assume a stationary wave of frequency <span class="math inline">\(\omega\)</span></p>
+<p>and in fact, plugging this harmonic solution into the wave equation, we get a new wave equation:</p>
+<p><span class="math display">\[
+\nabla^2\phi + k^2\phi=0
+\]</span></p>
+<p>Comments</p>
+<ul>
+<li>When <span class="math inline">\(r=(x,y,z)\)</span> we assume to have a Cartesian reference system</li>
+<li>Using Polar or Cylindrical coordinates the differential operators are sligthly different, we need to do the coordinate transformation and use the Jacobian of the coordinate change (e.g., the Laplacian has a form that takes into account the Jacobian of the transformation).</li>
+</ul>
+<hr>
+</section>
+<section id="solutions-to-the-helmholtz-equation" class="level2">
+<h2 class="anchored" data-anchor-id="solutions-to-the-helmholtz-equation">Solutions to the Helmholtz Equation</h2>
+<ul>
+<li><p>Analytical solutions are available only in special cases: isotropy, omnidirection source: solutions are spherical waves</p></li>
+<li><p>Depending on the assumptions made on the medium (isotropy, anisotropy, and along which directions, etc), on the frequency and on the boundary conditions, different numerical solution methods can be defined</p>
+<ul>
+<li>We have partial differential equations so we have boundary conditions</li>
+</ul></li>
+<li><p>These numerical methods are the basis of <em>acoustic models</em>, as we call the simulators of acoustic propagation</p>
+<ul>
+<li>This is different terminology from what we typically use in robotics (where models are the equations and the simultion is the numerical solution of the equation)</li>
+</ul></li>
+</ul>
+<p>Typical assumptions on the medium:</p>
+<ul>
+<li>Range dependent medium: <span class="math inline">\(c(x,y,z) = c(r, z)\)</span></li>
+<li>Range independent medium: $c(x,y,z) = c(z) $</li>
+</ul>
+<section id="ray-theory-solution" class="level3">
+<h3 class="anchored" data-anchor-id="ray-theory-solution">Ray-Theory Solution</h3>
+<p>Using the Helmholtz equation it is equivalent to assume that the wave equation has an harmonic solution:</p>
+<p><span class="math display">\[
+\Phi = \phi e^{-i\omega t}
+\]</span></p>
+<p>and if we plug this in in the wave equation we obtain:</p>
+<p><span class="math display">\[
+\nabla^2\phi + k^2\phi = 0
+\]</span></p>
+<p>which is an equation in <span class="math inline">\(\phi\)</span> (unknown).</p>
+<p>In this case <span class="math inline">\(\phi\)</span> can be separated into two components:</p>
+<p><span class="math display">\[
+\phi = F(x,y,z)e^{i\varphi(x,y,z)}
+\]</span></p>
+<p>where: - <span class="math inline">\(F(x,y,z)\)</span> is the Amplitude function (real) - <span class="math inline">\(\varphi(x,y,z)\)</span> is the Phase function (real)</p>
+<p>Note: - This is never an exact solution of the Helmholtz equation - It is exact only when <span class="math inline">\(\omega \rightarrow \inf\)</span> - It is an approximate solution with an error that goes to zero as <span class="math inline">\(\omega \rightarrow \inf\)</span></p>
+<p>This means that it becomes a better approximation as the frequency increases - The Ray-Theory Solution is a <em>High Frequency Approximation</em></p>
+<section id="when-is-a-frequency-high" class="level4">
+<h4 class="anchored" data-anchor-id="when-is-a-frequency-high">When is a frequency high?</h4>
+<p>We talk about <em>high frequency</em> when spatial variations in the medium (variations speed of sound) or properties of the boundaries (sea floor, surface) have dimentions much larger than the acoustic wavelength.</p>
+<ul>
+<li>What is the acoustic wavelength?
+<ul>
+<li><span class="math inline">\(c \approx 1500\)</span>m/s</li>
+<li>Wavelength <span class="math inline">\(\lambda = \frac{c}{f}\)</span></li>
+<li>E.g. at 100 Hz: <span class="math inline">\(\lambda = 1500/100=15m\)</span></li>
+</ul></li>
+</ul>
+<p>Example: Seasonal thermocline in Pianosa</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/5.environmental-variability/1.temperature-pianosa.png" alt="temperature-pianosa" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Seasonal thermocline in Pianosa started at about 20m and ended at 30m</p></li>
+<li><p>This is a 10m</p></li>
+<li><p>The variation of the properties of the medium is comparable to (in this case less than) the typical wavelength of a 100Hz signal.</p></li>
+<li><p>100Hz is a low frequency signal in this environment</p></li>
+<li><p>Ray theory would not be suitable to model acoustic propagation</p></li>
+<li><p>If instead we use a 100 kHz signal: <span class="math inline">\(\lambda = 1500/100000=0.015m = 15mm\)</span></p></li>
+<li><p>The spatial variations of the medium are now much larger then a <span class="math inline">\(\lambda=15mm\)</span> wavelength</p></li>
+<li><p>100 kHz is high frequency in this environment</p></li>
+<li><p>The ray model is easy to understand, easy and fast to compute (ordinary differential equations), easy to visualise and can handle any medium anisotropy (this is why we had <span class="math inline">\(F(x,y,z)\)</span> and <span class="math inline">\(\phi(x,y,z)\)</span> as a function of <span class="math inline">\((x,y,z)\)</span>)</p></li>
+<li><p>We want to use the ray model when we can (and this depends on the environment!).</p>
+<ul>
+<li>Consider what happens in very shallow waters (e.g., 5 meters)</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="normal-modes-and-fast-field-solution" class="level3">
+<h3 class="anchored" data-anchor-id="normal-modes-and-fast-field-solution">Normal Modes and Fast Field Solution</h3>
+<ul>
+<li>Method that produces an exact solution with arbitrary precision</li>
+<li>Applies to range dependent and independent environments</li>
+<li>Applies to any frequency</li>
+</ul>
+<p>The function <span class="math inline">\(\phi\)</span> is given by two functions, each dependent on only one variable (depth and range) <span class="math display">\[
+\phi = F(z)G(r)
+\]</span></p>
+<p>where - F is the depth function (complex: it has amplitude and phase) - G is the range function (complex)</p>
+<ul>
+<li>Note that we are not considering all three dimensions like we did for the ray model</li>
+<li>Solutions for full unisotropy is too complex to calculate</li>
+</ul>
+<p>The <strong>depth function</strong> (which is then multiplied by the range function) is the series expansion of the so called normal modes, which is a weighted sum of eigenfunctions</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/4.normal-modes.png" alt="4.normal-modes" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Normal modes, from Computational Ocean Acoustics</em></p>
+<p>In the Figure above: - Depth 0: sea surface - Depth 100m: sea bottom</p>
+<ul>
+<li><p>Similarly to a vibrant string, there are infinite but <strong>countable</strong> number of ways in which the string can vibrate: these are the modes</p></li>
+<li><p>Summing up these modes we can obtain all the possible movements of the string</p></li>
+<li><p>Summing up these modes we can obtain all the possible combinations of the acoustic field as a function of depth (we will be also multiplying this function by the range function)</p></li>
+<li><p>If the sum of the modes gets to infinity (and hence we know how to analytically calculate the weights for each function), the solution is exact and can be calculated analytically</p></li>
+<li><p>Since we do not know how to calculate the weights analytically we need to use numerical methods</p></li>
+<li><p>Summing up an infinite number of functions is also not ideal so we truncate it</p></li>
+<li><p>The more normal modes we use the better the solution</p></li>
+<li><p>Note that since we have an infinite series, the weights must go to zero (or the serie cannot converge)</p>
+<ul>
+<li>We trucate when the weights decrease is under a desired threshold (typically trial and error)</li>
+</ul></li>
+<li><p>The normal modes and fast field solution works at any frequency</p>
+<ul>
+<li>The higher the frequency the higher the number of modes that we need to use</li>
+</ul></li>
+</ul>
+<p>The <strong>range function</strong>: - The solution for the range function is calculated as solution of a <strong>Bessel equation</strong> via <em>Hankel functions</em></p>
+<ul>
+<li>The Bessel partial differential equation (pde) is the Helmholtz equation in cylindrical coordinates
+<ul>
+<li>When the medium changes only as a function of range and depth we are in cylindrical coordinates</li>
+<li>When calculating the Laplacian operator in cylindical coordinates we have to consider the Jacobian of the coordinate transformation and we obtain a new equation: The Bessel equation</li>
+<li>The Bessel equation can be solved more easily using Hankel functions</li>
+</ul></li>
+<li>Very accurate, long to compute
+<ul>
+<li><p>We typically only solve it for range independent environments</p></li>
+<li><p>Time to compute depends on the number of normal modes</p></li>
+<li><p>Easily an order of magnitude longer than the ray method, even for reduced number of modes (e.g.&nbsp;30)</p></li>
+<li><p>Works for every frequency, however:</p>
+<ul>
+<li>We typically use it for low frequency when we can use lower number of modes</li>
+<li>At high frequency it is more efficient to use the ray method (the result would be the same but with need higher number of modes, and rays are more efficient)</li>
+</ul></li>
+</ul></li>
+<li>Note that the range function <span class="math inline">\(G(r)\)</span> is also needed for range-independent environments</li>
+</ul>
+</section>
+<section id="parabolic-equation" class="level3">
+<h3 class="anchored" data-anchor-id="parabolic-equation">Parabolic equation</h3>
+<ul>
+<li>We still have the product of two functions:</li>
+</ul>
+<p><span class="math display">\[
+\phi = F(r, \theta, z)G(r)
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><p><span class="math inline">\(F(r, \theta, z)\)</span> is the solution of the so-called <em>parabolic equation</em> (complex)</p></li>
+<li><p><span class="math inline">\(G\)</span>: range function (complex)</p></li>
+<li><p>We use cylindrical coordinates</p></li>
+<li><p>Medium can be fully anisotrope</p></li>
+<li><p><strong>Well suited and valid for low-frequency, small grazing angle propagation (e.g., shallow water) and range-dependent environments</strong></p></li>
+<li><p>Grazing angle (ITA: angolo di radenza): The 90-degree complement to angle of incidence is called the grazing angle or glancing angle.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/5.grazing_angle-2.png" alt="5.grazing_angle" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>This method is useful when the wavefront interacts with the seabed with small grazing angles.</li>
+</ul>
+<p>Let’s now see what happens what happens at the boundary between the sea bed and the water column.</p>
+<hr>
+</section>
+</section>
+<section id="water-seabed-interface" class="level2">
+<h2 class="anchored" data-anchor-id="water-seabed-interface">Water-Seabed Interface</h2>
+<ul>
+<li><p>What happens at the boundary between the water and the seabed</p></li>
+<li><p>Seabed is typically non fluid but we approximate it as a fluid (for now)</p></li>
+<li><p>We will look at what happens to acoustic propagation at a fluid-fluid interface (water-seabed interface)</p></li>
+<li><p>We consider <strong>planar waves</strong> and we can draw the direction of propagation of the waves as in the picture below (the arrow is perpendicular to the wavefront of the planar wave)</p></li>
+<li><p>Note that the more we move away from the source the more the wavefronts can be approximated by planar wavefronts (assuming isotropy)</p></li>
+<li><p><strong>We assume a smooth interface between the two fluids</strong></p></li>
+<li><p><strong>Intrinsic attenuation in both fluids is negligible</strong></p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/6.water-seabed-boundary.png" alt="6.water-seabed-boundary" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Fluid 1: density <span class="math inline">\(\rho_1\)</span>, speed of sound <span class="math inline">\(c_1\)</span></p></li>
+<li><p>Fluid 2: density <span class="math inline">\(\rho_2\)</span>, speed of sound <span class="math inline">\(c_2\)</span></p></li>
+<li><p><strong>Given an incident wave, it generates two wavefronts:</strong></p>
+<ul>
+<li>A reflected wave back into the water (fluid 1) - same angle, sound speed is the same</li>
+<li>A transmitted wave into the second fluid - different angle, sound speed is different</li>
+</ul>
+<p>As per Huygens’ Principle: Every point on a wavefront is itself the source of spherical wavelets, and the secondary wavelets emanating from different points mutually interfere. The sum of these spherical wavelets forms a new wavefront.</p>
+<p>Since the two fluids have different velocities, the wavefronts have a different grazing angle.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/7.huygens-11.png" alt="7.huygens-1" style="height: 200px;">
+</td>
+<td>
+<img src="./images/7.wave-equation/7.huygens-22.png" alt="7.huygens-reflection" style="height: 200px;">
+</td>
+<td>
+<img src="./images/7.wave-equation/7.huygens-3.png" alt="7.huygens-refraction" style="height: 200px;">
+</td>
+</tr>
+</tbody></table>
+<p>See also Computational Ocean Acoustics, Chapter Fundamentals of Ocean Acoustics, Section 1.6 Bottom Loss. And <a href="https://dosits.org/science/advanced-topics/how-does-sound-move-wave-propagation-and-huygens-principle/">How sound moves</a> or <a href="https://wiki.seg.org/wiki/Snell%27s_law">Society of Exploration Geophysicists | Snell’s_law</a></p>
+<section id="reflection-at-a-fluid-fluid-interface" class="level3">
+<h3 class="anchored" data-anchor-id="reflection-at-a-fluid-fluid-interface">Reflection at a fluid-fluid interface</h3>
+<p><strong>Reflection coefficient R</strong></p>
+<ul>
+<li><p>For now, it is useful for us to define a quantity that relates the amplitude of the incident and the amplitude of the reflected wave.</p></li>
+<li><p>We call this quantity <strong>Reflection coefficient R</strong>: ratio of the RMS amplitude of the reflected wave and of the incident wave (must be <span class="math inline">\(\le\)</span> 1).</p></li>
+</ul>
+<p><span class="math inline">\(\theta_2\)</span> depends on the Snell’s Law (we expected this)</p>
+<p><span class="math display">\[
+   \frac{\cos\theta}{c} \Rightarrow  k_2\cos\theta_2 = k_1\cos\theta_1
+   \]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math display">\[k_1 = \frac{\omega}{c_1}\]</span></li>
+<li><span class="math display">\[k_2 = \frac{\omega}{c_2}\]</span></li>
+</ul>
+<p>are the wavenumbers in the two media. Note that <span class="math inline">\(\omega\)</span> is the same in both media.</p>
+<p>From the equation above we understand that when <span class="math inline">\(c_2 &gt; c_1\)</span>, the transmitted grazing angle is smaller than incident grazing angle (<span class="math inline">\(\theta_2 &lt; \theta_1\)</span>)</p>
+<p>The reflection coefficient depends on the Snell’s Law:</p>
+<ul>
+<li>The reflection coefficient assumes the following form:</li>
+</ul>
+<p><span class="math display">\[
+   R = \frac{\rho_2c_2/\sin\theta_2 - \rho_1c_1/\sin\theta_1}{\rho_2c_2/\sin\theta_2 + \rho_1c_1/\sin\theta_1} = \frac{Z_2 - Z_1}{Z_2 + Z_1}
+   \]</span></p>
+<p>depends on: - the grazing angles - the sound speeds - the density of the two media</p>
+<p>Comments: - We defined <span class="math inline">\(\rho c\)</span> as the acoustic impedence. In the reflection coefficient the acoustic impendence <span class="math inline">\(\rho c\)</span> is weighted by the sine of the grazing angles.</p>
+<ul>
+<li>This means that <span class="math inline">\(R\)</span> depends on <span class="math inline">\(\theta\)</span> and varies only based on the incident <span class="math inline">\(\theta_1\)</span> (we can always calculate <span class="math inline">\(\theta_2\)</span> based on the Snell’s Law).</li>
+</ul>
+<p>We call: <span class="math display">\[
+   R = \frac{Z_2 - Z_1}{Z_2 + Z_1}\;\;\;\;\textbf{Rayleigh Reflection coefficient}
+   \]</span></p>
+</section>
+<section id="critical-angle" class="level3">
+<h3 class="anchored" data-anchor-id="critical-angle">Critical Angle</h3>
+<p>With the Rayleigh Reflection Coefficient, and specifically when <span class="math inline">\(c_2&gt;c_1\)</span> (speed in the seabed higher than in water) it might happen that exists an angle <span class="math inline">\(\theta_1\)</span> where (remember that <span class="math inline">\(\omega_1=\omega_2\)</span>):</p>
+<p><span class="math display">\[
+\cos\theta_1 = \frac{k_1}{k_2}=\frac{c_1}{c_2}
+\]</span></p>
+<ul>
+<li><span class="math inline">\(\frac{c_1}{c_2} &lt; 1\)</span> so the angle <span class="math inline">\(\theta_1\)</span> is well defined</li>
+</ul>
+<p>Since,</p>
+<p><span class="math display">\[k_2\cos\theta_2 = k_1\cos\theta_1\]</span></p>
+<p>This means that</p>
+<p><span class="math display">\[\cos\theta_2=1 \Rightarrow \theta_2 = 0 \Rightarrow R=1\]</span></p>
+<p>This implies exits an incident grazing angle for which the transmitted grazing angle is parallel to the interface between the two fluids. We call this angle <strong>critical grazing angle</strong>.</p>
+<p><span class="math display">\[
+\theta_c = \arccos\frac{c_1}{c_2}
+\]</span></p>
+<p>As <span class="math inline">\(\theta_1\)</span> decreases, and hence as <span class="math inline">\(\cos\theta_1\)</span> increases, <span class="math inline">\(\cos\theta_2\)</span> becomes larger than 1 (becomes imaginary and has a phase - see Figure below, dashed line - not too important for us )<span class="math inline">\(\Rightarrow\)</span> there is no transmission in the second fluid (total reflection).</p>
+<p><span class="math display">\[
+\theta &gt; \theta_c \Rightarrow |R| &lt; 1
+\]</span></p>
+<p><span class="math display">\[
+\theta \le \theta_c \Rightarrow |R| = 1
+\]</span></p>
+<ul>
+<li>When <span class="math inline">\(\theta \le \theta_c\)</span> acoustic intensity is not lost due to the reflection.</li>
+<li>When <span class="math inline">\(\theta &gt; \theta_c\)</span> acoustic intensity going back in the water is less.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/8.reflection-coeffs-1.png" alt="8.reflection-coeffs" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Reflection coefficient as a function of grazing angle for a hard-bottom halfspace. Solid curve: Magnitude. Dashed curve: Phase (Adapted from Computational Ocean Acoustics, Fig. 2.10)</em></p>
+<ul>
+<li><p>The curve is calculated assigning specific values to <span class="math inline">\(c_1, \rho_1\)</span> and <span class="math inline">\(c_2, \rho_2\)</span> to calculate the coefficient R.</p></li>
+<li><p>When <span class="math inline">\(\theta \le \theta_c\)</span> the magnitude is 1 and it also has a phase (this is shown as dashed line in the picture above)</p></li>
+<li><p>In the general case of lossy media (<span class="math inline">\(c_i\)</span> complex), the reflection coefficient is complex, and, consequently, there is both a loss and a phase shift associated with each reflection.</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="intromission-angle" class="level2">
+<h2 class="anchored" data-anchor-id="intromission-angle">Intromission Angle</h2>
+<ul>
+<li><p>Another special case of interest is when all energy is transmitted into the bottom, i.e., <span class="math inline">\(|R| = 0\)</span></p></li>
+<li><p>Total transmission occurs at an angle <span class="math inline">\(\theta_0\)</span> given by:</p></li>
+</ul>
+<p><span class="math display">\[
+\theta_I = \arctan \sqrt \frac{1-(c_2/c_1)^2}{[(\rho_2c_2)/(\rho_1c_1)]^2-1} \Rightarrow R=0
+\]</span></p>
+<ul>
+<li>This angle is called the <strong>intromission angle</strong></li>
+<li>Calculated from the Rayleigh Reflection Coefficient equation and from Snell’s Law.</li>
+</ul>
+<p>This occurs when the fraction under the square root &gt;0. This happens when:</p>
+<ul>
+<li><p><span class="math inline">\(c_2 &lt; c_1\)</span> with <span class="math inline">\(\rho_2c_2 &gt; \rho_1c_1 \rightarrow \rho_2 &gt; \rho_1\)</span>. Corresponds to low-speed, high-density sediments (e.g., muddy bottoms)</p></li>
+<li><p><span class="math inline">\(c_2 &gt; c_1\)</span> with <span class="math inline">\(\rho_2c_2 &lt; \rho_1c_1\)</span>. Corresponds to high-speed, low-density sediment and never occurs in ocean acoustics.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/9.reflection-coeffs-21.png" alt="9.reflection-coeffs-21" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Reflection coefficient as a function of grazing angle for a soft-bottom halfspace. Solid curve: Magnitude. Dashed curve: Phase (Adapted from Computational Ocean Acoustics, Fig. 2.12)</em></p>
+<ul>
+<li>Note that, grazing angle zero means that the planar wave is parallel to the halfspace and hence continue its propagation in the water (no transmission into the seabed, no reflection)</li>
+</ul>
+</section>
+<section id="propagation-in-shallow-water" class="level2">
+<h2 class="anchored" data-anchor-id="propagation-in-shallow-water">Propagation in shallow water</h2>
+<ul>
+<li>Let’s see if the Reflection Coefficient is important</li>
+<li>Focus on shallow water propagation</li>
+<li>Summer Sound Speed Profile</li>
+<li>Source at 50m (in the thermocline)</li>
+<li>Use of a ray tracer to predict acoustic propagation</li>
+</ul>
+<div id="cedb010b" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> underwater_systems <span class="im">import</span> ray_tracing</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="84ac17eb" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bottom limited sound channel</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>ssp <span class="op">=</span> ray_tracing.SSP([<span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">70</span>, <span class="dv">80</span>, <span class="dv">100</span>],</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>          [<span class="dv">1530</span>, <span class="dv">1530</span>, <span class="dv">1525</span>, <span class="dv">1510</span>, <span class="dv">1509</span>, <span class="dv">1508</span>, <span class="dv">1508</span>])</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>ssp.plot()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_the_wave_equation_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="b58fc828" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>t0, tf, dt <span class="op">=</span> <span class="dv">0</span>, <span class="dv">4</span>, <span class="fl">0.01</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>rt <span class="op">=</span> ray_tracing.RayTracer(time<span class="op">=</span>[t0, tf, dt], </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               source_depth<span class="op">=</span><span class="dv">50</span>, </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>               min_range<span class="op">=</span><span class="dv">0</span>, </span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               thetas<span class="op">=</span><span class="bu">range</span>(<span class="dv">25</span>, <span class="op">-</span><span class="dv">25</span>, <span class="op">-</span><span class="dv">5</span>), </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>               ssp<span class="op">=</span>ssp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6dd89d1b" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>rt.run()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_the_wave_equation_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>All rays moving downwards reflect on the seabed</li>
+<li>Each ray would have its own grazing angle</li>
+<li>Every time a ray hits the bottom, a part of the incident acoustic intensity carried by the ray comes back into the water</li>
+</ul>
+<p>For example, a ray hitting the bottom at a 45deg, has a R=0.2 (see critical angle picture above) - wave with ampliture A, the first time hits the bottom reduces its intensity: 0.2*A, the second time, 0.2*0.2*A, … <span class="math inline">\(0.2^n*A\)</span> - amplitude along the ray quickly decreases due to bottom reflections - these can have an impact that is higher than the intristric or geomatric attenuation</p>
+<ul>
+<li>Note that those rays with grazing angle less than the critical angle have <span class="math inline">\(|R|=1\)</span> do not have attenuation, they all come back into the water column.</li>
+<li>This means that in shallow water, where we always have bottom interactions, only those rays that bounce off the bottom with grazing angles less than the critical one, have no attenuation
+<ul>
+<li>Long range propagation only at subcritical angles (low grazing)</li>
+</ul></li>
+<li>Note that the axis in the above plot have different scales (1:60)</li>
+<li>This means that we have unavoidable interaction with the bottom</li>
+<li>The plot below better represents the scenario</li>
+</ul>
+<div id="c8aab8d6" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">60</span>, <span class="dv">1</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>rt.run()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="07_the_wave_equation_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="more-realistic-seabeds" class="level3">
+<h3 class="anchored" data-anchor-id="more-realistic-seabeds">More Realistic Seabeds</h3>
+<ul>
+<li>We have assumed so far that the bottom is a fluid</li>
+<li>Of course..they are not.</li>
+</ul>
+</section>
+<section id="waves-in-an-elastic-medium" class="level3">
+<h3 class="anchored" data-anchor-id="waves-in-an-elastic-medium">Waves in an elastic medium</h3>
+<ul>
+<li>If the seabed is not fluid, it is elastic</li>
+<li>In an elastic medium we have both:
+<ul>
+<li>Longitudinal (or compressional) waves (Primary P waves) where each particle is deformed across the three dimentions (the same that propagates in a fluid).</li>
+<li>Shear waves (Secondary S waves). Each particle can deform due to shear (each small volumes can rotately deform - twist). The movement of the particle due to a wave traveling in the x-axis, is a y-axis movement w.r.t to a x-axis propagation</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/P-wave_animation.gif" alt="P-wave_animation" style="height: 250px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/S-wave_animation.gif" alt="S-wave_animation" style="height: 250px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Images from <a href="https://web.ua.es/en/urs/disclosure/seismic-wave-propagation.html">University of Alicante</a></em></p>
+<ul>
+<li>The two waves propagate in the same medium but have different propagation velocities:</li>
+</ul>
+<p><span class="math display">\[c_s \ll c_p\]</span></p>
+</section>
+<section id="interface-waves-surface-waves" class="level3">
+<h3 class="anchored" data-anchor-id="interface-waves-surface-waves">Interface waves (surface waves)</h3>
+<p>Close to the interface between two media, and specifically between a fluid and an elastic medium, we have two more types of waves which are together called <em>Surface waves</em>,</p>
+<ul>
+<li><p>Surface waves can further distinguish into <em>Love waves</em> and <em>Rayleigh waves</em>, in honor to the scientists who theoretically demonstrated its existence.</p></li>
+<li><p>They need to happen to satisfy the overall energy balance and to have continuity in the movement of the medium (displacement and velocity) - particles cannot detach.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/Love_animation.gif" alt="Love_animation" style="height: 250px;">
+</td>
+<td>
+<img src="./images/7.wave-equation/Rayleigh_animation.gif" alt="Rayleigh_animation" style="height: 250px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Images from <a href="https://web.ua.es/en/urs/disclosure/seismic-wave-propagation.html">University of Alicante</a></em></p>
+<ul>
+<li><strong>Love waves</strong> moves along the y-axis, and their amplitude decreases as we move deeper into the medium (the farther away we are from the interface)</li>
+<li><strong>Rayleigh waves</strong> produce a circular motion of the particles. Amplitude decreases as we move away from the surface</li>
+<li>Propagation velocity close to that of S waves</li>
+</ul>
+</section>
+<section id="headwaves" class="level3">
+<h3 class="anchored" data-anchor-id="headwaves">Headwaves</h3>
+<ul>
+<li>Head waves moves ahead the other waves</li>
+<li>Moves on the interface between the two mediums</li>
+<li>Longitudinal movement, but with a propagation speed of the second medium (when the speed of propagation of the Longitudinal waves is higher than the one of the first medium)</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./videos/Head_waves_1080p.mp4" alt="Head_waves_1080p" style="height: 400px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Image from <a href="https://home.chpc.utah.edu/~thorne/animations.html">University of Utah</a></em></p>
+</section>
+</section>
+<section id="reflection-at-a-fluidsolid-interface" class="level2">
+<h2 class="anchored" data-anchor-id="reflection-at-a-fluidsolid-interface">Reflection at a Fluid/Solid interface</h2>
+<p>Assumptions: - Planar wave - Smooth interface - Media attenuation negligible</p>
+<p>A <em>Solid medium</em> is characterised by two waves: - Transmitted Primary Wave (grazing angle <span class="math inline">\(\theta_P\)</span>) - Transmitted Seconday Wave (grazing angle <span class="math inline">\(\theta_S\)</span>)</p>
+<ul>
+<li>Solid has a density <span class="math inline">\(\rho_2\)</span> and two propagation speeds (<span class="math inline">\(c_P, c_S\)</span>)</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/10.fluid-solid-1.png" alt="10.fluid-solid" style="height: 400px;">
+</td>
+</tr>
+</tbody></table>
+<p>We can define the Rayleight Reflection Coefficient:</p>
+<p><span class="math display">\[
+R = \frac{Z_{tot}-Z_1}{Z_{tot}+Z_1}
+\]</span></p>
+<p>where <span class="math inline">\(Z_{tot}\)</span> is the total acoustic impendence and is defined as:</p>
+<p><span class="math display">\[
+Z_{tot} = Z_P\cos^2(2\theta_P)+Z_S\cos^2(2\theta_S)
+\]</span></p>
+<p>it is the weighted sum of the two impedence <span class="math inline">\(Z_P\)</span> (acoustic impendence of the P wave), and of <span class="math inline">\(Z_S\)</span> (acoustic impendence of the S wave)</p>
+<p>Remember that - the acoustic impedence is <span class="math inline">\(Z=\rho c\)</span> - sound is due the primary wave (so the sound speed is <span class="math inline">\(c_P\)</span>)</p>
+<p>Snell’s Law also holds for each one of the two waves:</p>
+<p><span class="math display">\[
+k_1\cos\theta_1 = k_P\cos\theta_P = k_S\cos\theta_S
+\]</span></p>
+<p>This makes it possible to calculate <span class="math inline">\(\theta_P\)</span> and <span class="math inline">\(\theta_S\)</span> and hence to calculate the coefficient <span class="math inline">\(R\)</span></p>
+<ul>
+<li><span class="math inline">\(k\)</span>s are the wavenumbers for a planar wave with frequency <span class="math inline">\(\omega\)</span>:
+<ul>
+<li><span class="math inline">\(k_1 = \omega/c_1\)</span></li>
+<li><span class="math inline">\(k_P = \omega/c_P\)</span></li>
+<li><span class="math inline">\(k_S = \omega/c_S\)</span></li>
+</ul></li>
+</ul>
+<p>Since <span class="math inline">\(c_S \ll c_P\)</span>, then <span class="math inline">\(\theta_P &lt; \theta_S\)</span>: - if <span class="math inline">\(c_S &lt; c_1\)</span>, the S wave has a grazing angle larger than the incident grazing angle (see figure above) - if <span class="math inline">\(c_S &gt; c_1\)</span>, the S wave grazing angle would be less than the incident grazing angle (and the</p>
+</section>
+<section id="hard-vs-soft-bottoms" class="level2">
+<h2 class="anchored" data-anchor-id="hard-vs-soft-bottoms">Hard vs Soft Bottoms</h2>
+<ul>
+<li><p>Classify the rigidity of the seabed</p></li>
+<li><p>Seabed forms through two geological processes: sedimentation and compaction</p></li>
+<li><p>P and S wave velocities directly relate to the rigidity of the material</p>
+<ul>
+<li>We can express the velocities as a function of the Lamé parameters or of the Young modulus</li>
+</ul></li>
+</ul>
+<section id="sedimentation" class="level3">
+<h3 class="anchored" data-anchor-id="sedimentation">Sedimentation</h3>
+<ul>
+<li>Accumulation of materials at the water-seabed interface (e.g.&nbsp;river outflows)</li>
+<li>Pressure of layered sediments accumulated with time</li>
+</ul>
+<p>We distinguish: - <strong>Unconsolidated sediments</strong>: material that is water saturated (e.g., sand, mud) with high porosity where the bond between grains is fragile. - Divided in three main classes (based only on their grain size): sand, silt, clay - I.e., average diameter of a gain of sand &gt; average diameter of a gain of clay - The difference between classes is only due to this (e.g., not due to chemical difference, etc)</p>
+<ul>
+<li><strong>Consolidated sediments</strong>: as pressure grows due to stratification over the unconsolitated sediment pushes out the water and the sediment grains glue up (compaction).
+<ul>
+<li>Compaction transforms unconsolidated sediment to consolidated: rocks</li>
+<li>Consolidated sediments have very low porosity</li>
+<li>Takes a very long time to happen</li>
+<li>Examples: limestone, sandstone (they retain in the name the unconsolidated sediment from which they originated</li>
+</ul></li>
+</ul>
+<p>As we move down in the seabed we encounter a layer of <strong>Rocks</strong> due to results of geological/geophyical processes originated by the Earth interior and not due to compaction. - Example: basalts are due to this process</p>
+<p><em>And possible mixed situations</em></p>
+</section>
+<section id="geoacoustic-properties" class="level3">
+<h3 class="anchored" data-anchor-id="geoacoustic-properties">Geoacoustic Properties</h3>
+<p>The table below provides some typical values for <strong>unconsolidated</strong> sediments (going from softer to harder sediments):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\text{Sediment Type}\)</span></th>
+<th><span class="math inline">\(M_z(\phi)\)</span></th>
+<th><span class="math inline">\(\text{Porosity (%)}\)</span></th>
+<th><span class="math inline">\(\rho_2\;\;(g/cm^3)\)</span></th>
+<th><span class="math inline">\(c_2\;\;(m/s)\)</span></th>
+<th><span class="math inline">\(\alpha_2\;\;(dB/\lambda)\)</span></th>
+<th><span class="math inline">\(c_{s,2}\;\;(m/s)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\text{Clay}\)</span></td>
+<td><span class="math inline">\(9\)</span></td>
+<td><span class="math inline">\(80\)</span></td>
+<td><span class="math inline">\(1.2\)</span></td>
+<td><span class="math inline">\(1470\)</span></td>
+<td><span class="math inline">\(0.08\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{Silty clay}\)</span></td>
+<td><span class="math inline">\(8\)</span></td>
+<td><span class="math inline">\(75\)</span></td>
+<td><span class="math inline">\(1.3\)</span></td>
+<td><span class="math inline">\(1485\)</span></td>
+<td><span class="math inline">\(0.10\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{Clayey silt}\)</span></td>
+<td><span class="math inline">\(7\)</span></td>
+<td><span class="math inline">\(70\)</span></td>
+<td><span class="math inline">\(1.5\)</span></td>
+<td><span class="math inline">\(1515\)</span></td>
+<td><span class="math inline">\(0.15\)</span></td>
+<td><span class="math inline">\(125\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{Sand-silt-clay}\)</span></td>
+<td><span class="math inline">\(6\)</span></td>
+<td><span class="math inline">\(65\)</span></td>
+<td><span class="math inline">\(1.6\)</span></td>
+<td><span class="math inline">\(1560\)</span></td>
+<td><span class="math inline">\(0.20\)</span></td>
+<td><span class="math inline">\(290\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{Sand-silt}\)</span></td>
+<td><span class="math inline">\(5\)</span></td>
+<td><span class="math inline">\(60\)</span></td>
+<td><span class="math inline">\(1.7\)</span></td>
+<td><span class="math inline">\(1605\)</span></td>
+<td><span class="math inline">\(1.00\)</span></td>
+<td><span class="math inline">\(340\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{Silty-sand}\)</span></td>
+<td><span class="math inline">\(4\)</span></td>
+<td><span class="math inline">\(55\)</span></td>
+<td><span class="math inline">\(1.8\)</span></td>
+<td><span class="math inline">\(1650\)</span></td>
+<td><span class="math inline">\(1.10\)</span></td>
+<td><span class="math inline">\(390\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{Very fine sand}\)</span></td>
+<td><span class="math inline">\(3\)</span></td>
+<td><span class="math inline">\(50\)</span></td>
+<td><span class="math inline">\(1.9\)</span></td>
+<td><span class="math inline">\(1680\)</span></td>
+<td><span class="math inline">\(1.00\)</span></td>
+<td><span class="math inline">\(410\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{Fine sand}\)</span></td>
+<td><span class="math inline">\(2\)</span></td>
+<td><span class="math inline">\(45\)</span></td>
+<td><span class="math inline">\(1.95\)</span></td>
+<td><span class="math inline">\(1725\)</span></td>
+<td><span class="math inline">\(0.80\)</span></td>
+<td><span class="math inline">\(430\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{Coarse sand}\)</span></td>
+<td><span class="math inline">\(1\)</span></td>
+<td><span class="math inline">\(40\)</span></td>
+<td><span class="math inline">\(2.0\)</span></td>
+<td><span class="math inline">\(1800\)</span></td>
+<td><span class="math inline">\(0.90\)</span></td>
+<td><span class="math inline">\(470\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p><span class="math inline">\(M_z(\phi)\)</span> represents the average size of the grains using the Krumbein phi (<span class="math inline">\(\phi\)</span>) logaritmic scale (<span class="math inline">\(\approx log_2(diameter)\)</span>)</p>
+<ul>
+<li>value 1 is approximately 1mm</li>
+<li>value 9 is approximately 1μm</li>
+</ul></li>
+<li><p><span class="math inline">\(\rho_2\)</span> is the density</p></li>
+<li><p><span class="math inline">\(c_2\)</span> typical value of the compressional wave speed (sound speed)<br>
+</p></li>
+<li><p><span class="math inline">\(\alpha_2\)</span> is the attenuation</p></li>
+<li><p><span class="math inline">\(c_{s,2}\)</span> propagation speed of the secondary waves (values &lt; 100m/s are not reported)</p></li>
+<li><p>As we go towards harder sediment porosity decreases, density increases, sound speed increases, S wave speed increases, attenuation does not always increase</p></li>
+<li><p>Note that the attenuation <span class="math inline">\(\alpha_2\)</span> is higher than the attenuation of the compressional wave in the water column.</p></li>
+<li><p>Given that porosity decreases, and density increases as we go down in the table we have harder and harder unconsolidated sediments.</p></li>
+<li><p>Porosity is a measure of the amount of void space, or empty space, in a material, such as rock, etc. It is defined as the ratio of the volume of empty space (voids) in a material to the total volume of the material (expressed as a percentage, and can range from 0% (completely solid) to 100% (completely empty)).</p></li>
+<li><p>Note that <span class="math inline">\(c_s\)</span> is much slower than <span class="math inline">\(c\)</span> and hence <span class="math inline">\(\theta_S &gt;&gt; \theta_1\)</span></p></li>
+<li><p>In this case, when still have a critical angle but with <span class="math inline">\(|R(\theta_c)| &lt; 1\)</span> but there is some acoustic loss due to the secondary wave.</p></li>
+</ul>
+</section>
+<section id="reflection-coefficient-for-different-seabeds" class="level3">
+<h3 class="anchored" data-anchor-id="reflection-coefficient-for-different-seabeds">Reflection Coefficient for different seabeds</h3>
+<p>Note that for some of the sediments (clay, silty clay and clayey silt) typical values of density <span class="math inline">\(\rho_2\)</span> and <span class="math inline">\(c_2\)</span> <strong>favour the presence of an intromission angle</strong>. - We need to have <span class="math inline">\(\rho_2 &gt; \rho_1\)</span> and <span class="math inline">\(c_2&lt;c_1\)</span></p>
+<ul>
+<li><p>When there are sediments, given that there are both a P and S transmitted wave, there is some acoustic transmission also for subcritical angles (compare this with results obtained with fuild-fluid interfaces)</p></li>
+<li><p>Environmental variations affect sound speed (especially in the water column) and create conditions to have intromission angles (e.g., clayey silt)</p></li>
+<li><p>Depending on the sediment, we still have a <em>practical</em> critical angle <span class="math inline">\(\theta_c\)</span>, but for <span class="math inline">\(\theta=\theta_c\)</span>, <span class="math inline">\(|R|\)</span> is slightly less than 1 (some acoustic intensity is lost in the seabed due to the fact that the seabed is solid)</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/11.R-coeff.png" alt="11.R.png" style="height: 400px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>No sediment has <span class="math inline">\(|R|=1\)</span></li>
+<li>Harder sediments have higher <span class="math inline">\(|R|\)</span>, more similar to the fluid-fluid case</li>
+<li>Note the presence of the intromission angle for clay and silty clay</li>
+<li>Clayey silt has an in between behaviour and the presence of the intromission angle might depend on seasonal variations affecting the sound speed in the water and its relation to the sound speed in the sediment (e.g., warmer waters in summer would satisfy the intromission condition)</li>
+</ul>
+<section id="seabed-transmission-at-subcritical-angles" class="level4">
+<h4 class="anchored" data-anchor-id="seabed-transmission-at-subcritical-angles">Seabed transmission at subcritical angles</h4>
+<ul>
+<li>The effect of attenuation and seabed transmission at subcritical angles from the standpoint of the <span class="math inline">\(R\)</span> coefficient can be obtained also considering a specific attenuation of the primary waves</li>
+<li>We model the reflection coefficient when we are at the fluid-solid interface, and we obtain the same result:
+<ul>
+<li>inserting a secondary wave speed or</li>
+<li>considering the interface as fluid-fluid and adding an intrinsic attenuation in the second medium</li>
+</ul></li>
+</ul>
+<p>If we look at <strong>Case (b)</strong> in the sensitivity study shown in the picture below (specific values used are shown in the table below):</p>
+<ul>
+<li>In the pictures below the Reflection Coefficient is represented as Loss (R=1 <span class="math inline">\(\Rightarrow\)</span> Loss=0)</li>
+<li>As we vary the <em>intrinsic</em> attenuation <span class="math inline">\(\alpha_P\)</span>:
+<ul>
+<li>When <span class="math inline">\(\alpha_P=0\)</span>, we have some Loss (or Reflection) until a critical angle (approx. 25deg)</li>
+<li>When <span class="math inline">\(\alpha_P=0.5\)</span>, we have the same behaviour for angles larger than the critical, and a different behaviour under the critical angle (approx. 25deg). We are now modeling the seabed attenuation at subcritical angles (i.e., loss at subcritical angles) using the intrinsic attenuation coefficient in the second medium</li>
+</ul></li>
+</ul>
+<p>If we look at <strong>Case (d)</strong> in the picture below: - We are now varying the speed of the S waves - If <span class="math inline">\(c_S=0\)</span>, is the case fluid-fluid and no attenuation (solid line corresponds to the solid line of Case (b) - As we increase <span class="math inline">\(c_S\)</span> we start to have differences at both subcritical angles, and at supercritical angles.</p>
+<ul>
+<li>This shows that we can model, at subcritical angles, the loss:
+<ul>
+<li>considering a fluid-fluid interaction with high attenuation in the second fluid</li>
+<li>considering a fluid-solid interaction with a S wave speed of that should be <span class="math inline">\(&gt;400m/s\)</span></li>
+</ul></li>
+</ul>
+<p>Comments: - Note that the two cases are especially different for supercritical angles - For shallow water propagation the supercritical propagation is quickly attenuated, and long range propagation can only happen at subcritical angles. - In this case, we can model acoustic propagation at subcritical angles considering the seabed as fluid but with a high and specific intrinsic attenuation</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/12.bottom-loss.png" alt="12.bottom-loss" style="height: 400px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Bottom-loss curves for different values of (a) the p-wave speed, (b) the p-wave attenuation, (c) the density, and (d) the s-wave speed. (From Computational Ocean Acoustics, Fig. 1.23)</em></p>
+<p>Bottom parameters for reflection-loss calculations shown in the picture above (and <span class="math inline">\(c_w=1500m/s\)</span>, <span class="math inline">\(\rho_w=1000kg/m^3\)</span>):</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(c_P (m/s)\)</span></th>
+<th><span class="math inline">\(c_S (m/s)\)</span></th>
+<th><span class="math inline">\(\alpha_P (dB/\lambda_P)\)</span></th>
+<th><span class="math inline">\(\alpha_S (dB/\lambda_s)\)</span></th>
+<th><span class="math inline">\(\rho (kg/m^3)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\text{Case (a)}\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(0.5\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(2000\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{Case (b)}\)</span></td>
+<td><span class="math inline">\(1600\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(2000\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{Case (c)}\)</span></td>
+<td><span class="math inline">\(1600\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(0.5\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{Case (d)}\)</span></td>
+<td><span class="math inline">\(1600\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(0.0\)</span></td>
+<td><span class="math inline">\(0\)</span></td>
+<td><span class="math inline">\(2000\)</span></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="more-geoacoustic-properties" class="level3">
+<h3 class="anchored" data-anchor-id="more-geoacoustic-properties">More geoacoustic properties</h3>
+<ul>
+<li>Typical values of other harder unconsolidated sediments</li>
+</ul>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(\text{Sediment Type}\)</span></th>
+<th><span class="math inline">\(\text{Porosity (%)}\)</span></th>
+<th><span class="math inline">\(\rho_2\;\;(g/cm^3)\)</span></th>
+<th><span class="math inline">\(c_2\;\;(m/s)\)</span></th>
+<th><span class="math inline">\(\alpha_2\;\;(dB/\lambda)\)</span></th>
+<th><span class="math inline">\(c_{s,2}\;\;(m/s)\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\text{Gravel}\)</span></td>
+<td><span class="math inline">\(35\)</span></td>
+<td><span class="math inline">\(2.0\)</span></td>
+<td><span class="math inline">\(1800\)</span></td>
+<td><span class="math inline">\(0.6\)</span></td>
+<td><span class="math inline">\(500\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\text{Sandstone}\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(2.4\)</span></td>
+<td><span class="math inline">\(3000\)</span></td>
+<td><span class="math inline">\(0.1\)</span></td>
+<td><span class="math inline">\(1500\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\text{Basalt}\)</span></td>
+<td><span class="math inline">\(-\)</span></td>
+<td><span class="math inline">\(2.7\)</span></td>
+<td><span class="math inline">\(5250\)</span></td>
+<td><span class="math inline">\(0.1\)</span></td>
+<td><span class="math inline">\(2500\)</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Note how the secondary wave speed is now similar to that of the sound speed in the water (and much higher for the basalt)</li>
+</ul>
+</section>
+</section>
+<section id="is-the-water-seabed-interface-flat" class="level2">
+<h2 class="anchored" data-anchor-id="is-the-water-seabed-interface-flat">Is the water-seabed interface flat?</h2>
+<ul>
+<li>So far we have assumed smooth interface, a plane</li>
+<li>Sometimes is OK (e.g., plane of clay)</li>
+<li>Most of the time this assumption is much less valid (e.g., rocky seabed, sand ripples, etc.)</li>
+</ul>
+</section>
+<section id="diffuse-reflection-scattering" class="level2">
+<h2 class="anchored" data-anchor-id="diffuse-reflection-scattering">Diffuse reflection: scattering</h2>
+<ul>
+<li><p>Introduces a further loss of acoustic intensity</p></li>
+<li><p>We first need to have a way to measure the roughness of the surface</p></li>
+</ul>
+Given a surface:
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/13.rough-surface-1.png" alt="13.rough-surface" style="height: 150px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>We calculate the standard deviation <span class="math inline">\(\sigma\)</span> with respect to the flat surface of the function <span class="math inline">\(\zeta(x)\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+\sigma = \frac{1}{\bar{x}}\sqrt{\int_0^\bar{x}\zeta^2(x)dx}
+\]</span></p>
+<ul>
+<li>How do we measure the roughness of the seabed:
+<ul>
+<li>through bathymetric measurements which measure the roughness with a specific resolution</li>
+<li>higher resolutions can be obtained with more complex methods (e.g., underwater photogrammetry to reconstruct elevations)
+<ul>
+<li>robots with cameras can be helpful for this latter case where otherwise roughness can only be measured in shallow waters</li>
+</ul></li>
+</ul></li>
+<li>The reflection on this rough surface is now more complex</li>
+</ul>
+<p>If we think about the Huygens’ Principle: “Every point on a wavefront is itself the source of spherical wavelets, and the secondary wavelets emanating from different points mutually interfere. The sum of these spherical wavelets forms a new wavefront.” - In the planar case it is easy to see that the reflected wave is still a planar wave</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/7.huygens-22.png" alt="7.huygens-reflection" style="height: 200px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>In the case of a rough surface, the sum of the spherical wavelets interfere in a way that is not a planar wave
+<ul>
+<li>Reflections happen along all possible directions</li>
+</ul></li>
+<li>Among all the directions that generate:
+<ul>
+<li>One corresponds to having an opposite direction of the incident wave. This is called <strong>backscatter direction</strong></li>
+<li>One corresponds to having the direction of the “normal” reflection (i.e., coherent reflection that we have with planar surfaces). This is called <strong>forward scatter direction</strong>
+<ul>
+<li>Sometime is called <em>forward scatter direction</em> everything that moves forward.</li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/7.wave-equation/14.backscatter-and-forward-scatter.png" alt="14.backscatter" style="height: 250px;">
+</td>
+</tr>
+</tbody></table>
+<p>Rayleigh considered the reflection coefficient w.r.t to the forward scattering direction (the same as the coherent direction) and corrected the reflection coefficient of the planar waves to include the average roughness of the surface</p>
+<p>When we have scattering:</p>
+<p><span class="math display">\[
+R^{'}(\theta) = R(\theta)e^{-0.5\Gamma^2}
+\]</span></p>
+<p>where <span class="math inline">\(R(\theta)\)</span> is the coherent reflection coefficient, <span class="math inline">\(\theta\)</span> is the grazing angle of the incident wave, and</p>
+<p><span class="math display">\[
+\Gamma = 2k\sigma\sin\theta = 2\frac{2\pi}{\lambda}\sigma\sin\theta
+\]</span></p>
+<p>where <span class="math inline">\(k = \frac{\omega}{c} = \frac{2\pi}{\lambda}\)</span> is the wavenumber, <span class="math inline">\(\lambda\)</span> is the wavelength, and <span class="math inline">\(\sigma\)</span> is the average roughness of the surface.</p>
+<p><strong>Comments:</strong></p>
+<ul>
+<li><p>if <span class="math inline">\(\Gamma^2 \rightarrow 0 \;\; \Rightarrow e^{-0.5\Gamma^2} \rightarrow 1\)</span></p></li>
+<li><p>if <span class="math inline">\(\Gamma^2 \rightarrow \inf \;\; \Rightarrow e^{-0.5\Gamma^2} \rightarrow 0\)</span></p></li>
+<li><p><span class="math inline">\(\Gamma\)</span> depends on <span class="math inline">\(\theta\)</span> and this dependency means that the scattering effect decreases as the grazing angle decreases</p>
+<ul>
+<li>it is max when <span class="math inline">\(\theta\)</span>=90 deg, so when the incident wave is perpendicular to the surface of the seabed.</li>
+</ul></li>
+<li><p><span class="math inline">\(\Gamma\)</span> depends on <span class="math inline">\(\frac{\sigma}{\lambda}\)</span>. This means that is the wavelength <span class="math inline">\(\lambda\)</span> is much larger than <span class="math inline">\(\sigma\)</span> (average roughness), than <span class="math inline">\(\frac{\sigma}{\lambda}\)</span> is small, and <span class="math inline">\(\Gamma\)</span> is small.</p>
+<ul>
+<li>This means that the original reflection coefficient does not need to be corrected</li>
+<li><strong>Roughness of the surface is not absolute. Depends on the acoustic wavelength (frequency) of the incident wave.</strong></li>
+<li>If <span class="math inline">\(f= 100Hz\)</span>, wavelength <span class="math inline">\(\approx 15m\)</span>. If we have sand ripples (i.e., <span class="math inline">\(\sigma \approx 5cm\)</span>), <span class="math inline">\(\frac{\sigma}{\lambda} = \frac{5e-2}{15}= 0.003\)</span>. Scattering is not important.</li>
+<li>If <span class="math inline">\(f= 100kHz\)</span>, wavelength <span class="math inline">\(\approx 15mm\)</span>. <span class="math inline">\(\frac{\sigma}{\lambda} = \frac{5e-2}{15e-3} = 3\)</span>. Scattering is important and is an attenuation factor.</li>
+</ul></li>
+<li><p>Working on the same seabed, depending on the frequency, scattering is something that I must consider or not.</p></li>
+</ul>
+</section>
+<section id="scattering-strength-reverberation" class="level2">
+<h2 class="anchored" data-anchor-id="scattering-strength-reverberation">Scattering Strength: Reverberation</h2>
+<p>To characterise scattering, we usually use these definitions:</p>
+<p><strong>Surface (or Volume) Scattering Strength</strong>: ratio in dB of the intensity of the acoustic waves (of the sound) scattered by a unit surface area (or unit Volume), referenced to a unit distance, to the incident plane wave intensity <span class="math display">\[
+S = 10\log\frac{I_{scatt}}{I_{inc}}
+\]</span></p>
+<p>Note the normalisation of the surface and of the distance.</p>
+<p>When do we have Volume Scattering? - When dealing with fish schools. They are not a continuos obstacle and we have scattering on each of the fish</p>
+<p>The normalisation with respect to the surface, makes it possible to define:</p>
+<p><strong>Reverberation level</strong> (due to a unit intensity):</p>
+<p><span class="math display">\[
+RL = S + 10\log(A)  \;\; Surface
+\]</span></p>
+<p>or</p>
+<p><span class="math display">\[
+RL = S + 10\log(V)  \;\; Volume
+\]</span></p>
+<p>where <span class="math inline">\(A\)</span> or <span class="math inline">\(V\)</span> is the active scattering area or volume.</p>
+<ul>
+<li>Active area because we can have directionality with a specific footprint.</li>
+</ul>
+<p>The reverberation level is <span class="math inline">\(\frac{I_{scatt}}{I_{inc}}\cdot A\)</span> (for a surface).</p>
+<p>Given that we have <span class="math inline">\(10\log(A)\)</span> (which can be higher than 0dB), the reverberation level can be higher than <span class="math inline">\(0dB\)</span></p>
+</section>
+<section id="lamberts-law" class="level2">
+<h2 class="anchored" data-anchor-id="lamberts-law">Lambert’s law</h2>
+<ul>
+<li>Captures the scattering strength empirically</li>
+</ul>
+<p>Lambert’s law: <em>Scattered and incident sound intensities both measured at unit distance from the scattering surface are related as</em>: <span class="math display">\[
+\frac{I_{scat}}{I_{inc}} = \mu\sin\theta_i\sin\theta_s
+\]</span></p>
+<p>where - <span class="math inline">\(\theta_i\)</span> is the incident angle - <span class="math inline">\(\theta_S\)</span> is the scattering angle that we are considering</p>
+<p>Note that this law can be applied for any angle (the Rayleigh reflection coeff. was valid for forward scatter only), and for the backscatter in particular.</p>
+<p>For the backscattering: <span class="math display">\[
+\theta_s=\pi-\theta_i
+\]</span></p>
+<p>In this case, the bottom backscattering strength: <span class="math display">\[
+S_B=10\log\mu + 10\log\sin^2\theta_i
+\]</span></p>
+<p>The law is quite accurate thanks to the empirical factor <span class="math inline">\(10\log\mu\)</span> that is obtained through in field measurements</p>
+<p><span class="math inline">\(10\log\mu\)</span> must be less than 0 dB. If zero we have no scattering (complete reflection).</p>
+<p>Typical values (obtained through historic field measurements): - silt: -35 dB (unconsolidated sediment, soft) - coarse sand: -20 dB (unconsolidated sediment, hard) - rock: -5 dB (consolidated sediment, hard)</p>
+</section>
+<section id="parting-comments" class="level2">
+<h2 class="anchored" data-anchor-id="parting-comments">Parting comments</h2>
+<ul>
+<li><p>The initial assumptions of smoothness of the surface, fluid-fluid, planar waves is not too bad</p></li>
+<li><p>When we have unconsolidated sediments, a wavelength which is bigger than roughness of the surface, the reflection can be modeled through the Rayleigh coefficient obtained for smooth surfaces, and fluid-fluid interfaces</p></li>
+<li><p>When we use acoustic models we need to decide how to model the environment</p>
+<ul>
+<li>In the acoustic models we often encounter <em>Bottom loss</em>: reflection coefficient in dB</li>
+<li>Sometime there are corrective parameters for scattering</li>
+<li>If no corrective parameters are available, the models would be able to correctly capture only those cases where the wavelength is bigger than the roughness</li>
+<li>If we need to work with wavelength and roughness that are comparable, and no corrective parameters are available, the model will underestimate the loss</li>
+</ul></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

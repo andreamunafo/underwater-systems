@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Underwater Systems – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Underwater Systems – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/1.introduction/0.munafo.png">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="Andrea Munafo">
+<meta property="og:image:height" content="209">
+<meta property="og:image:width" content="212">
+<meta name="twitter:title" content="Underwater Systems – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/1.introduction/0.munafo.png">
+<meta name="twitter:image:alt" content="Andrea Munafo">
+<meta name="twitter:image-height" content="209">
+<meta name="twitter:image-width" content="212">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro.html">Underwater Systems</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lab-overview" id="toc-lab-overview" class="nav-link active" data-scroll-target="#lab-overview">Lab overview</a>
+  <ul class="collapse">
+  <li><a href="#robots-and-platforms" id="toc-robots-and-platforms" class="nav-link" data-scroll-target="#robots-and-platforms">Robots and Platforms</a></li>
+  <li><a href="#locations" id="toc-locations" class="nav-link" data-scroll-target="#locations">Locations</a></li>
+  </ul></li>
+  <li><a href="#some-recent-and-current-projects" id="toc-some-recent-and-current-projects" class="nav-link" data-scroll-target="#some-recent-and-current-projects">Some Recent and Current Projects</a>
+  <ul class="collapse">
+  <li><a href="#human-machine-teaming-for-the-maritime-environment" id="toc-human-machine-teaming-for-the-maritime-environment" class="nav-link" data-scroll-target="#human-machine-teaming-for-the-maritime-environment">Human-Machine Teaming For the Maritime Environment</a></li>
+  <li><a href="#multiple-autonomies" id="toc-multiple-autonomies" class="nav-link" data-scroll-target="#multiple-autonomies">Multiple Autonomies</a></li>
+  <li><a href="#underwater-acoustic-source-localization-using-a-multi-robot-system" id="toc-underwater-acoustic-source-localization-using-a-multi-robot-system" class="nav-link" data-scroll-target="#underwater-acoustic-source-localization-using-a-multi-robot-system">Underwater acoustic source localization using a multi-robot system</a></li>
+  </ul></li>
+  <li><a href="#whats-in-this-introduction" id="toc-whats-in-this-introduction" class="nav-link" data-scroll-target="#whats-in-this-introduction">What’s in this introduction?</a></li>
+  <li><a href="#motivations" id="toc-motivations" class="nav-link" data-scroll-target="#motivations">Motivations</a>
+  <ul class="collapse">
+  <li><a href="#science-questions" id="toc-science-questions" class="nav-link" data-scroll-target="#science-questions">Science Questions</a></li>
+  <li><a href="#climate-change" id="toc-climate-change" class="nav-link" data-scroll-target="#climate-change">Climate Change</a></li>
+  <li><a href="#effects-of-temperature-rise" id="toc-effects-of-temperature-rise" class="nav-link" data-scroll-target="#effects-of-temperature-rise">Effects of Temperature Rise</a></li>
+  <li><a href="#celebrating-marie-tharp" id="toc-celebrating-marie-tharp" class="nav-link" data-scroll-target="#celebrating-marie-tharp">Celebrating Marie Tharp</a></li>
+  </ul></li>
+  <li><a href="#finding-the-endurance" id="toc-finding-the-endurance" class="nav-link" data-scroll-target="#finding-the-endurance">Finding the Endurance</a></li>
+  <li><a href="#blackbox-recovery" id="toc-blackbox-recovery" class="nav-link" data-scroll-target="#blackbox-recovery">Blackbox recovery</a></li>
+  <li><a href="#installation-of-procution-well-jumper" id="toc-installation-of-procution-well-jumper" class="nav-link" data-scroll-target="#installation-of-procution-well-jumper">Installation of Procution Well Jumper</a></li>
+  <li><a href="#operating-rovs" id="toc-operating-rovs" class="nav-link" data-scroll-target="#operating-rovs">Operating ROVs</a>
+  <ul class="collapse">
+  <li><a href="#working-with-rovs" id="toc-working-with-rovs" class="nav-link" data-scroll-target="#working-with-rovs">Working with ROVs</a></li>
+  </ul></li>
+  <li><a href="#renewable-energy" id="toc-renewable-energy" class="nav-link" data-scroll-target="#renewable-energy">Renewable energy</a>
+  <ul class="collapse">
+  <li><a href="#other-applications" id="toc-other-applications" class="nav-link" data-scroll-target="#other-applications">Other applications</a></li>
+  </ul></li>
+  <li><a href="#autonomous-vehicles" id="toc-autonomous-vehicles" class="nav-link" data-scroll-target="#autonomous-vehicles">Autonomous Vehicles</a>
+  <ul class="collapse">
+  <li><a href="#wavegliders-and-interventions" id="toc-wavegliders-and-interventions" class="nav-link" data-scroll-target="#wavegliders-and-interventions">Wavegliders and Interventions</a></li>
+  <li><a href="#bioinspired-robotics" id="toc-bioinspired-robotics" class="nav-link" data-scroll-target="#bioinspired-robotics">Bioinspired Robotics</a></li>
+  <li><a href="#costs" id="toc-costs" class="nav-link" data-scroll-target="#costs">Costs</a></li>
+  </ul></li>
+  <li><a href="#marine-autonomy-trends" id="toc-marine-autonomy-trends" class="nav-link" data-scroll-target="#marine-autonomy-trends">Marine Autonomy Trends</a>
+  <ul class="collapse">
+  <li><a href="#early-commercial-marine-vehicles" id="toc-early-commercial-marine-vehicles" class="nav-link" data-scroll-target="#early-commercial-marine-vehicles">Early commercial marine vehicles</a></li>
+  </ul></li>
+  <li><a href="#early-autonomy" id="toc-early-autonomy" class="nav-link" data-scroll-target="#early-autonomy">Early Autonomy</a></li>
+  <li><a href="#marine-autonomy-trends-1" id="toc-marine-autonomy-trends-1" class="nav-link" data-scroll-target="#marine-autonomy-trends-1">Marine Autonomy Trends</a>
+  <ul class="collapse">
+  <li><a href="#scripted-missions" id="toc-scripted-missions" class="nav-link" data-scroll-target="#scripted-missions">Scripted Missions</a></li>
+  <li><a href="#adaptive-autonomy" id="toc-adaptive-autonomy" class="nav-link" data-scroll-target="#adaptive-autonomy">Adaptive autonomy</a></li>
+  </ul></li>
+  <li><a href="#marine-autonomy-trends-2" id="toc-marine-autonomy-trends-2" class="nav-link" data-scroll-target="#marine-autonomy-trends-2">Marine Autonomy Trends</a>
+  <ul class="collapse">
+  <li><a href="#a-tangible-example" id="toc-a-tangible-example" class="nav-link" data-scroll-target="#a-tangible-example">A tangible example</a></li>
+  <li><a href="#autonomy-trends" id="toc-autonomy-trends" class="nav-link" data-scroll-target="#autonomy-trends">Autonomy Trends</a></li>
+  </ul></li>
+  <li><a href="#next-challenges" id="toc-next-challenges" class="nav-link" data-scroll-target="#next-challenges">Next Challenges</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Underwater Systems</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<section id="lab-overview" class="level2">
+<h2 class="anchored" data-anchor-id="lab-overview">Lab overview</h2>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.munafo.png" alt="Andrea Munafo" style="width: 150px;" class="figure-img">
+<figcaption>
+Andrea Munafo
+</figcaption>
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.costanzi.png" alt="Riccardo Costanzi" style="width: 150px;" class="figure-img">
+<figcaption>
+Riccardo Costanzi
+</figcaption>
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.caiti.png" alt="Andrea Caiti" style="width: 150px;" class="figure-img">
+<figcaption>
+Andrea Caiti
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.Ruscio.png" alt="Francesco Ruscio" style="width: 150px;" class="figure-img">
+<figcaption>
+Francesco Ruscio
+</figcaption>
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.Sambataro.png" alt="Olga Sambataro" style="width: 150px;" class="figure-img">
+<figcaption>
+Olga Sambataro
+</figcaption>
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.Tani.png" alt="Simone Tani" style="width: 150px;" class="figure-img">
+<figcaption>
+Simone Tani
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<!--table>
+    <tr>
+    <td>
+    <figure>
+    <img src="./images/1.introduction/0.Tani.png" alt="Simone Tani" style="width: 150px;"/> 
+    <figcaption>Simone Tani</figcaption>        
+    </figure>    
+    </td>       
+    <td>
+    <figure>
+    <img src="./images/1.introduction/0.Bazzarello.png" alt="Lorenzo Bazzarello" style="width: 150px;"/> 
+    <figcaption>Lorenzo Bazzarello</figcaption>        
+    </figure>    
+    </td>     
+    <td>
+    <figure>
+    <img src="./images/1.introduction/0.Cannarsa.png" alt="Francesco Cannarsa" style="width: 150px;"/> 
+    <figcaption>Francesco Cannarsa</figcaption>        
+    </figure>    
+    </td>           
+    </tr>
+</table-->
+<section id="robots-and-platforms" class="level3">
+<h3 class="anchored" data-anchor-id="robots-and-platforms">Robots and Platforms</h3>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.robot-zeno.jpg" alt="Zeno AUV" style="width: 400px;" class="figure-img">
+<figcaption>
+AUV Zeno
+</figcaption>
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.robot-x300.jpg" alt="X300/Folaga" style="width: 400px;" class="figure-img">
+<figcaption>
+AUV X300
+</figcaption>
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.robot-bluerov.jpg" alt="BlueRov" style="width: 300px;" class="figure-img">
+<figcaption>
+BlueROV
+</figcaption>
+</figure>
+</td>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/0.lauv-navigation_v2.jpg" alt="LAUV OceanScan" style="width: 300px;" class="figure-img">
+<figcaption>
+LAUV
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="locations" class="level3">
+<h3 class="anchored" data-anchor-id="locations">Locations</h3>
+<div id="534fd765" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">iframe</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://isme.unige.it"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"1000"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"700"</span><span class="dt">&gt;&lt;/</span><span class="kw">iframe</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<iframe src="https://isme.unige.it" width="1000" height="700"></iframe>
+</div>
+</div>
+</section>
+</section>
+<section id="some-recent-and-current-projects" class="level2">
+<h2 class="anchored" data-anchor-id="some-recent-and-current-projects">Some Recent and Current Projects</h2>
+<section id="human-machine-teaming-for-the-maritime-environment" class="level3">
+<h3 class="anchored" data-anchor-id="human-machine-teaming-for-the-maritime-environment">Human-Machine Teaming For the Maritime Environment</h3>
+<table>
+<tbody><tr>
+<td style="width=100px">
+<figure class="figure">
+<img src="./images/1.introduction/0.project-hume.png" alt="Hume" style="height: 350px;" class="figure-img">
+<figcaption>
+Human-Machine Teaming For the Maritime Environment
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="multiple-autonomies" class="level3">
+<h3 class="anchored" data-anchor-id="multiple-autonomies">Multiple Autonomies</h3>
+<table>
+<tbody><tr>
+<td style="width=100px">
+<figure class="figure">
+<img src="./images/1.introduction/0.project-onrmit.jpg" alt="Multi-Autonomy" style="height: 350px;" class="figure-img">
+<figcaption>
+MOOS-IvP autonomy system and human-machine teaming put into practice at the MIT facilities. (Courtesy of MIT)
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="underwater-acoustic-source-localization-using-a-multi-robot-system" class="level3">
+<h3 class="anchored" data-anchor-id="underwater-acoustic-source-localization-using-a-multi-robot-system">Underwater acoustic source localization using a multi-robot system</h3>
+<table>
+<tbody><tr>
+<td style="width=100px">
+<figure class="figure">
+<img src="./images/1.introduction/0.project-damps.png" alt="DAMPS" style="height: 350px;" class="figure-img">
+<figcaption>
+Underwater acoustic source localization using a multi-robot system
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<hr>
+</section>
+</section>
+<section id="whats-in-this-introduction" class="level2">
+<h2 class="anchored" data-anchor-id="whats-in-this-introduction">What’s in this introduction?</h2>
+<ul>
+<li>Motivations</li>
+<li>Why using robots to explore, monitor, inspect, etc. the sea?</li>
+<li>A short and rough description of underwater systems</li>
+<li>The Topics of the course</li>
+</ul>
+</section>
+<section id="motivations" class="level2">
+<h2 class="anchored" data-anchor-id="motivations">Motivations</h2>
+<section id="science-questions" class="level3">
+<h3 class="anchored" data-anchor-id="science-questions">Science Questions</h3>
+<!--table>
+    <tr>
+    <td>
+    <figure>
+    <video controls src="./videos/Using-AI-to-Explore-Oceans.mp4" width="600" height="400" frameborder="0"></video> 
+    <figcaption>MIT 2.680 course - using AI to explore the ocean.</figcaption>        
+    </figure>    
+    </td>    
+    </tr>
+</table-->
+<!--table>
+    <tr>
+    <td>
+    <iframe width="600" height="400" src="./videos/Using AI to Explore Oceans.mp4" frameborder="0" allowfullscreen></iframe>   
+    </td>    
+    </tr>
+</table-->
+</section>
+<section id="climate-change" class="level3">
+<h3 class="anchored" data-anchor-id="climate-change">Climate Change</h3>
+<p>Climate change, as we’ve seen in recent news and scientific reports, is a global phenomenon with far-reaching impacts on both terrestrial and aquatic ecosystems.</p>
+<section id="global-temperature-rise" class="level4">
+<h4 class="anchored" data-anchor-id="global-temperature-rise">Global Temperature Rise</h4>
+<p>Climate change is fundamentally driven by the increase in global average temperatures year after year. This rise in temperature is not a uniform process but varies across different regions and timescales.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.avg_temp_change_chart-nc.png.webp" alt="_129755832_avg_temp_change_chart-nc" style="width: 550px;">
+</td>
+</tr></tbody></table>
+<p>The plot illustrating this is the global average temperature relative to the pre-industrial average (1850-1900) shown above and taken from <a href="https://www.bbc.com/news/science-environment-65602293">BBC | Global warming set to break key 1.5C limit for first time</a></p>
+<p>In this plot: - Zero on the Vertical Axis: This represents a 50-year average temperature leading up to the 20th century. - Red and Blue Bars: These bars show annual average temperatures relative to the zero point. Red bars indicate years warmer than the average, and blue bars indicate cooler years.</p>
+<p>It’s important to note that a global temperature rise of about 1.1 degrees Celsius over the last century might seem small, but it signifies a substantial energy imbalance in the Earth’s system. This energy imbalance is a key contributor to various climatic changes.</p>
+<p>The energy required to raise the temperature of the Earth by one degree Celsius is immense.</p>
+</section>
+</section>
+<section id="effects-of-temperature-rise" class="level3">
+<h3 class="anchored" data-anchor-id="effects-of-temperature-rise">Effects of Temperature Rise</h3>
+<p>The consequences of this temperature rise are diverse, including:</p>
+<ul>
+<li>Extreme Weather Events: Such as droughts and floods.</li>
+<li>Melting Glaciers and Polar Ice Caps: Leading to rising sea levels.</li>
+<li>Impact on Marine Life: Changes in ocean temperatures and chemistry affect marine ecosystems.</li>
+</ul>
+<section id="the-role-of-human-activities" class="level4">
+<h4 class="anchored" data-anchor-id="the-role-of-human-activities">The Role of Human Activities</h4>
+<p>Human activities, particularly the burning of fossil fuels like coal, oil, and gas, have been central to the rise in global temperatures.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.Global-energy-substitution.png" alt="1.Global-energy-substitution" style="width: 550px;">
+</td>
+</tr></tbody></table>
+<p>Burning fossil fuels releases greenhouse gases (GHGs) like carbon dioxide (CO2), methane (CH4), and others into the atmosphere. These gases trap heat from the sun, leading to a warming effect known as the greenhouse effect.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.Co2-levels-800k.jpg" alt="1.Co2-levels-800k" style="width: 450px;">
+</td>
+<td>
+<img src="./images/1.introduction/1.cO2.png" alt="CO2" style="width: 550px;">
+</td>
+</tr></tbody></table>
+<ul>
+<li>Measurements of air in ice cores show that for the past 800,000 years up until the 20th century, the atmospheric CO2 concentration stayed within the range 170 to 300 parts per million (ppm), making the recent rapid rise to more than 400 ppm over 200 years particularly remarkable.</li>
+</ul>
+<p>see also <a href="https://rateofchange.substack.com/p/the-rate-of-change-july-15-2019">here</a> and <a href="https://www.bas.ac.uk/data/our-data/publication/ice-cores-and-climate-change/">here</a>.</p>
+<p>The levels of CO2 in the atmosphere have been remarkably stable over millennia but have shown an unprecedented rise in the last century. Understanding this requires examining historical data:</p>
+<ul>
+<li>Ice Core Data: Scientists analyze ice cores to measure historical CO2 levels. These cores contain air bubbles that serve as time capsules, preserving atmospheric samples from the past.</li>
+<li>Trends Observed: Historical data shows a dramatic increase in CO2 levels, especially in recent decades. This rise is directly linked to human activities, particularly the burning of fossil fuels.</li>
+<li>Acceleration of CO2 Increase: The rate of increase in CO2 levels is not constant but accelerating. This acceleration implies a continually increasing rate of heat trapping in the atmosphere.</li>
+</ul>
+<p>See also <a href="https://climate.nasa.gov/news/2616/core-questions-an-introduction-to-ice-cores/">NASA | Ice Cores</a></p>
+</section>
+<section id="global-temperature-anomalies" class="level4">
+<h4 class="anchored" data-anchor-id="global-temperature-anomalies">Global Temperature Anomalies</h4>
+<p>Lobal warming is not uniform across the Earth. Variations exist due to factors like geographical location, land-sea distribution, and atmospheric circulation patterns.</p>
+<div id="9ec7b6c5-e52b-4fa6-ac32-76da02c460f6" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> YouTubeVideo</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>YouTubeVideo(<span class="st">'LwRTw_7NNJs'</span>, width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">600</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+        <iframe width="800" height="600" src="https://www.youtube.com/embed/LwRTw_7NNJs" frameborder="0" allowfullscreen=""></iframe>
+        
+</div>
+</div>
+</section>
+<section id="oceans-are-absorbing-almost-all-of-the-globes-excess-heat" class="level4">
+<h4 class="anchored" data-anchor-id="oceans-are-absorbing-almost-all-of-the-globes-excess-heat"><a href="https://www.nytimes.com/interactive/2016/09/12/science/earth/ocean-warming-climate-change.html">Oceans Are Absorbing Almost All of the Globe’s Excess Heat</a></h4>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.ocean-warming.webp" alt="Ocean Warming" style="width: 650px;">
+</td>
+</tr></tbody></table>
+<ul>
+<li>More than 90 percent of the excess heat retained by the Earth as a result of increased greenhouse gases has been absorbed by the oceans.</li>
+<li>Ocean temperatures have been consistently rising for at least three decades.</li>
+</ul>
+<p><strong>Marine Robotics and Underwater Systems are central to this problem</strong></p>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/Understanding-the-Arctic.mp4" width="600" height="400" frameborder="0">
+</video>
+<figcaption>
+MIT Understanding the Arctic. Ref. https://news.mit.edu/2021/navigating-beneath-arctic-ice-0423
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="celebrating-marie-tharp" class="level3">
+<h3 class="anchored" data-anchor-id="celebrating-marie-tharp">Celebrating Marie Tharp</h3>
+<ul>
+<li>American geologist and oceanographic cartographer who helped prove the theories of continental drift.</li>
+<li>She co-published the first world map of the ocean floors.</li>
+<li>On Nov 21, 1998, the Library of Congress named Tharp one of the greatest cartographers of the 20th century.</li>
+</ul>
+<div id="a586c571" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="dt">&lt;</span><span class="kw">iframe</span><span class="ot"> src</span><span class="op">=</span><span class="st">"https://www.google.com/doodles/celebrating-marie-tharp"</span><span class="ot"> width</span><span class="op">=</span><span class="st">"1000"</span><span class="ot"> height</span><span class="op">=</span><span class="st">"600"</span><span class="dt">&gt;&lt;/</span><span class="kw">iframe</span><span class="dt">&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<iframe src="https://www.google.com/doodles/celebrating-marie-tharp" width="1000" height="600"></iframe>
+</div>
+</div>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/11.the-world-ocedan-floor-tharp.jpeg" alt="World ocean floor" style="width: 700px;">
+</td></tr>
+</tbody></table>
+<p><a href="https://www.loc.gov/item/2010586277/">Manuscript painting of Heezen-Tharp “World ocean floor” map by Berann (~1955)</a></p>
+</section>
+</section>
+<section id="finding-the-endurance" class="level2">
+<h2 class="anchored" data-anchor-id="finding-the-endurance">Finding the Endurance</h2>
+<p>The wreck of Sir Ernest Shackleton’s ship ‘Endurance’ has been found off the coast of Antarctica more than a century after it sank.</p>
+<p><em>Historian Dan Snow, who is a member of the Endurance22 expedition team, said the discovery was ‘like a miracle’ and the ship is ‘almost perfectly preserved’</em></p>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/Shackleton's_lost_ship_Endurance_discovered_after_107_years.mp4" width="600" height="400" frameborder="0">
+</video>
+<!--figcaption>Shackleton's 'Endurance discovered after 107 years. Historian Dan Snow, who is a member of the Endurance22 expedition team, said the discovery was 'like a miracle' and the ship is 'almost perfectly preserved'.</figcaption-->
+</figure>
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/9.shackelton-expedition.webp" alt="endurace" style="width: 550px;">
+</td><td>
+<img src="./images/1.introduction/8.endurance-vessel.webp" alt="black-box" style="width: 550px;">
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/7.endurance.webp" alt="black-box" style="width: 550px;">
+</td>
+<td>
+<img src="./images/1.introduction/10.auv-endurance.webp" alt="black-box" style="width: 550px;">
+</td>
+</tr></tbody></table>
+<p>see <a href="https://www.bbc.com/news/science-environment-60662541">this</a> for more!</p>
+<hr>
+</section>
+<section id="blackbox-recovery" class="level2">
+<h2 class="anchored" data-anchor-id="blackbox-recovery">Blackbox recovery</h2>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/Second-Air-France-black-box-recovered.mp4" width="500" height="340">
+<figcaption>
+Air France 447 black box recovey
+</figcaption>
+</video></figure>
+</td>
+</tr>
+</tbody></table>
+<p>Air France 447 crash from Rio to Paris, June 1st, 2009</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/3.bbc-flight.png" alt="flight-bbc" style="width: 650px;">
+</td>
+</tr></tbody></table>
+<pre><code>&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.black-box.jpeg" alt="black-box" style="width: 250px;">
+</td>
+<td>
+<img src="./images/1.introduction/2.image-website-of-Frances--007.webp" alt="black-box" style="width: 250px;">
+</td>
+
+</tr></tbody></table>
+<p><strong>Countries involved</strong> - Origin - Destination - Airspace at accident location - Airline company - Engines manufactures - Insurance companies - Passengers citizenship</p>
+<p><strong>Recovery</strong></p>
+<ul>
+<li>13 aircrafts and 2 helicopters (Brasil, France, USA, Spain)</li>
+<li>8 Ships (Brasil, France, USA)</li>
+<li>2 6000m Manned Submarine (the Nautile)</li>
+<li>1 Nuclear Submarine (France)</li>
+<li>3 Autonomous Underwater Vehicles (AUVs)</li>
+<li>1 Remotely Operated Vehicle (ROV)</li>
+<li>1 million <span class="math inline">\(km^2\)</span> of ocean explored
+<ul>
+<li>According to Wikipedia, the continental United States of America (the 48 states between Canada and Mexico) is 8,080,464.4 square kilometers.</li>
+</ul></li>
+<li>cost <span class="math inline">\(\approx 30\)</span> MEuros (in 2009)</li>
+<li><strong>completed 2Y after the crash</strong></li>
+</ul>
+<pre><code>&lt;td&gt; &lt;img src="./images/1.introduction/6.remora.png" alt="black-box" style="height: 250px;"/&gt; &lt;/td&gt; 
+&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/4.nautile.jpeg" alt="flight-bbc" style="height: 250px;">
+</td><td>
+<img src="./images/1.introduction/5.abyss.jpeg" alt="black-box" style="height: 250px;">
+</td>
+
+</tr></tbody></table>
+</section>
+<section id="installation-of-procution-well-jumper" class="level2">
+<h2 class="anchored" data-anchor-id="installation-of-procution-well-jumper">Installation of Procution Well Jumper</h2>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/09 Well Jumper Installation.mp4" width="600" height="400" frameborder="0">
+</video>
+<figcaption>
+Well Jumper Installation
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Vehicle localised using acoustic baselines</li>
+</ul>
+</section>
+<section id="operating-rovs" class="level2">
+<h2 class="anchored" data-anchor-id="operating-rovs">Operating ROVs</h2>
+<ul>
+<li><p>Remotely operated vehicles, or ROVs, allow us to explore the ocean without actually being in the ocean.</p></li>
+<li><p>These underwater machines are controlled by a person typically on a surface vessel, using a joystick in a similar way that you would play a video game. A group of cables, or tether, connects the ROV to the ship, sending electrical signals back and forth between the operator and the vehicle.</p></li>
+<li><p>Most ROVs are equipped with at least a still camera, video camera, and lights, meaning that they can transit images and video back to the ship. Additional equipment, such as a manipulator or cutting arm, water samplers, and instruments that measure parameters like water clarity and temperature, may also be added to vehicles to allow for sample collection.</p></li>
+<li><p>First developed for industrial purposes, such as internal and external inspections of underwater pipelines and the structural testing of offshore platforms, ROVs are now used for many applications, many of them scientific.</p></li>
+<li><p>They have proven extremely valuable in ocean exploration and are also used for educational programs at aquaria and to link to scientific expeditions live via the Internet.</p></li>
+<li><p>ROVs range in size from that of a small computer to as large as a small truck. Larger ROVs are very heavy and need other equipment such as a winch to put them over the side of a ship and into the water.</p></li>
+<li><p>While using ROVs eliminates the “human presence” in the water, in most cases, ROV operations are simpler and safer to conduct than any type of occupied-submersible or diving operation because operators can stay safe (and dry!) on ship decks.</p></li>
+<li><p>ROVs allow us to investigate areas that are too deep for humans to safely dive themselves, and ROVs can stay underwater much longer than a human diver, expanding the time available for exploration.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td style="width:650px">
+<figure class="figure">
+<img src="./images/1.introduction/12.rov-whoi-control-room.jpeg" alt="WHOI Engineer Jared Schwartz pilots the remotely operated vehicle, Saab Seaeye Falcon to investigate an unrecovered mooring anchor. (Photo by Daniel Hentz, Woods Hole Oceanographic Institution)" style="width: 650px;" class="figure-img">
+<figcaption>
+WHOI Engineer Jared Schwartz pilots the remotely operated vehicle, Saab Seaeye Falcon to investigate an unrecovered mooring anchor. (Photo by Daniel Hentz, Woods Hole Oceanographic Institution). Ref. https://www.whoi.edu/news-insights/content/flight-of-the-underwater-falcon/
+</figcaption>
+</figure>
+</td></tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/13.rov-control-full-view.png" alt="13.rov-control-full-view" style="width: 350px;">
+</td>
+<td>
+<img src="./images/1.introduction/14.rov-control.png" alt="black-box" style="width: 350px;">
+</td>
+</tr></tbody></table>
+<p>Old approach:</p>
+<ul>
+<li>Off-shore operator acts on the vehicle</li>
+<li>Off-shore operator controls the arm motors directly (typically limited number of joints)</li>
+<li>Interactions between arm and vehicle’s body</li>
+<li>Voice coordination between the two</li>
+<li>Manned Visual Feedback</li>
+</ul>
+<section id="rov-more-recently" class="level4">
+<h4 class="anchored" data-anchor-id="rov-more-recently">ROV More recently</h4>
+<table>
+<tbody><tr>
+<td style="width:600px">
+<figure class="figure">
+<video controls="" src="./videos/The first dive of the newly rebuilt Isis ROV.mp4" width="600" height="400" frameborder="0">
+</video>
+<pre><code>&lt;figcaption&gt;Video by the National Oceanography Centre of the UK. 
+    Ref. https://www.youtube.com/watch?v=d6_dc25U4Uk&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+</figure></td></tr>
+</tbody></table>
+<p><em>On the18 August 2012 Isis, the UK’s iconic robotic submarine or ROV (Remotely Operated Vehicle) entered the cold waters of the Atlantic 300 miles from the coast of Spain. The NERC research vessel RRS James Cook carried the newly rebuilt vehicle on its first sea trials after an accident in early 2011 seriously damaged the research ROV.</em></p>
+<ul>
+<li>Structured environments
+<ul>
+<li>Operators know how the environment looks like</li>
+<li>ROV have automatic controls for:
+<ul>
+<li>station keeping (attitude and position) using up to 8 motors (depends on how many DoF they can control)</li>
+</ul></li>
+<li>Force feedback to control the arm</li>
+<li>Operator acts on a representation of the manipulator (task space)</li>
+</ul></li>
+</ul>
+</section>
+<section id="working-with-rovs" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-rovs">Working with ROVs</h3>
+<ul>
+<li>13 people / 24h
+<ul>
+<li>8 Pilot/Technicians (4h shift)</li>
+<li>4 Supervisors (4h shift)</li>
+<li>1 Superintendent (on call)</li>
+</ul></li>
+<li>How long onboard?
+<ul>
+<li>4 to 6 weeks</li>
+<li>ROV crews work 6h 7/7</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td style="width:650px">
+<figure class="figure">
+<img src="./images/1.introduction/15.ROV-Jason-dark-2048x1152.jpeg" alt="ROV Jason helps recover two other underwater vehicles. (Photo by Woods Hole Oceanographic Institution)" style="width: 650px;" class="figure-img">
+<figcaption>
+Photo by Woods Hole Oceanographic Institution. Ref. https://www.whoi.edu/press-room/news-release/whois-rov-jason-assists-with-the-successful-recovery-of-two-other-underwater-vehicles/
+</figcaption>
+</figure>
+</td></tr>
+</tbody></table>
+<p><em>Ocean Exploration Trust’s ROV Hercules and Argus were stranded on the seafloor last week, but were recovered thanks to cooperation from several ocean science and exploration institutions Woods Hole, MA — On Thursday, September 2, 2021 the remotely operated vehicle (ROV) Jason succeeded in helping recover two other underwater vehicles, ROV Hercules and Argus, that were stranded on the seafloor off the coast of British Columbia last week when their tether to the surface broke. The operation came about as a result of close collaboration and mutual aid that are a hallmark of the ocean science and exploration community and the maritime community as a whole.</em></p>
+</section>
+</section>
+<section id="renewable-energy" class="level2">
+<h2 class="anchored" data-anchor-id="renewable-energy">Renewable energy</h2>
+<ul>
+<li>Marine energy: Tidal stream and wave power</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/TIDAL POWER - ALSTOM Making the Most of Ocean Resources.mp4" width="600" height="400" frameborder="0">
+</video>
+<pre><code>&lt;figcaption&gt;Video by the Alstom.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+</figure></td></tr>
+</tbody></table>
+<ul>
+<li><p>Power/communication cables</p></li>
+<li><p>Fisheries and aquaculture</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td style="width:400px">
+<figure class="figure">
+<img src="./images/1.introduction/16.fisheries.png" alt="Fisheries" style="width: 400px;" class="figure-img">
+<figcaption>
+NTNU AMOS - Centre for Autonomous Marine Operations and Systems
+</figcaption>
+</figure>
+</td></tr>
+</tbody></table>
+<ul>
+<li>Food</li>
+<li>Health</li>
+<li>Security</li>
+<li>Safe</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/Fish tracked by Tidal, an X company with Alphabet.mp4" width="600" height="400" frameborder="0">
+</video>
+<pre><code>&lt;figcaption&gt;Video by Google.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+</figure></td></tr>
+</tbody></table>
+<section id="other-applications" class="level3">
+<h3 class="anchored" data-anchor-id="other-applications">Other applications</h3>
+<ul>
+<li>Harbour Security</li>
+<li>Mine-Counter Measurements</li>
+<li>Intelligence, Surveillance and Reconnaissance</li>
+<li>Inspections, Survey, Monitoring</li>
+</ul>
+<div id="6b54d6f3-8cad-4307-9f3d-c7a71dc75bea" class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> YouTubeVideo</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>display(YouTubeVideo(<span class="st">'tefDNodT1jY'</span>, width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">600</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+        <iframe width="800" height="600" src="https://www.youtube.com/embed/tefDNodT1jY" frameborder="0" allowfullscreen=""></iframe>
+        
+</div>
+</div>
+</section>
+</section>
+<section id="autonomous-vehicles" class="level2">
+<h2 class="anchored" data-anchor-id="autonomous-vehicles">Autonomous Vehicles</h2>
+<ul>
+<li>ROV</li>
+<li>AUV</li>
+<li>Gliders</li>
+<li>Surface vehicles</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.rov-component-diagram-1024x455.jpg" alt="1.rov-component-diagram-1024x455.jpg" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+<pre><code>&lt;td&gt; &lt;img src="./images/1.introduction/1.auv-example.png" alt="1.auv-example" style="height: 350px;"/&gt; &lt;/td&gt;    
+&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.Examples-of-currently-available-AUVs-illustrating-the-diversity-in-size-and-shape-in-AUV_W640.jpg" alt="1.Examples-of-currently-available-AUVs-illustrating-the-diversity-in-size-and-shape-in-AUV_W640.jpg" style="height: 350px;">
+</td>
+
+</tr></tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.A-sample-of-current-propeller-driven-gray-and-gliders-black-AUVs-comparing-their_W640.jpg" alt="1.A-sample-of-current-propeller-driven-gray-and-gliders-black-AUVs-comparing-their_W640.jpg" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.noc-res-mars-glider-schematic.jpg" alt="1.noc-res-mars-glider-schematic.jpg" style="height: 350px;">
+</td>
+<td>
+<img src="./images/1.introduction/1.Figure1-1.png" alt="1-Figure1-1" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Energetic efficient zig zag movement by adjusting resoirting forces</li>
+</ul>
+<section id="wavegliders-and-interventions" class="level3">
+<h3 class="anchored" data-anchor-id="wavegliders-and-interventions">Wavegliders and Interventions</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.waveglider.jpg" alt="1.waveglider.jpg" style="height: 350px;">
+</td>
+<td>
+<img src="./images/1.introduction/1.girona-500.png" alt="1.girona-500.png" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="bioinspired-robotics" class="level3">
+<h3 class="anchored" data-anchor-id="bioinspired-robotics">Bioinspired Robotics</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.44295_2023_10_Fig3_HTML.png" alt="1.44295_2023_10_Fig3_HTML" style="height: 350px;">
+</td>
+<td>
+<img src="./images/1.introduction/1.Eelume_Ekstrabilde_U_tekst.jpg" alt="1.Eelume_Ekstrabilde_U_tekst.jpg" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="costs" class="level3">
+<h3 class="anchored" data-anchor-id="costs">Costs</h3>
+<ul>
+<li>1 day of operation for a research vessel: 50K Euros</li>
+<li>1 day of operation with a working class ROV: 100-300K Euros</li>
+<li>1 Robotic Arm suitable for underwater work: 400K Euros</li>
+<li>1 day of grophysical surveys: 1-3M Euros</li>
+<li>Air France black box recovery: 30M Euros</li>
+<li>Vessel for geophyical surveys (From design to launch): 200M Euros</li>
+</ul>
+</section>
+</section>
+<section id="marine-autonomy-trends" class="level2">
+<h2 class="anchored" data-anchor-id="marine-autonomy-trends">Marine Autonomy Trends</h2>
+<p>(Adapted from <a href="https://oceanai.mit.edu/2.680/pmwiki/pmwiki.php?n=Site.Lectures">here</a>)</p>
+<img src="./images/1.introduction/17.autonomy-trends-11.png" alt="Autonomy Trends" style="width: 550px;"><table>
+
+</table>
+<img src="./images/1.introduction/17.autonomy-trends-21.png" alt="Autonomy Trends" style="width: 550px;"><table>
+
+</table>
+<section id="early-commercial-marine-vehicles" class="level3">
+<h3 class="anchored" data-anchor-id="early-commercial-marine-vehicles">Early commercial marine vehicles</h3>
+<p>At the turn of the century, there weren’t many commercial marine vehicles for sale</p>
+<figure class="figure">
+<img src="./images/1.introduction/18.remus-and-bluefin.png" alt="remus and bluefin" style="width: 550px;" class="figure-img">
+</figure>
+<figure class="figure">
+<img src="./images/1.introduction/19.hugin.png" alt="hugin" style="width: 550px;" class="figure-img">
+</figure>
+</section>
+</section>
+<section id="early-autonomy" class="level2">
+<h2 class="anchored" data-anchor-id="early-autonomy">Early Autonomy</h2>
+<figure class="figure">
+<img src="./images/1.introduction/20.payload-autonomy.png" alt="hugin" style="width: 550px;" class="figure-img">
+</figure>
+<ul>
+<li><p>Researcher/Scientists were not content to be limited to the vehicle manufacturer’s autonomy system.</p></li>
+<li><p>How can they run the autonomy system from the payload computer, i.e., Payload Autonomy</p></li>
+<li><p><strong>Do you see limitations or concerns with this?</strong></p></li>
+</ul>
+<p><em>Autonomy can be complex, sometime is data driven, might be not deterministic and might increase the risk of losing a vehicle. Losing an AUV might set a research group back many years.</em></p>
+</section>
+<section id="marine-autonomy-trends-1" class="level2">
+<h2 class="anchored" data-anchor-id="marine-autonomy-trends-1">Marine Autonomy Trends</h2>
+<ul>
+<li>Scripted to Adaptive to Human-Machine Systems</li>
+</ul>
+<pre><code>&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/21.waypoints.png" alt="waypoints" style="height: 250px;">
+</td><td>
+<img src="./images/1.introduction/22.adaptive-autonomy.png" alt="adaptive/collaborative" style="height: 250px;">
+</td>
+
+</tr></tbody></table>
+<ul>
+<li><p>Scripted: trajectory largely determined before the vehicle is launched.</p></li>
+<li><p>Sensing: Robot needs to know where it is.</p></li>
+<li><p>Adaptive, collaborative: trajectory depends in part on what collaborative vehicles are doing</p></li>
+<li><p>Sensing: Robot needs to know about others</p></li>
+</ul>
+<section id="scripted-missions" class="level3">
+<h3 class="anchored" data-anchor-id="scripted-missions">Scripted Missions</h3>
+<ul>
+<li>20 years ago, marine autonomy was not a familiar term</li>
+<li>Robots went from waypoint to waypoint and were retrieved.</li>
+<li>Scientist then offloaded the data for analysis.</li>
+<li>The control system, navigation system and all software, were part of what the vehicle manufacturer sold with the platform.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/21.waypoints.png" alt="waypoints" style="height: 250px;"><br>
+
+</td></tr>
+</tbody></table>
+<ul>
+<li><strong>Can you think of limitations? and of advantages?</strong></li>
+</ul>
+</section>
+<section id="adaptive-autonomy" class="level3">
+<h3 class="anchored" data-anchor-id="adaptive-autonomy">Adaptive autonomy</h3>
+<ul>
+<li>10 years later (10 years ago): the rise of adaptive autonomy.</li>
+<li>Sensor data was no longer just retrieved, post-mission.</li>
+<li>Robots processed sensor data during the mission and adapted their mission trajectories.</li>
+<li>Unscripted, dynamic missions: the autonomy design space becomes huge.</li>
+<li>Vehicle manafurers focused their supported missions based on core users.</li>
+<li>Opened payload interface to allow third party autonomy (industry, academic labs, defense labs)</li>
+</ul>
+<pre><code>    &lt;td&gt;&lt;/td&gt;
+&lt;td&gt; &lt;img src="./images/1.introduction/22.adaptive-autonomy-reacquire.png" alt="23.human-machine" style="height: 350px;"/&gt; &lt;/td&gt;
+&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/23.adaptive-complexity.png" alt="waypoints" style="height: 350px;">
+</td><td>
+</td>
+
+</tr></tbody></table>
+</section>
+</section>
+<section id="marine-autonomy-trends-2" class="level2">
+<h2 class="anchored" data-anchor-id="marine-autonomy-trends-2">Marine Autonomy Trends</h2>
+<ul>
+<li>MOOS-IvP: Increased level of adoption (original and highly recommended slide pack available <a href="https://oceanai.mit.edu/2.680/pmwiki/pmwiki.php?n=Site.Lectures">here</a></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/25.MOOS-vehicles.png" alt="MOOS-IvP" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+<section id="a-tangible-example" class="level3">
+<h3 class="anchored" data-anchor-id="a-tangible-example">A tangible example</h3>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/Automated-Cargo-Ships-The-Next-Transport-Revolution.mp4" width="600" height="400" frameborder="0">
+</video>
+<pre><code>&lt;figcaption&gt;Wall Street Journal August 2016.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+</figure></td></tr>
+</tbody></table>
+<p>And a blog post on the <a href="https://blog.geogarage.com/2018/12/rolls-royce-demonstrates-fully.html">World’s first autonomous ferry</a></p>
+<img src="./images/1.introduction/17.autonomy-trends-31.png" alt="Autonomy Trends" style="width: 550px;"><table>
+
+</table>
+</section>
+<section id="autonomy-trends" class="level3">
+<h3 class="anchored" data-anchor-id="autonomy-trends">Autonomy Trends</h3>
+<ul>
+<li>After more than a decade of software innovation in the payload, there are now many good options for specialized autonomy, sensing, navigation and communications</li>
+<li>Many of these software solutions come from different developers/vendors.</li>
+</ul>
+<img src="./images/1.introduction/17.autonomy-trends-32.png" alt="Autonomy Trends" style="width: 750px;"><table>
+
+</table>
+<ul>
+<li>Great benefits for end-users when best-of-practice solutions can be combined</li>
+<li>Key challenge: how to design system protocols/messages to develop systems of autonomy systems</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/24.human-machine.png" alt="23.human-machine" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="next-challenges" class="level2">
+<h2 class="anchored" data-anchor-id="next-challenges">Next Challenges</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/27.roles-for-robots.png" alt="Roles and next challenges" style="height: 450px;">
+</td>
+</tr>
+</tbody></table>
+See <a href="./syllabus.html" target="_blank" style="font-size: 16px;">00_Syllabus.ipynb</a>
+
+<p>for course structure.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The SONAR equations – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="The SONAR equations – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/9.sonar-equations/1.passive-sonar.png">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="passive sonar">
+<meta property="og:image:height" content="288">
+<meta property="og:image:width" content="654">
+<meta name="twitter:title" content="The SONAR equations – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/9.sonar-equations/1.passive-sonar.png">
+<meta name="twitter:image:alt" content="passive sonar">
+<meta name="twitter:image-height" content="288">
+<meta name="twitter:image-width" content="654">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./the_sonar_equations.html">The SONAR equations</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#passive-sonar-equation" id="toc-passive-sonar-equation" class="nav-link active" data-scroll-target="#passive-sonar-equation">Passive SONAR equation</a>
+  <ul class="collapse">
+  <li><a href="#detection-threshold-and-signal-eccess" id="toc-detection-threshold-and-signal-eccess" class="nav-link" data-scroll-target="#detection-threshold-and-signal-eccess">Detection Threshold and Signal Eccess</a></li>
+  </ul></li>
+  <li><a href="#active-monostatic-sonar-equation" id="toc-active-monostatic-sonar-equation" class="nav-link" data-scroll-target="#active-monostatic-sonar-equation">Active monostatic SONAR equation</a>
+  <ul class="collapse">
+  <li><a href="#target" id="toc-target" class="nav-link" data-scroll-target="#target">Target</a></li>
+  <li><a href="#ambient-noise" id="toc-ambient-noise" class="nav-link" data-scroll-target="#ambient-noise">Ambient Noise</a></li>
+  </ul></li>
+  <li><a href="#active-bistatic-sonar-equation" id="toc-active-bistatic-sonar-equation" class="nav-link" data-scroll-target="#active-bistatic-sonar-equation">Active bistatic SONAR equation</a></li>
+  <li><a href="#determining-sonar-performance" id="toc-determining-sonar-performance" class="nav-link" data-scroll-target="#determining-sonar-performance">Determining SONAR performance</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The SONAR equations</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<p>The “sonar equation” is a systematic way of estimating the expected signal-to-noise ratios for sonar (SOund Navigation And Ranging) systems. - The signal-to-noise ratio determines whether or not a sonar will be able to detect a signal in the presence of background noise in the ocean. - It takes into account the source level, sound spreading, sound absorption, reflection losses, ambient noise, and receiver characteristics. - The sonar equation is used to estimate the expected signal-to-noise ratios for all types of sonar systems. - Slightly different versions of the sonar equation are used for active (echo-ranging) and passive sonar systems.</p>
+<p>Fundamental equations through which we can measure the performance of an acoustic system (a SONAR).</p>
+<p>A sonar system can be influenced by a number of factors: - environmental conditions (ambient noise, acoustic loss, etc.) - how the sonar system is built (geometry, frequency, array length, etc.)</p>
+<p>The combination of these aspects give us the overall performance of a specific system in a specific environment</p>
+<p>For ex. - Bathymetric survey: the right sonar depends on the expected environment when I need to measure the bathymetry in the area of interest</p>
+<p>What this means is that the datasheet is usually not enough to characterise the operational performance of the sonar</p>
+<ul>
+<li>Sonar equations are relatively simple equations that express an intensity balance (in dB)</li>
+<li>Through the SONAR equations we obtain the Signal-to-Noise (SNR) at the receiver</li>
+<li>And hence the maximum range of the SONAR</li>
+</ul>
+<p>Note: - acoustic intensity depends on frequency, but we will see that in the sonar equations frequency is not explicit - what this means is that applying the same equations at different frequencies we obtain different results</p>
+<ul>
+<li>The same system can have different operational performance in space and time because space and time change the environment</li>
+<li>Changing the source-receiver geometry based on the operational environmental characteristics we can optimise the SONAR performance (we operate the system better)
+<ul>
+<li>If our sonar is deployed on robots that can move through the water column this can make a big impact</li>
+</ul></li>
+</ul>
+<section id="passive-sonar-equation" class="level2">
+<h2 class="anchored" data-anchor-id="passive-sonar-equation">Passive SONAR equation</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/9.sonar-equations/1.passive-sonar.png" alt="passive sonar" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The SONAR is a receiver that listens for sound</li>
+<li>A source is emitting a signal with intensity <span class="math inline">\(SL\)</span> (Source Level)
+<ul>
+<li><p>Tonals (monofrequency components)</p>
+<ul>
+<li>Propulsion machinery (main motors, reductions, etc.)</li>
+<li>Auxiliary machinery (pumps, generators, etc)</li>
+<li>etc.</li>
+</ul>
+<p><span class="math inline">\(SL\)</span>: Level of acoustic intensity 1m from the source</p></li>
+<li><p>Broadband noise</p>
+<ul>
+<li>Cavitation at or near the propeller</li>
+<li>Radiated flow noise</li>
+<li>etc</li>
+</ul>
+<p><span class="math inline">\(SL = SSL + 10\log B\)</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(SSL\)</span> is the pressure spectrum level 1m from the source</li>
+<li><span class="math inline">\(B\)</span> is the bandwidth of the system in Hz (if SSL is not contant over B, it needs to be split in smaller bands)</li>
+</ul></li>
+</ul></li>
+<li>All the Ambient Noise present has an intensity <span class="math inline">\(N\)</span> (e.g., marine traffic, etc.)</li>
+<li>The receiver receives a signal (echo level) with intensity</li>
+</ul>
+<p><span class="math display">\[
+EL = SL - TL
+\]</span></p>
+<ul>
+<li>Transmission Loss (TL) includes intrinsic attenuation, geometric attenuation, interference (which are also due to the variation of the sound speed in the water column)
+<ul>
+<li>TL is due to the environmental effects (except for the noise)</li>
+<li>There might be one loss that is predominant, for ex. at high freq. TL mostly due to intrinsic attenuation, at low frequency (and deep water) is geometric attenuation</li>
+</ul></li>
+<li>The equation depends on the frequency so is valid if all the quantities have the same frequencies
+<ul>
+<li>Note that interference which depends on the phase is strongly dependent on the frequency and this has a direct effect on the TL</li>
+</ul></li>
+</ul>
+<p>The Signal-to-Noise ratio in dB:</p>
+<p><span class="math display">\[
+SNR = (SL - TL) - N
+\]</span></p>
+<section id="detection-threshold-and-signal-eccess" class="level3">
+<h3 class="anchored" data-anchor-id="detection-threshold-and-signal-eccess">Detection Threshold and Signal Eccess</h3>
+<ul>
+<li><p>We are interested in listening to some signal (EL) which is due to the sound emitted by the source less than what is loss due to propagation.</p></li>
+<li><p>Given that there is also Ambient noise, when can I detect the signal from the Ambient noise?</p></li>
+<li><p>We define a Detection Threshold (DT) (typically DT=0, SNR &gt; 0 dB)</p>
+<ul>
+<li>Choose the right DT value is complex</li>
+<li>Trade off between probability of detecting something but also having as little false alarms as possible</li>
+<li>Depends on the application</li>
+</ul></li>
+<li><p>The detection process consists of designating a threshold which, when exceed, causes a detection to be recorded.</p></li>
+<li><p>If the signal is much stronger than the noise, it is clear that a threshold can be defined that will allow valid signals to be recorded while ignoring the noise.</p></li>
+<li><p>However, when the signal and noise are of comparable size, any threshold that will catch a reasonable number of valid signals will also record “detections” when a valid signal is absent.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/9.sonar-equations/2.detection-threshold-1.png" alt="detection threshold" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Adapted from An introduction to the sonar equations with applications, 1976, pag. 81</em></p>
+<ul>
+<li>We call Signal Eccess (SE)</li>
+</ul>
+<p><span class="math display">\[
+SE = SNR - DT
+\]</span></p>
+<ul>
+<li>If <span class="math inline">\(SE&gt;0\)</span> we “see” the signal, otherwise we do not see it.</li>
+</ul>
+</section>
+</section>
+<section id="active-monostatic-sonar-equation" class="level2">
+<h2 class="anchored" data-anchor-id="active-monostatic-sonar-equation">Active monostatic SONAR equation</h2>
+<ul>
+<li>Monostatic: source and receiver are <strong>collocated</strong>
+<ul>
+<li>Might be the same transducer or different transducers</li>
+</ul></li>
+<li>Active SONAR:
+<ul>
+<li>The system produces sound</li>
+<li>We have a source with a specific souce (<span class="math inline">\(SL\)</span>)</li>
+</ul></li>
+<li>If souce and receiver are collocated and given that the source has transmitted a signal and I expect to receive a signal
+<ul>
+<li>the signal must be backscatter from something</li>
+<li>the signal must come back to the receiver (which is collocated with the source)</li>
+</ul></li>
+<li>For this reason we need to have a “Target” in the area</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/9.sonar-equations/3.active-monostatic-sonar.png" alt="active monostatic sonar" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<section id="target" class="level3">
+<h3 class="anchored" data-anchor-id="target">Target</h3>
+<ul>
+<li><p>Terminology comes from military applications (active sonars developed to hunt for submarines)</p></li>
+<li><p>For us, target is anything we would like to insonify</p></li>
+<li><p>The backscatter signal depends on the target</p>
+<ul>
+<li>With respect to the wavelength of the signal</li>
+<li>The intensity of the signal reflected by the target is called Target Strength <span class="math inline">\(TS\)</span></li>
+<li>The Target Strength is typically negative!
+<ul>
+<li>Provides information on how much signal is lost through scattering in every direction but the backscatting one</li>
+</ul></li>
+<li>The Target Strength of the target depends on the target shape and where the signal insonifies that specific shape (e.g.&nbsp;submarine)</li>
+</ul></li>
+</ul>
+</section>
+<section id="ambient-noise" class="level3">
+<h3 class="anchored" data-anchor-id="ambient-noise">Ambient Noise</h3>
+<ul>
+<li>We have the usual Ambient Noise (<span class="math inline">\(N\)</span>)</li>
+<li>We also have a different type of noise, called <strong>Reverberation</strong> (<span class="math inline">\(RL\)</span>)
+<ul>
+<li>Depends on the reflections off the boundaries (sea surface, seabed) and off anything that is present in the water column (e.g., schools of fish, etc.)</li>
+<li>We call reverberation the scatting coming from anything that is present in the environment except for the target.</li>
+<li>It can arrive from all directions</li>
+<li>Reverberation would not be present if sonar did not transmit</li>
+</ul></li>
+</ul>
+<section id="signal-to-noise-ratio" class="level4">
+<h4 class="anchored" data-anchor-id="signal-to-noise-ratio">Signal-To-Noise Ratio</h4>
+<p><span class="math display">\[
+SNR = EL - (N+RL)
+\]</span></p>
+<p>And the Signal Eccess is</p>
+<p><span class="math display">\[
+SE = SNR - DT
+\]</span></p>
+<p>A further comment on the Signal-to-Noise Ratio:</p>
+<ul>
+<li><span class="math inline">\(N+RL\)</span> means that the reverberation level is multiplied by the noise level (in dB we sum them up). This is not true, because the two signal physically sum up</li>
+<li><span class="math inline">\(N+RL\)</span> is not a sum even when we are in dB.</li>
+<li>One of the two terms will be dominant and we reduce the equation to only use that term</li>
+</ul>
+<p>This means:</p>
+<ul>
+<li><p>Received signal <span class="math inline">\(s\)</span>: <span class="math display">\[
+S = 10\log|s|
+\]</span></p></li>
+<li><p>Ambient noise <span class="math inline">\(n\)</span>: <span class="math display">\[
+N = 10\log|n|
+\]</span></p></li>
+<li><p>Reverberation level <span class="math inline">\(rl\)</span>: <span class="math display">\[
+RL = 10\log|rl|
+\]</span></p></li>
+<li><p>Signal to noise ratio <span class="math display">\[
+  snr = \frac{|s|}{|n+rl|} \Rightarrow SNR = 10\log\frac{|s|}{|n+rl|} \Rightarrow S-10\log(|n+rl|)
+  \]</span></p></li>
+</ul>
+<p>Let’s analyse <span class="math inline">\(10\log(|n+rl|)\)</span>.</p>
+<p><span class="math display">\[
+10\log(|n+rl|) \le 10\log(|n|+|rl|)
+\]</span></p>
+<p>Let’s consider now the case where the reverberation level is less than the noise (the other case would be the same):</p>
+<p><span class="math display">\[
+|rl| \le |n| \Rightarrow |rl| = k|n|\;\; k \in [0,1]
+\]</span></p>
+<p>This means that</p>
+<p><span class="math display">\[
+10\log(|n|+|rl|) = 10\log((k+1)|n|) = N + 10\log(k+1) \;\; k \in [0,1]
+\]</span></p>
+<ul>
+<li>if <span class="math inline">\(k=0\)</span> (no reverberation): we have the usual noise only equation</li>
+<li>if <span class="math inline">\(k=1\)</span> (reverberation is as loud as the noise) and our expression becomes:</li>
+</ul>
+<p><span class="math display">\[
+N + 10\log(k+1) = N+10\log2 = N + 3 dB
+\]</span></p>
+<p>This means that <span class="math display">\[10\log(|n|+|rl|) \in [N, N+3]\]</span></p>
+<ul>
+<li>Note that if <span class="math inline">\(|rl| &gt; |n|\)</span> we can repeat the same reasoning with noise as a fraction of the reverberation level and we would obtain:</li>
+</ul>
+<p><span class="math display">\[10\log(|n|+|rl|) \in [RL, RL+3]\]</span></p>
+<p>With respect to the larger between <span class="math inline">\(N\)</span> and <span class="math inline">\(RL\)</span>, the intensity in dB of their sum, can only be 3dB more than the maximum between <span class="math inline">\(N\)</span> and <span class="math inline">\(RL\)</span> (which is when they both have the same value). Otherwise is less than 3dB.</p>
+<p>Three dB is the usual approximation level that we use.</p>
+<p><em>In practise, in most cases we can neglect one of the two terms. In the worst case scenario where the two levels are comparable we add 3dB.</em></p>
+<p>We talk about: - Noise limited environments when the ambient noise is prevalent <span class="math inline">\(|rl| \le |n|\)</span>. The SNR only depends on the ambient noise</p>
+<ul>
+<li>Reverberation limited environments when the reverberation level is prevalent <span class="math inline">\(|n| \le |rl|\)</span>. The SNR only depends on the reverberation Level</li>
+</ul>
+<p>For example, consider the case where the noise and the reverberation level have the same intensity level: - <span class="math inline">\(10\log(N)=60dB\)</span> - <span class="math inline">\(10\log(RL)=60dB\)</span></p>
+<p>In natural scale we need to sum them and they are equal:</p>
+<p><span class="math display">\[
+N_{tot} = N+RL=2N \rightarrow 10\log2N = 10\log N + 10\log2 \approx 60 + 3 = 10\log(|n|+|rl|)
+\]</span></p>
+<p>If, for example, <span class="math inline">\(N&gt;RL\)</span>, <span class="math inline">\(N+RL\)</span> will be less than <span class="math inline">\(2N\)</span>, which means that the difference will be less than 3dB</p>
+<p>In the sonar equation <span class="math inline">\(N+RL\)</span> = 63 dB (not 120)</p>
+<ul>
+<li><p>Often our systems are able to measure differences of 3dB..</p></li>
+<li><p>This is a confusing way of representing <span class="math inline">\(N\)</span> and <span class="math inline">\(RL\)</span> in the sonar equation but it is standard terminology.</p></li>
+</ul>
+<p>If we had: <span class="math inline">\(N=60dB\)</span> and <span class="math inline">\(RL=40dB\)</span></p>
+<p>A difference of <span class="math inline">\(20dB\)</span> corresponds to two orders of magnitude, so <span class="math inline">\(RL\)</span> is negligible and in the sonar equation <span class="math inline">\(N+RL\)</span>=60dB</p>
+<p>We are implicity assuming <strong>Reciprocity</strong> - Waves are linear - Environment does not change in time (it can change in space) - Propagation loss in both directions are the same</p>
+</section>
+</section>
+</section>
+<section id="active-bistatic-sonar-equation" class="level2">
+<h2 class="anchored" data-anchor-id="active-bistatic-sonar-equation">Active bistatic SONAR equation</h2>
+<ul>
+<li><p>Active: there is a source of sound that transmits a signal</p></li>
+<li><p>Bistatic: receiver is in a geomtric location that is different from the transmitter</p></li>
+<li><p>Received signal: scattering from the target with some angle (there will be a scattering angle from the target to the receiver)</p></li>
+<li><p>The receiver would receive also scattering from other surfaces or volumes present in the environment</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/9.sonar-equations/4.active-bistatic-sonar-1.png" alt="active bistatic sonar" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<p><span class="math display">\[
+EL = SL - TL_1 - TL_2 + TS
+\]</span></p>
+<p><span class="math display">\[
+SNR = S - (N+RL)
+\]</span></p>
+<p><span class="math display">\[
+SE = SNR - DT
+\]</span></p>
+</section>
+<section id="determining-sonar-performance" class="level2">
+<h2 class="anchored" data-anchor-id="determining-sonar-performance">Determining SONAR performance</h2>
+<ul>
+<li><p>How can these equations determine the range of the system?</p></li>
+<li><p>Let’s focus on a <em>passive</em> sonar (which is easier)</p></li>
+<li><p>DT is fixed (chosen by the operator) and is the only parameter of the SONAR</p></li>
+<li><p>SL is unknown</p></li>
+</ul>
+<p>Let’s consider a specific example:</p>
+<ul>
+<li><p>Deep waters, sound speed is a Munk profile, etc. (this means that we are in a specific area)</p></li>
+<li><p>We want to listen to sound emitted by a marine mammal</p>
+<ul>
+<li><span class="math inline">\(SL=180\)</span>dB (this might come from previous experiments).</li>
+<li><span class="math inline">\(DT=20\)</span>dB</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/9.sonar-equations/5.animal-sound.png" alt="animal sound" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Ambient noise: depends on the frequency (e.g., 2-5kHz). Assuming that the sea state is 2 (no experiment if sea state is too rough), so <span class="math inline">\(N\approx60dB\)</span>.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/14.Composite-of-ambient-noise-spectra-from-Wenz-1962.png" alt="14.Composite-of-ambient-noise-spectra-from-Wenz-1962.png" style="width: 600px">
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>What is the maximum distance of the whale from the receiver at which the receiver can record the whale?</li>
+<li>Assuming that we can neglect interference in this environment.</li>
+<li>This means that for the TL we can consider the intrinsic attenuation and the geometric attenuation. We are between 2-5kHz and if we look at the attenuation vs frequency:</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/28.attenuation.png" alt="attenuation vs frequency" style="width: 350px">
+</td>
+</tr>
+</tbody></table>
+<p>At <span class="math inline">\(5kHz\)</span>, intrinsic attenuation is <span class="math inline">\(\alpha \approx 1 db/km\)</span>.</p>
+<p>The geometric attenuation is <span class="math inline">\(GA \approx 20\log R\)</span> where <span class="math inline">\(R\)</span> is in metres. - If <span class="math inline">\(R=1000m\)</span>, <span class="math inline">\(GA=60dB\)</span></p>
+<p>In this scenario, the main attenuation is geometric. This means:</p>
+<p><span class="math display">\[
+TL = 20\log R
+\]</span></p>
+<p>I have everything I need to use the SONAR equations:</p>
+<ul>
+<li><span class="math inline">\(EL = SL - TL = 180 - 20\log R\)</span></li>
+<li><span class="math inline">\(SNR = SL - TL - N = 180 - 20\log R - 60 = 120 - 20\log R\)</span></li>
+<li><span class="math inline">\(SE =SNR - DT= 120 -20\log R - 20 = 100 -20\log R\)</span></li>
+</ul>
+<p>To have detection, we need <span class="math inline">\(SE \ge0\)</span> and the maximum range where <span class="math inline">\(SE = 0\)</span>, which means:</p>
+<p><span class="math display">\[
+20\log_{10} R = 100 \Rightarrow R = 10^5 m = 100 km
+\]</span></p>
+<p>At this point we could fine tune it using the intrinsic attenuation. With a 100km propagation a <span class="math inline">\(5 dB/km\)</span> (<span class="math inline">\(5\cdot 10^{-3} dB/m\)</span>) loss becomes important.</p>
+<p><span class="math display">\[
+TL = 20\log R + 5\cdot10^{-3}R
+\]</span></p>
+<p>The equation becomes:</p>
+<p><span class="math display">\[
+20\log_{10} R + 5\cdot10^{-3}R = 100
+\]</span></p>
+<p>This is a transcendental equation. We can solve it trying a few values to get a maximum range of about 5km.</p>
+<p>I can detect marine mammals up to 5km. I can change the DT to extend the maximum range, but I would increase the number of false alarms as well.</p>
+<div id="bdec014d" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> R <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1000</span>, <span class="dv">10000</span>, <span class="dv">1000</span>):</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    SE <span class="op">=</span> <span class="dv">20</span><span class="op">*</span>np.log10(R) <span class="op">+</span> <span class="fl">5e-3</span><span class="op">*</span>R <span class="op">-</span> <span class="dv">100</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="bu">abs</span>(SE) <span class="op">&lt;</span> <span class="dv">5</span>: </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f'SE:</span><span class="sc">{</span>SE<span class="sc">}</span><span class="ss">, max range: </span><span class="sc">{</span>R<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">break</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>SE:-1.020599913279625, max range: 5000</code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

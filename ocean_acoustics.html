@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Ocean Acoustics – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Ocean Acoustics – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/2.ocean-acoustics/3.collodon_sound_speed_measurement.jpeg">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="ssp-measurement">
+<meta name="twitter:title" content="Ocean Acoustics – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/2.ocean-acoustics/3.collodon_sound_speed_measurement.jpeg">
+<meta name="twitter:image:alt" content="ssp-measurement">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ocean_acoustics.html">Ocean Acoustics</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#acoustic-propagation-in-the-ocean" id="toc-acoustic-propagation-in-the-ocean" class="nav-link active" data-scroll-target="#acoustic-propagation-in-the-ocean">Acoustic Propagation in the Ocean</a></li>
+  <li><a href="#acoustic-directionality" id="toc-acoustic-directionality" class="nav-link" data-scroll-target="#acoustic-directionality">Acoustic Directionality</a></li>
+  <li><a href="#sonar-system" id="toc-sonar-system" class="nav-link" data-scroll-target="#sonar-system">Sonar System</a></li>
+  <li><a href="#reflections-at-the-water-bottom-interface" id="toc-reflections-at-the-water-bottom-interface" class="nav-link" data-scroll-target="#reflections-at-the-water-bottom-interface">Reflections at the Water-Bottom Interface</a></li>
+  <li><a href="#propagation-in-sediments-and-rocks" id="toc-propagation-in-sediments-and-rocks" class="nav-link" data-scroll-target="#propagation-in-sediments-and-rocks">Propagation in Sediments and Rocks</a></li>
+  <li><a href="#history-of-ocean-acoustics" id="toc-history-of-ocean-acoustics" class="nav-link" data-scroll-target="#history-of-ocean-acoustics">History of Ocean Acoustics</a></li>
+  <li><a href="#the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water" id="toc-the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water" class="nav-link" data-scroll-target="#the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water">The First Recorded Attempt to Determine the Speed of Sound in Water</a></li>
+  <li><a href="#understanding-ocean-acoustics" id="toc-understanding-ocean-acoustics" class="nav-link" data-scroll-target="#understanding-ocean-acoustics">Understanding Ocean Acoustics</a>
+  <ul class="collapse">
+  <li><a href="#sound-as-a-pressure-wave" id="toc-sound-as-a-pressure-wave" class="nav-link" data-scroll-target="#sound-as-a-pressure-wave">Sound as a Pressure Wave</a></li>
+  <li><a href="#waves" id="toc-waves" class="nav-link" data-scroll-target="#waves">Waves</a></li>
+  <li><a href="#acoustic-waves-in-the-ocean" id="toc-acoustic-waves-in-the-ocean" class="nav-link" data-scroll-target="#acoustic-waves-in-the-ocean">Acoustic waves in the ocean</a></li>
+  <li><a href="#compressional-waves" id="toc-compressional-waves" class="nav-link" data-scroll-target="#compressional-waves">Compressional waves</a></li>
+  <li><a href="#some-comments" id="toc-some-comments" class="nav-link" data-scroll-target="#some-comments">Some comments</a></li>
+  <li><a href="#characteristics-of-sound-waves" id="toc-characteristics-of-sound-waves" class="nav-link" data-scroll-target="#characteristics-of-sound-waves">Characteristics of Sound Waves</a></li>
+  <li><a href="#angular-frequency" id="toc-angular-frequency" class="nav-link" data-scroll-target="#angular-frequency">Angular Frequency</a></li>
+  <li><a href="#wave-number" id="toc-wave-number" class="nav-link" data-scroll-target="#wave-number">Wave Number</a></li>
+  <li><a href="#waves-in-phasor-form" id="toc-waves-in-phasor-form" class="nav-link" data-scroll-target="#waves-in-phasor-form">Waves in phasor form</a></li>
+  <li><a href="#superposition-of-waves" id="toc-superposition-of-waves" class="nav-link" data-scroll-target="#superposition-of-waves">Superposition of waves</a></li>
+  <li><a href="#wave-characteristics-in-one-slide" id="toc-wave-characteristics-in-one-slide" class="nav-link" data-scroll-target="#wave-characteristics-in-one-slide">Wave characteristics in one slide</a></li>
+  <li><a href="#acoustic-rays" id="toc-acoustic-rays" class="nav-link" data-scroll-target="#acoustic-rays">Acoustic Rays</a></li>
+  </ul></li>
+  <li><a href="#ocean-acoustics-quantities-and-jargon" id="toc-ocean-acoustics-quantities-and-jargon" class="nav-link" data-scroll-target="#ocean-acoustics-quantities-and-jargon">Ocean acoustics: quantities and jargon</a>
+  <ul class="collapse">
+  <li><a href="#acoustic-intensity" id="toc-acoustic-intensity" class="nav-link" data-scroll-target="#acoustic-intensity">Acoustic Intensity</a></li>
+  <li><a href="#acoustic-impedence" id="toc-acoustic-impedence" class="nav-link" data-scroll-target="#acoustic-impedence">Acoustic Impedence</a></li>
+  <li><a href="#decibel" id="toc-decibel" class="nav-link" data-scroll-target="#decibel">Decibel</a></li>
+  <li><a href="#acoustic-intensity-levels" id="toc-acoustic-intensity-levels" class="nav-link" data-scroll-target="#acoustic-intensity-levels">Acoustic intensity levels</a></li>
+  <li><a href="#transmission-loss" id="toc-transmission-loss" class="nav-link" data-scroll-target="#transmission-loss">Transmission Loss</a></li>
+  </ul></li>
+  <li><a href="#source-level-and-reference-intensity" id="toc-source-level-and-reference-intensity" class="nav-link" data-scroll-target="#source-level-and-reference-intensity">Source Level and Reference Intensity</a>
+  <ul class="collapse">
+  <li><a href="#source-level" id="toc-source-level" class="nav-link" data-scroll-target="#source-level">Source Level</a></li>
+  <li><a href="#reference-intensity" id="toc-reference-intensity" class="nav-link" data-scroll-target="#reference-intensity">Reference intensity</a></li>
+  </ul></li>
+  <li><a href="#features-of-oceanography" id="toc-features-of-oceanography" class="nav-link" data-scroll-target="#features-of-oceanography">Features of Oceanography</a>
+  <ul class="collapse">
+  <li><a href="#sound-speed-profiles-ssp" id="toc-sound-speed-profiles-ssp" class="nav-link" data-scroll-target="#sound-speed-profiles-ssp">Sound Speed Profiles (SSP)</a></li>
+  </ul></li>
+  <li><a href="#chen-millero-empirical-equation" id="toc-chen-millero-empirical-equation" class="nav-link" data-scroll-target="#chen-millero-empirical-equation">Chen-Millero Empirical Equation</a>
+  <ul class="collapse">
+  <li><a href="#comments" id="toc-comments" class="nav-link" data-scroll-target="#comments">Comments</a></li>
+  <li><a href="#a-typical-profile" id="toc-a-typical-profile" class="nav-link" data-scroll-target="#a-typical-profile">A typical profile</a></li>
+  <li><a href="#munk-profiles" id="toc-munk-profiles" class="nav-link" data-scroll-target="#munk-profiles">Munk Profiles</a></li>
+  </ul></li>
+  <li><a href="#influence-of-temperature-salinity-and-depth-on-the-ssp" id="toc-influence-of-temperature-salinity-and-depth-on-the-ssp" class="nav-link" data-scroll-target="#influence-of-temperature-salinity-and-depth-on-the-ssp">Influence of Temperature, Salinity and Depth on the SSP</a>
+  <ul class="collapse">
+  <li><a href="#temperature-at-sea-surface" id="toc-temperature-at-sea-surface" class="nav-link" data-scroll-target="#temperature-at-sea-surface">Temperature at sea surface</a></li>
+  </ul></li>
+  <li><a href="#temperature-vs-depth" id="toc-temperature-vs-depth" class="nav-link" data-scroll-target="#temperature-vs-depth">Temperature vs depth</a></li>
+  <li><a href="#depth-and-temperature-distribution-across-the-atlantic" id="toc-depth-and-temperature-distribution-across-the-atlantic" class="nav-link" data-scroll-target="#depth-and-temperature-distribution-across-the-atlantic">Depth and Temperature Distribution across the Atlantic</a></li>
+  <li><a href="#measuring-temperature" id="toc-measuring-temperature" class="nav-link" data-scroll-target="#measuring-temperature">Measuring Temperature</a></li>
+  <li><a href="#salinity" id="toc-salinity" class="nav-link" data-scroll-target="#salinity">Salinity</a>
+  <ul class="collapse">
+  <li><a href="#salinity-sensors" id="toc-salinity-sensors" class="nav-link" data-scroll-target="#salinity-sensors">Salinity Sensors</a></li>
+  <li><a href="#salinity-at-sea-surface" id="toc-salinity-at-sea-surface" class="nav-link" data-scroll-target="#salinity-at-sea-surface">Salinity at sea surface</a></li>
+  <li><a href="#salinity-vs-depth" id="toc-salinity-vs-depth" class="nav-link" data-scroll-target="#salinity-vs-depth">Salinity vs Depth</a></li>
+  <li><a href="#temperature-salinity-and-density" id="toc-temperature-salinity-and-density" class="nav-link" data-scroll-target="#temperature-salinity-and-density">Temperature, Salinity and Density</a></li>
+  <li><a href="#sea-surface-density" id="toc-sea-surface-density" class="nav-link" data-scroll-target="#sea-surface-density">Sea surface density</a></li>
+  </ul></li>
+  <li><a href="#back-to-sound-speed" id="toc-back-to-sound-speed" class="nav-link" data-scroll-target="#back-to-sound-speed">Back to Sound Speed</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ocean Acoustics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<p>This notebook covers the following topics:</p>
+<section id="acoustic-propagation-in-the-ocean" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-propagation-in-the-ocean">Acoustic Propagation in the Ocean</h3>
+<ul>
+<li>Understand fundamental quantities and definitions related to acoustic propagation in the ocean.</li>
+<li>Explore concepts of attenuation and propagation of acoustic waves.</li>
+<li>Analyze the effects of oceanographic quantities, including daily and seasonal variations, on acoustic propagation.
+<ul>
+<li>Perform simulations and make predictions based on oceanographic data.</li>
+</ul></li>
+</ul>
+</section>
+<section id="acoustic-directionality" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-directionality">Acoustic Directionality</h3>
+<ul>
+<li>Study the principles of acoustic directionality, particularly in the context of arrays.</li>
+<li>Examine beam patterns and understand their significance in acoustic directionality.</li>
+<li>Calculate the directivity index and explore its implications.</li>
+<li>Learn about beamforming techniques for directional acoustic sensing.</li>
+</ul>
+</section>
+<section id="sonar-system" class="level3">
+<h3 class="anchored" data-anchor-id="sonar-system">Sonar System</h3>
+<ul>
+<li>Differentiate between resolution, range, and frequency content in sonar systems.</li>
+<li>Explore sonar equations and understand their applications in underwater sensing.</li>
+</ul>
+</section>
+<section id="reflections-at-the-water-bottom-interface" class="level3">
+<h3 class="anchored" data-anchor-id="reflections-at-the-water-bottom-interface">Reflections at the Water-Bottom Interface</h3>
+<ul>
+<li>Investigate coherent reflections at the water-bottom interface.</li>
+<li>Understand the Rayleigh coefficient and its role in underwater reflections.</li>
+<li>Analyze backscatter phenomena and its implications in underwater sensing.</li>
+</ul>
+</section>
+<section id="propagation-in-sediments-and-rocks" class="level3">
+<h3 class="anchored" data-anchor-id="propagation-in-sediments-and-rocks">Propagation in Sediments and Rocks</h3>
+<ul>
+<li>Explore the propagation of acoustic waves in sediments and rocks.</li>
+<li>Understand the characteristics of P waves, S waves, and interface waves in underwater environments.</li>
+</ul>
+</section>
+<section id="history-of-ocean-acoustics" class="level2">
+<h2 class="anchored" data-anchor-id="history-of-ocean-acoustics">History of Ocean Acoustics</h2>
+<ul>
+<li><p>In 1490 Leonardo da Vinci first proposed detecting ships by listening to the noise they radiate into water.</p>
+<div class="alert alert-block alert-warning">
+“If you cause your ship to stop and place the head of a long tube in the water and place the other extremity to your ear, you will hear ships at great distances.” From Leonardo Da Vinci’s Notebook.
+</div></li>
+<li><p>The first successful measurements of the speed of sound in water was made in 1826.</p></li>
+<li><p>Using a long tube to listen underwater, as suggested by da Vinci, Colladon and Sturm recorded how fast the sound of a submerged bell traveled across Lake Geneva.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/3.collodon_sound_speed_measurement.jpeg" alt="ssp-measurement" style="width: 550px;">
+</td></tr>
+</tbody></table>
+</section>
+<section id="the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water" class="level2">
+<h2 class="anchored" data-anchor-id="the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water">The First Recorded Attempt to Determine the Speed of Sound in Water</h2>
+<ul>
+<li><p>In 1826 on Lake Geneva, Switzerland, physicist Jean-Daniel Colladon and mathematician Charles-Francois Sturm made the first recorded attempt to determine the speed of sound in water.</p></li>
+<li><p>They struck an underwater bell simultaneously with ignition of gunpowder on the first boat.</p></li>
+<li><p>The sound of the bell and flash from the gunpowder were observed 10 miles away on the second boat.</p></li>
+<li><p>The time between the gunpowder flash and the sound reaching the second boat was used to calculate the speed of sound in water.</p></li>
+<li><p>Colladon and Sturm measured the water temperature in the lake to be 8° centigrade.</p></li>
+<li><p>At this temperature, they determined the speed of sound in fresh water to be 1435 meters per second, which differs from the currently accepted value by only 3 meters per second.</p></li>
+<li><p>Their published results also reported earlier measurements in sea water made in 1820 near Marseilles by physicist François Sulpice Beudant.</p></li>
+<li><p>The value they determined was remarkably accurate.</p></li>
+<li><p>WWI and the advent of the submarine drove the development of sonar and the science of ocean acoustic/acoustical oceanography.</p></li>
+<li><p>Maurice Ewing (see also Marie Tharp and Lamont Geological Observatory) was convinced that it would be possible to propagate sound over hundredsd possibly thousands of kilometers through the ocean if both source and receiver were appropriately placed.</p></li>
+<li><p>In 1945 he propagated sound from a small explosion over a distance of more than 3000 km from Eleuthera in the Bahamas to Dakar in West Africa.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/3b.sofar.png" alt="Ewing-experiment" style="width: 550px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The sound propagation took place in a ubiquitous permanent sound channel of the deep ocean.</li>
+<li>Ewing called the channel the <strong>SOFAR (SOund Fixing And Ranging) channel</strong>.</li>
+<li>First application was downed-at-sea airmen: From his inflated rubber boat, the airman should drop small cartridges over the side set to explode on the axis of the SOFAR channel situated at about 1200 m depth in the North Atlantic.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/3b.sofar-1.png" alt="SOFAR" style="width: 350px;"> From Applied Underwater Acoustics.
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Today, acoustics is used to detect and locate objects and targets; to measure the characteristics of the environment or the velocity and location of moving underwater objects; and to transmit signals.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/4.3D_echogram.jpg" alt="noaa-example" style="width: 550px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="understanding-ocean-acoustics" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-ocean-acoustics">Understanding Ocean Acoustics</h2>
+<section id="sound-as-a-pressure-wave" class="level3">
+<h3 class="anchored" data-anchor-id="sound-as-a-pressure-wave">Sound as a Pressure Wave</h3>
+<ul>
+<li>Ocean acoustics is the study of sound and its behavior in the sea.</li>
+<li>When underwater objects vibrate, they create sound-pressure waves that alternately compress and decompress the water molecules as the sound wave travels through the sea.</li>
+<li>Sound waves radiate in all directions away from the source like ripples on the surface of a pond.</li>
+<li>The compressions and decompressions associated with sound waves are detected as changes in pressure by the structures in our ears and most man-made sound receptors such as a hydrophone, or underwater microphone.</li>
+</ul>
+<p>The basic components of a sound wave are <em>frequency</em>, <em>wavelength</em> and <em>amplitude</em>.</p>
+</section>
+<section id="waves" class="level3">
+<h3 class="anchored" data-anchor-id="waves">Waves</h3>
+<ul>
+<li>A wave is a self-propagating disturbance in a medium.<br>
+</li>
+<li>The wavefront of a wave field is the set (locus) of all points having the same phase
+<ul>
+<li>Intuitively: Points reached by the perturbation at the same time</li>
+</ul></li>
+<li>In an <em>isotropic</em> medium, which has the same properties in all directions, wavefronts are spherical:
+<ul>
+<li>For example, if we consider a sound wave emanating from a point source, the wavefront at any given instant would be a spherical surface centered on the source. All the points on the surface of the sphere would be reached by the wave at the same instant and would have the same phase. As the wave propagates outward from the source, the wavefront continues to expand and move further away from the source.</li>
+</ul></li>
+<li>Waves carry energy, momentum, information, but not matter!</li>
+</ul>
+</section>
+<section id="acoustic-waves-in-the-ocean" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-waves-in-the-ocean">Acoustic waves in the ocean</h3>
+<ul>
+<li><p>Hydrostatic pressure is the pressure exerted by a stationary fluid (i.e., water in our case), at a particular point within the fluid (e.g., at a particular depth). It is the pressure that is created by the weight of the fluid above the point in question (<span class="math inline">\(P = \rho gh)\)</span>.</p></li>
+<li><p>Acoustic pressure (or sound pressure) is the <strong>local pressure deviation</strong> from the ambient or average hydrostatic pressure caused by a sound wave</p></li>
+<li><p>Acoustic waves in water (and more specifially in salt water) are pressure waves</p>
+<ul>
+<li>Called <em>compressional waves</em></li>
+<li>Perturbation of the local pressure (of equilibrium) of the medium</li>
+</ul></li>
+</ul>
+</section>
+<section id="compressional-waves" class="level3">
+<h3 class="anchored" data-anchor-id="compressional-waves">Compressional waves</h3>
+<ul>
+<li>Compressional waves, also known as longitudinal waves or primary (P) waves, are a type of mechanical wave that propagate through a medium by causing compressions and rarefactions in the medium (think of the medium as composed of elementary elements)</li>
+<li>In compressional waves, the particles in the medium vibrate parallel to the direction of wave propagation, creating regions of high pressure and high particle density (compressions) and regions of low pressure and low particle density (rarefactions).</li>
+<li>The compression and dilation is transmitted to the neighbouring elements and the wave propagates</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/P-wave_animation.gif" alt="p-wave" style="width: 550px;">
+</td></tr>
+</tbody></table>
+<p>Figure from University of Alicante, Spain (https://web.ua.es/en/urs/disclosure/seismic-wave-propagation.html)</p>
+<ul>
+<li>The wave can be thought as created by the Y-Z plane pressing on the particles of the medium</li>
+<li>This is a planar wave: wavefronts are planes</li>
+</ul>
+</section>
+<section id="some-comments" class="level3">
+<h3 class="anchored" data-anchor-id="some-comments">Some comments</h3>
+<ul>
+<li>Sound is often illustrated with a sine wave but is actually a pressure wave
+<ul>
+<li>The peak in the sine wave indicating compaction of the medium and the trough indicating rarefaction (spreading out—thinning) of the medium.</li>
+</ul></li>
+<li>The speed of sound depends on the distance between molecules and the strength of the intermolecular interactions.</li>
+<li>Consequently sound speed increases with density and temperature.</li>
+</ul>
+<div class="alert alert-block alert-warning">
+<p>In a gas, the molecules are widely spaced with very low intermolecular forces. As a result, the speed of sound tends to be slower in gasses than liquids or solids. The speed of sound tends to be highest in solids: the molecules are relatively close together and the bonds and structure between them are stable.</p>
+</div>
+</section>
+<section id="characteristics-of-sound-waves" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics-of-sound-waves">Characteristics of Sound Waves</h3>
+<ul>
+<li><p>Sound waves are characterized by their <strong>amplitude, intensity, frequency, speed, wavelength, and phase</strong>.</p></li>
+<li><p>If the pressure perturbation, wrt the equilibrium, is sinusoidal, then the pressure variation is also sinusoidal (in time and space):</p></li>
+</ul>
+<p><span class="math display">\[
+p(x, t) = Asin(kx-\omega t + \phi)
+\]</span></p>
+<p>where - <span class="math inline">\(p(x, t)\)</span> is the value of the wave at position <span class="math inline">\(x\)</span> and time <span class="math inline">\(t\)</span> - <span class="math inline">\(A\)</span> is the amplitude of the wave, which determines its maximum displacement from its equilibrium position - <span class="math inline">\(k\)</span> is the <strong>wave number</strong>, which is related to the wavelength of the wave by the equation <span class="math inline">\(k = 2\pi/\lambda\)</span> (spatial frequency of the wave given a point in time). - <span class="math inline">\(x\)</span> is the position along the wave - <span class="math inline">\(w\)</span> is called <strong>radian frquenecy</strong>, the angular frequency of the wave, which is related to its frequency by the equation <span class="math inline">\(\omega = 2\pi f\)</span> (temporal frequency of the wave given a point in space). - <span class="math inline">\(\phi\)</span> is the phase of the wave</p>
+<ul>
+<li>Note: the argument of the <code>sin</code> has two terms: one dependant from time (Angular frequency), and one from space (Wave number)</li>
+</ul>
+</section>
+<section id="angular-frequency" class="level3">
+<h3 class="anchored" data-anchor-id="angular-frequency">Angular Frequency</h3>
+<ul>
+<li>The angular frequency, denoted by the symbol <span class="math inline">\(\omega\)</span>, is a measure of how rapidly a wave oscillates in time.</li>
+<li>Also called Radian Frequency</li>
+<li>It is defined as the rate of change of the phase of the wave with respect to time and is related to the frequency of the wave through the equation:</li>
+</ul>
+<p><span class="math display">\[\omega = \frac{2\pi c}{\lambda} = 2\pi f\]</span></p>
+<ul>
+<li>The speed of sound in a medium is related to its frequency and wavelength through the equation: <span class="math inline">\(c = f\lambda\)</span></li>
+</ul>
+</section>
+<section id="wave-number" class="level3">
+<h3 class="anchored" data-anchor-id="wave-number">Wave Number</h3>
+<ul>
+<li>The wave number, denoted by the symbol <span class="math inline">\(k\)</span>, is a measure of how rapidly a wave oscillates in space.</li>
+<li>It is defined as the spatial frequency of a wave and is related to the wavelength of the wave through the equation:</li>
+</ul>
+<p><span class="math display">\[k = \frac{2\pi}{\lambda} = \frac{\omega}{c}\]</span></p>
+<ul>
+<li>The wave number is inversely proportional to the wavelength: waves with shorter wavelengths have larger wave numbers, while waves with longer wavelengths have smaller wave numbers.</li>
+<li>The wave number is influenced by the properties of the medium and can affect the behavior of the wave as it propagates through the medium.</li>
+</ul>
+</section>
+<section id="waves-in-phasor-form" class="level3">
+<h3 class="anchored" data-anchor-id="waves-in-phasor-form">Waves in phasor form</h3>
+<p>The equation for a sinusoidal wave can be written in phasor form as:</p>
+<p><span class="math display">\[y(x,t) = A\sin(kx - \omega t + \phi) = \operatorname{Re}(Y e^{j(kx - \omega t)})\]</span></p>
+<p>where <span class="math inline">\(\operatorname{Re}()\)</span> denotes the real part of the expression, and <span class="math inline">\(Y\)</span> is the phasor amplitude given by:</p>
+<p><span class="math display">\[Y = A e^{j\phi}\]</span></p>
+<p>The phasor amplitude <span class="math inline">\(Y\)</span> is a complex number that captures both the amplitude and phase information of the wave in a single quantity. The real part of the product <span class="math inline">\(Y e^{j(kx - \omega t)}\)</span> gives the actual value of the wave at position <span class="math inline">\(x\)</span> and time <span class="math inline">\(t\)</span>.</p>
+<p>To obtain the phasor amplitude <span class="math inline">\(Y\)</span>, we first express the original equation in complex exponential form, which is given by:</p>
+<p><span class="math display">\[y(x,t) = A\sin(kx - \omega t + \phi) = \frac{A}{2j}(e^{j(kx - \omega t + \phi)} - e^{-j(kx - \omega t + \phi)})\]</span></p>
+<p>We can recover the time domain function, <span class="math inline">\(y(x, t)\)</span>, by taking the real part of this rotating vector.</p>
+<p><span class="math display">\[y(x,t) = \operatorname{Re}\left(\frac{A}{2}e^{j(kx - \omega t + \phi)} - \frac{A}{2}e^{-j(kx - \omega t + \phi)}\right)\]</span></p>
+<p>Now we can see that the expression in parentheses is a phasor amplitude <span class="math inline">\(Y\)</span>, which has a magnitude of <span class="math inline">\(A/2\)</span> and a phase angle of <span class="math inline">\(\phi\)</span>, multiplied by a complex exponential term that depends on <span class="math inline">\(x\)</span> and <span class="math inline">\(t\)</span>.</p>
+<p>By expressing the wave in phasor form, we can more easily manipulate its amplitude and phase properties, and we can use complex arithmetic to analyze the wave’s behavior.</p>
+<p>Let’s see some of this in Python</p>
+<ul>
+<li><p>We can think of the sine wave as a change both in time and space.</p></li>
+<li><p>If we plot the changes at various locations, each time snapshot will be a sine wave that changes in space.</p></li>
+<li><p>See the following figure with a fix point at <span class="math inline">\(x=2.5\)</span> showing as a red dot.</p></li>
+</ul>
+<div id="6e67853b" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># %matplotlib inline</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a22ce841" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(times)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">201</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.sin(x)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> times:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    plt.subplot(n, <span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.sin(x <span class="op">+</span> t)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, y, <span class="st">'b'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(x[<span class="dv">25</span>], y [<span class="dv">25</span>], <span class="st">'ro'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    plt.ylim(<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f't = </span><span class="sc">{</span>t<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'location (x)'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_ocean_acoustics_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Of course, you can see the changes over time at specific location as well, you can plot this by yourself.</p>
+</section>
+<section id="superposition-of-waves" class="level3">
+<h3 class="anchored" data-anchor-id="superposition-of-waves">Superposition of waves</h3>
+<ul>
+<li><p>When two or more waves are present in the same medium, the resulting disturbance at any point is the algebraic sum of the individual disturbances caused by each wave.</p></li>
+<li><p>The waves pass through each other without being disturbed.</p></li>
+<li><p>The net displacement of the medium at any point in space or time, is simply the sum of the individual wave displacements.</p></li>
+<li><p>This is true of waves which are finite in length (wave pulses) or which are continuous sine waves.</p></li>
+<li><p>When two waves of the same frequency and amplitude are in phase (i.e., their crests and troughs coincide), their amplitudes add up, resulting in a wave with twice the amplitude. This is called <strong>constructive interference</strong>.</p></li>
+<li><p>When two waves of the same frequency and amplitude are out of phase (i.e., their crests and troughs do not coincide), their amplitudes cancel out, resulting in zero amplitude. This is called <strong>destructive interference</strong>.</p></li>
+<li><p>Fundamental concept in wave physics and enables us to predict the behavior of complex wave systems, such as interference patterns</p></li>
+</ul>
+<div id="e4d2cb2f" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="dfc70d0c" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wave parameters</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="fl">0.5</span>  <span class="co"># Amplitude</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">10</span>  <span class="co"># Wave number</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">2</span>  <span class="co"># Angular frequency</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Time and space parameters</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">200</span>)  <span class="co"># Time vector</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">400</span>)  <span class="co"># Space vector</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X, T <span class="op">=</span> np.meshgrid(x, t)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Individual wave functions</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> A <span class="op">*</span> np.sin(k <span class="op">*</span> X <span class="op">-</span> omega <span class="op">*</span> T)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>y2 <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="op">-</span>k <span class="op">*</span> X <span class="op">-</span> omega <span class="op">*</span> T)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Resulting wave function (superposition of individual waves)</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> y1 <span class="op">+</span> y2</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot individual waves and resulting wave</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>line1, <span class="op">=</span> ax.plot([], [], lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Wave 1'</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>line2, <span class="op">=</span> ax.plot([], [], lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Wave 2'</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>line3, <span class="op">=</span> ax.plot([], [], lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Resulting wave'</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init():</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    line1.set_data([], [])</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    line2.set_data([], [])</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    line3.set_data([], [])</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> line1, line2, line3</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> animate(i):</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    line1.set_data(x, y1[i, :])</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    line2.set_data(x, y2[i, :])</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    line3.set_data(x, y[i, :])</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> line1, line2, line3</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>ani <span class="op">=</span> animation.FuncAnimation(fig, animate, frames<span class="op">=</span><span class="bu">len</span>(t), init_func<span class="op">=</span>init, blit<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.close()  <span class="co"># Prevents duplicate display of animation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Uncomment the next cell to show the animation (it does not render correctly in quarto).</p>
+<div id="b0f6773f" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ## Display animation</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># from IPython.display import HTML</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># HTML(ani.to_jshtml())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="wave-characteristics-in-one-slide" class="level3">
+<h3 class="anchored" data-anchor-id="wave-characteristics-in-one-slide">Wave characteristics in one slide</h3>
+<ul>
+<li>A single wave has different characteristics:</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/5.wave-period_amplitude.jpg" alt="Wave Period Amplitude" style="width: 350px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/6.wave-wavelength_amplitude.jpg" alt="Wave Wavelength Amplitude" style="width: 350px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p><strong>Amplitude</strong> (A), is used to describe the difference between the maximum values to the baseline value. Amplitude describes the height of the sound pressure wave or the “loudness” of a sound and is often measured using the decibel (dB) scale. Small variations in amplitude (“short” pressure waves) produce weak or quiet sounds, while large variations (“tall” pressure waves) produce strong or loud sounds.</p></li>
+<li><p><strong>Period</strong> (T), A sine wave is a periodic signal, which means it repeats itself after certain time. The period of a wave is time it takes to finish the complete cycle, in the figure, we can see that the period can be measured from the two adjacent peaks.</p></li>
+<li><p><strong>Wavelength</strong> (<span class="math inline">\(\lambda\)</span>), measures the distance between two successive crests or troughs of a wave.</p></li>
+<li><p><strong>Frequency</strong> (f) describes the number of waves that pass a fixed place in a given amount of time. Frequency can be measured by how many cycles pass within 1 second. Therefore, the unit of frequency is cycles/second, or more commonly used <strong>Hertz</strong> (abbreviated <strong>Hz</strong>).</p></li>
+</ul>
+<p><span class="math display">\[T = \frac{1}{f}\]</span></p>
+<p>Let’s go back to our representation of a sine wave:</p>
+<p><span class="math display">\[ y(t) = Asin(\omega{t}+\phi)\]</span></p>
+<p>where <span class="math inline">\(A\)</span> is the amplitude of the wave, <span class="math inline">\(\omega\)</span> is the <strong>angular frequency</strong>, which specifies how many cycles occur in a second, in radians per second. <span class="math inline">\(\phi\)</span> is the <strong>phase</strong> of the signal. If <span class="math inline">\(T\)</span> is the period of the wave, and <span class="math inline">\(f\)</span> is the frequency of the wave, then <span class="math inline">\(\omega\)</span> has the following relationship to them:</p>
+<p><span class="math display">\[\omega = \frac{2\pi}{T} = 2\pi{f}\]</span></p>
+</section>
+<section id="acoustic-rays" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-rays">Acoustic Rays</h3>
+<ul>
+<li><p>An acoustic ray is a line that represents the path traveled by sound waves as they propagate through a medium.</p></li>
+<li><p>It is a trajectory that shows the direction of propagation of sound waves in a particular medium, such as air, water, or solid materials.</p></li>
+<li><p>Given a wavefront, the ray associated to the wavefront is perpendicular to the wavefront in every point.</p></li>
+<li><p>Connecting the rays (perpendicular to the wavefronts in every point) we obtain a trajectory that is called <em>ray path</em>.</p></li>
+<li><p>These are the same concepts we find in optics.</p></li>
+<li><p>Acoustic Rays will be useful to obtain an intuitive understanding of acoustic propagation</p></li>
+<li><p>We will see when this approximation is valid using the wave equation</p></li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="ocean-acoustics-quantities-and-jargon" class="level2">
+<h2 class="anchored" data-anchor-id="ocean-acoustics-quantities-and-jargon">Ocean acoustics: quantities and jargon</h2>
+<section id="acoustic-intensity" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-intensity">Acoustic Intensity</h3>
+<ul>
+<li><p>Acoustic intensity is the power per unit area carried by a sound wave.</p></li>
+<li><p>It is typically measured in units of watts per square meter (W/m²)</p></li>
+<li><p>Acoustic Intensity is proportional to the square of the RMS (Root Mean Square) pressure</p></li>
+</ul>
+<p><span class="math display">\[ I = \frac{1}{\rho c}p_{rms}^2\]</span></p>
+<p>where: - <span class="math inline">\(\rho\)</span> is the water density - <span class="math inline">\(c\)</span> is the speed of sound: speed of propagation of the pertubation - <span class="math inline">\(Z=\rho c\)</span> is called acoustic impedence</p>
+</section>
+<section id="acoustic-impedence" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-impedence">Acoustic Impedence</h3>
+<ul>
+<li>Property of a medium and describes how much resistance the medium offers to the propagation of a sound wave. - It is a measure of the ratio of sound pressure to the particle velocity of the medium.</li>
+<li>Close analogy with electrical impedance
+<ul>
+<li>where the RMS pressure is analogous to voltage and the acoustic impedance is analogous to the electric resistance R.</li>
+</ul></li>
+<li>Why RMS pressure? If we have a sinusoidal wave, the pressure will oscillate between a positive and negative number with zero mean. It has however a RMS value: <span class="math display">\[ rms = \sqrt{\frac{1}{n}\sum_{i}{x^2_i}} \]</span></li>
+</ul>
+</section>
+<section id="decibel" class="level3">
+<h3 class="anchored" data-anchor-id="decibel">Decibel</h3>
+<ul>
+<li><p>In the analysis of sound propagation, it is customary to use the decibel (dB) notation to represent the level of various quantities relative to a chosen reference value of the quantity.</p></li>
+<li><p>This is a convenient way to handle the wide dynamic range involved in acoustic problems.</p></li>
+<li><p>It also simplifies many system calculations by replacing multiplications with additions of decibel quantities.</p></li>
+<li><p>Decibels (dB) are a logarithmic unit that express the ratio between two quantities, usually some form of power or intensity.</p></li>
+<li><p>In the case of sound, decibels are often used to express the relative loudness of a sound compared to some reference level.</p></li>
+</ul>
+<section id="definition" class="level4">
+<h4 class="anchored" data-anchor-id="definition">Definition</h4>
+<ul>
+<li>The decibel is 1/10 of a bel, which is a logarithmic unit of a power or an energy ratio.</li>
+<li>The decibel (dB) corresponds to 10 times the base-10 logarithm of the ratio of two powers or energies.</li>
+</ul>
+<p>For example:</p>
+<p><span class="math display">\[
+\text{Power Level} = \text{WL}_{dB} = 10\log_{10} \frac{\text{W}_1}{\text{W}_2}
+\]</span></p>
+<p>where the unit is Watt.</p>
+<ul>
+<li>If <span class="math inline">\(\text{WL}_{dB}\)</span> is 10 dB, W1 is 10 times higher than W2.</li>
+<li>If <span class="math inline">\(\text{W}_1\)</span> is two times larger than <span class="math inline">\(\text{W}_2\)</span>, <span class="math inline">\(\text{WL}_{dB}\)</span> = 3 dB.</li>
+</ul>
+</section>
+</section>
+<section id="acoustic-intensity-levels" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-intensity-levels">Acoustic intensity levels</h3>
+<p>The intensity level <span class="math inline">\(\text{IL}\)</span> in <span class="math inline">\(dB\)</span> in an acoustic field may be expressed by:</p>
+<p><span class="math display">\[
+\text{IL}_{dB} = 10\log_{10} \frac{\text{I}_1}{\text{I}_2}
+\]</span></p>
+<p>Where <span class="math inline">\(I_1\)</span> and <span class="math inline">\({I_2}\)</span> are acoustic intensities: power per unit area</p>
+<ul>
+<li>Since the acoustic intensity is proportional to the square of the effective acoustic pressure (unit: Pa)</li>
+<li>The acoustic Sound Pressure Level (SPL) in dB may be expressed by:</li>
+</ul>
+<p><span class="math display">\[
+\text{SPL} = 20\log_{10} \frac{p_1}{p_2}
+\]</span></p>
+<section id="reference-quantities" class="level4">
+<h4 class="anchored" data-anchor-id="reference-quantities">Reference Quantities</h4>
+<ul>
+<li><p>All quantities with subscript <em>2</em> are considered as reference quantities.</p></li>
+<li><p>There are several units used to specify reference pressure in acoustics.</p></li>
+<li><p>In air acoustics the reference quantity is <span class="math inline">\(20\mu\)</span>Pa (equivalent to the reference intensity of <span class="math inline">\(10^{-12} W/m^2\)</span>). This is used so that <span class="math inline">\(0\)</span>dB corresponds to the hearing threshold of an average person (<span class="math inline">\(20 \mu\)</span>Pa at 1m).</p></li>
+<li><p>In underwater acoustics the reference quantity is <span class="math inline">\(1\mu\)</span>Pa (equivalent to the reference intensity of <span class="math inline">\(6.67\cdot10^{-19} W/m^2\)</span>)</p></li>
+<li><p>Sometimes the reference quantity is also <span class="math inline">\(1\mu\)</span>bar (<span class="math inline">\(10^5\mu\)</span>Pa).</p></li>
+<li><p><em>In underwater acoustics is important to specify the reference quantity which is being used.</em></p></li>
+</ul>
+<p>For example: - Sound pressure level <span class="math inline">\(\text{SPL}=210\)</span>dB re <span class="math inline">\(1\mu\)</span>Pa. - This means that the acoustic pressure <span class="math inline">\(p_1==10^{210/20}10^{-6} = 0.316\cdot10^5\)</span> Pa.</p>
+<div id="bd73437c" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span><span class="op">**</span>(<span class="dv">210</span><span class="op">/</span><span class="dv">20</span>)<span class="op">*</span><span class="fl">1e-6</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>31622.776601683792</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="transmission-loss" class="level3">
+<h3 class="anchored" data-anchor-id="transmission-loss">Transmission Loss</h3>
+<ul>
+<li>Sound Pressure Level is also called Transmission Loss (<span class="math inline">\(\text{TL}\)</span>):</li>
+</ul>
+<p><span class="math display">\[
+\text{TL}_{dB} = 10\log_{10} \frac{I}{I_0} = 20\log_{10} \frac{p}{p_0}
+\]</span></p>
+<ul>
+<li><p><em>ratio between the received intensity level (<span class="math inline">\(I\)</span>) and the source intensity (<span class="math inline">\(I_0\)</span>) in dB.</em></p></li>
+<li><p>It is the decrease in sound intensity as sound travels through a medium</p></li>
+<li><p>Loss occurs due to the absorption, reflection, and scattering of sound waves by the medium through which it travels.</p></li>
+<li><p>It is a relative metric (wrt the source intensity).</p></li>
+<li><p>Arguably the most important quantity with which we interprect acoustic propagation</p></li>
+<li><p><span class="math inline">\(\text{TL}\)</span> does not make it possible to know how loud is the source, it only tells us how much we lose through propagation</p></li>
+</ul>
+</section>
+</section>
+<section id="source-level-and-reference-intensity" class="level2">
+<h2 class="anchored" data-anchor-id="source-level-and-reference-intensity">Source Level and Reference Intensity</h2>
+<section id="source-level" class="level3">
+<h3 class="anchored" data-anchor-id="source-level">Source Level</h3>
+<p><span class="math inline">\(\text{SL}\)</span>, is the ratio between the intensity of the source @ 1m, from the source position and a reference intensity, in dB. - Note: we never measure intensity. Sensors measure <em>pressure</em>, and for this reason we work with pressures (and hence with <span class="math inline">\(20\log\)</span>).</p>
+</section>
+<section id="reference-intensity" class="level3">
+<h3 class="anchored" data-anchor-id="reference-intensity">Reference intensity</h3>
+<p>Because of its large range, sound amplitude is often described in logarithmic units, decibels (dB).</p>
+<p>Some small pressure is used as a reference pressure, and any other sound pressure is described as a level with respect to that reference pressure.</p>
+<ul>
+<li><p>Researchers studying sound in water and air typically use a different reference pressure</p></li>
+<li><p><strong>In ocean acoustics, the reference intensity is the intensity of a plane wave with RMS pressure of <span class="math inline">\(1\mu\)</span>Pa</strong></p></li>
+<li><p>Air acoustics uses <span class="math inline">\(20 \mu\)</span>Pa as reference intensity: 0dB corresponds to the hearing threshold for a normal human listener for a sound frequency of 1,000 Hz.</p></li>
+<li><p>These two references are, therefore, 26 dB apart (20 log 20 = 26)</p></li>
+<li><p>This means that <span class="math inline">\(20\)</span> dB underwater and in air correspond to different intensities!</p></li>
+<li><p>If I have a <span class="math inline">\(20\)</span> dB Sound Pressure Level, <em>underwater</em> corresponds to <span class="math inline">\(10 * 1 \mu\)</span>Pa.</p></li>
+<li><p>If I have a <span class="math inline">\(20\)</span> dB Sound Pressure Level, in <em>air</em>, corresponds to <span class="math inline">\(10 \cdot 20\mu\)</span>Pa.</p></li>
+<li><p>dB is not a unit of measurement! and we need a reference.</p></li>
+</ul>
+<div id="5549ba61" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span><span class="op">*</span>np.log10(<span class="dv">10</span>), <span class="dv">20</span><span class="op">*</span>np.log10((<span class="dv">10</span><span class="op">*</span><span class="dv">20</span>)<span class="op">/</span><span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(20.0, 20.0)</code></pre>
+</div>
+</div>
+<hr>
+</section>
+</section>
+<section id="features-of-oceanography" class="level2">
+<h2 class="anchored" data-anchor-id="features-of-oceanography">Features of Oceanography</h2>
+<p>Oceanography is the study of the world’s oceans and their physical, chemical, and biological processes. It is an interdisciplinary science that combines elements of physics, chemistry, geology, biology, and meteorology to understand the complex interactions that occur within the marine environment.</p>
+<p>Key features include</p>
+<ul>
+<li><p>Ocean Circulation: The ocean is in constant motion, with currents flowing at different depths and speeds. These currents are driven by a variety of factors, including wind, temperature, and salinity differences, and play a crucial role in the distribution of heat and nutrients throughout the ocean.</p></li>
+<li><p>Waves and Tides: Waves and tides are also important features of the ocean, affecting both the physical and biological aspects of the marine environment.</p></li>
+<li><p>Ocean Chemistry: The chemical composition of the ocean is constantly changing, as it receives inputs from rivers, the atmosphere, and submarine vents. Oceanographers study how these inputs affect the ocean’s pH, salinity, and nutrient levels, and how these changes impact marine life and global climate.</p></li>
+<li><p>Marine Biology: The ocean is home to an incredibly diverse array of life, from microscopic plankton to massive whales. Oceanographers study the distribution and behavior of these organisms, as well as the complex interactions that occur within marine ecosystems.</p></li>
+<li><p>Coastal Processes: The interactions between the ocean and the land are also an important focus of oceanography, as they affect both the physical and human environments. Coastal processes include erosion, sediment transport, and the formation of beaches and estuaries.</p></li>
+</ul>
+<section id="sound-speed-profiles-ssp" class="level3">
+<h3 class="anchored" data-anchor-id="sound-speed-profiles-ssp">Sound Speed Profiles (SSP)</h3>
+<ul>
+<li><p>In ocean acoustics, sound speed profile refers to the variation of the speed of sound in seawater as a function of depth, pressure, temperature, and salinity</p></li>
+<li><p>The main factor affecting the propagation of acoustic waves in the ocean is the speed of sound</p></li>
+<li><p>It has a nominal value of 1500 m/s in temperate and equatorial oceans</p></li>
+<li><p>Small variations in the speed of sound have a profound effect on acoustic propagation in the ocean.</p></li>
+<li><p>The speed of sound at any point in the ocean (non-linearly) depends on the local temperature, salinity, and hydrostatic pressure (or depth).</p></li>
+<li><p>In a horizontally stratified ocean, the temperature and salinity are independent of horizontal range: they only vary with depth.</p>
+<ul>
+<li>Sound speed only vary with depth<br>
+</li>
+<li>This is roughly true in the deep oceans (away from features such as eddies or fronts).</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/7.temperature-salinity-sound-speed.png" alt="7.temperature-salinity-sound-speed" style="width: 450px;">Temperature, salinity, and sound speed profiles, Tonga Trench, South Pacific Ocean, September 2012 (Applied Underwater Acoustics).
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/8.Tonga-trench.jpeg" alt="8.Tonga-trench" style="width: 250px;"> Tonga Trench: it is the deepest trench in the Southern hemisphere and the second deepest on Earth after the Mariana Trench.
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Over most of the ocean depth the salinity is essentially uniform
+<ul>
+<li>Close to 34.85 parts per thousand</li>
+</ul></li>
+<li>Variations in the sound speed profile are driven by the temperature and the pressure.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/8.sound-speed-tonga-trench.png" alt="7.temperature-salinity-sound-speed" style="width: 450px;">Sound speed profile, Tonga Trench, South Pacific Ocean, September 2012 (Applied Underwater Acoustics).
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="chen-millero-empirical-equation" class="level2">
+<h2 class="anchored" data-anchor-id="chen-millero-empirical-equation">Chen-Millero Empirical Equation</h2>
+<ul>
+<li>Sound speed depends on salinity, temperature and depth</li>
+<li>Sound speed equation identified based on multiple measurements of salinity, temperature and depth done across the seas and the oceans</li>
+</ul>
+<p><span class="math display">\[
+c = 1449.2 + 4.6T - 0.055T^2 + 0.000229T^3 + (1.34-0.01T)(S-35) + 0.016Z
+\]</span></p>
+<p>where - <span class="math inline">\(c\)</span> <span class="math inline">\(m/s\)</span>, sound speed - <span class="math inline">\(T\)</span> <span class="math inline">\(^oC\)</span>, temperature - <span class="math inline">\(S\)</span> <span class="math inline">\(psu\)</span>, salinity (parts per thousand) - <span class="math inline">\(Z\)</span> <span class="math inline">\(m\)</span>, depth</p>
+<p>It is an empirical equation (UNESCO certified)</p>
+<section id="comments" class="level3">
+<h3 class="anchored" data-anchor-id="comments">Comments</h3>
+<ul>
+<li><p>Sound is faster with temperature (Warmer waters means sound is faster)</p></li>
+<li><p>Sound is faster with depth (linearly)</p></li>
+<li><p>Sound is also faster with salinity</p></li>
+<li><p>In the same geographical place, sound speed varies as we go down in water column.</p></li>
+</ul>
+</section>
+<section id="a-typical-profile" class="level3">
+<h3 class="anchored" data-anchor-id="a-typical-profile">A typical profile</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/9.ssp-1.png" alt="9.sound-speed-profile" style="width: 450px;">
+</td>
+</tr>
+</tbody></table>
+<p>Very close to the surface: - Depth is small (<span class="math inline">\(Z \approx 0\)</span>). - Temperature and salinity drive the speed. - Temperature is strongly influenced by solar radiation. Sound speed depends from hourly variations.</p>
+<p>Close to the surface: - Seasonal variations in temperature (winter vs summer) - drops in temperature drive drops in speed - seasonal thermocline (i.e., seasonal temperature gradient).</p>
+<p><em>For ex. in the Mediterranean Sea, temperature is approx constant in the first 10m, then it start decreasing. At what depth exactly depends on local conditions.</em></p>
+<p>Between 200/300m - 500m - Temperature decreases more or less in the same way everywhere - Atmospheric influence is not important anymore - Specific depth depends on geographic location - This is called <em>main thermocline</em></p>
+<p>Below 1000m - Temperature does not vary anymore (deep isothermal layer) - Depth drives change in sound speed.</p>
+<p>See also <a href="http://resource.npl.co.uk/acoustics/techguides/soundseawater/">Technical Guides - Speed of sound in sea water</a></p>
+</section>
+<section id="munk-profiles" class="level3">
+<h3 class="anchored" data-anchor-id="munk-profiles">Munk Profiles</h3>
+<ul>
+<li>A canonical model of the sound speed profile in the deep ocean has been developed by Munk</li>
+<li>Assumes specific properties of the ocean (i.e., exponential stratification: density of seawater exponentially increases with depth)</li>
+<li>There is not a single Munk profile but they are representative of a behaviour</li>
+</ul>
+<p>see also: Munk, W. H., Sound channel in an exponentially stratified ocean, with application to SOFAR, J. Acoust. Soc. Am., 55, pp.&nbsp;220e226 (1974).</p>
+<div id="cfdd131c" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z is in km</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>z_1 <span class="op">=</span> <span class="fl">1.2</span>  <span class="co"># z1 is the depth of the sound channel axis</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>c_1 <span class="op">=</span> <span class="dv">1500</span> <span class="co"># c1 is the speed of sound at the axis</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> <span class="fl">1.3</span>    <span class="co"># km</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>epsilon <span class="op">=</span> <span class="fl">0.0074</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>z_vector <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">60</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>c_z <span class="op">=</span> []</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> z <span class="kw">in</span> z_vector:</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>    eta <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>(z<span class="op">-</span>z_1)<span class="op">/</span>B    </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    c_z.append(c_1<span class="op">*</span>(<span class="dv">1</span> <span class="op">+</span> epsilon<span class="op">*</span>(eta<span class="op">+</span>np.e<span class="op">**-</span>eta<span class="op">-</span><span class="dv">1</span>)))</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>conjugate_speed <span class="op">=</span> c_z[np.where(c_z<span class="op">&gt;</span>c_z[<span class="dv">0</span>])[<span class="dv">0</span>][<span class="dv">0</span>]]</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>conjugate_depth <span class="op">=</span> z_vector[np.where(c_z<span class="op">&gt;</span>c_z[<span class="dv">0</span>])[<span class="dv">0</span>][<span class="dv">0</span>]]</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">6</span>))</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>plt.plot([<span class="bu">min</span>(c_z), <span class="bu">max</span>(c_z)], [z_1, z_1], color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a>plt.plot([c_z[<span class="dv">0</span>], c_z[<span class="dv">0</span>]], [z_vector[<span class="dv">0</span>], z_vector[<span class="op">-</span><span class="dv">1</span>]], color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>plt.plot([conjugate_speed<span class="op">-</span><span class="dv">10</span>, conjugate_speed<span class="op">+</span><span class="dv">10</span>], [conjugate_depth, conjugate_depth], color<span class="op">=</span><span class="st">'black'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a>plt.text( <span class="dv">1540</span>, <span class="dv">1</span>, <span class="st">'sound channel axis'</span>)</span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a>plt.text( <span class="dv">1540</span>, conjugate_depth, <span class="st">'conjugate depth'</span>)</span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a>plt.text( <span class="dv">1510</span>, conjugate_depth<span class="op">+</span><span class="fl">0.5</span>, <span class="st">'depth excess'</span>)</span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a>plt.plot(c_z, z_vector)   </span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_yaxis()</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'sound speed (m/s)'</span>)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'depth (km)'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Text(0, 0.5, 'depth (km)')</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_ocean_acoustics_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Comments: - At the conjugate depth, sometimes referred to as the critical depth, the sound speed is equal to that at the sea surface, and in the region labeled “depth excess,” it is greater than the speed of sound at the sea surface. - Any profile showing a depth excess supports convergence zone propagation, whereby steep rays follow deep, upward refracted paths and regions of high intensity known as convergence zones, or caustics are formed near the surface at regular intervals in range - Typically, the range interval between convergence zones in the Atlantic Ocean is of the order of 60 km.</p>
+</section>
+</section>
+<section id="influence-of-temperature-salinity-and-depth-on-the-ssp" class="level2">
+<h2 class="anchored" data-anchor-id="influence-of-temperature-salinity-and-depth-on-the-ssp">Influence of Temperature, Salinity and Depth on the SSP</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/10.influcence-on-ssp.png" alt="10.influcence-on-ssp" style="height: 390px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/10.influcence-on-ssp-1.png" alt="10.influcence-on-ssp" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+<p>Temperature - <span class="math inline">\(\text{T}\)</span> is a typical profile. - The shallower part migth have daily or seasonal variations. - Main thermocline when temperature decreases. - At deeper depths, is constant between 1 and 3 degrees. - Typical profile is representative of the behaviour.</p>
+<p>Salinity - <span class="math inline">\(\text{S}\)</span> is a typical profile - Minimum at a certain depth (around 1000m) - At deep depths, it is almost constant</p>
+<p>Speed corrections in the Chen-Millero equations due to each separate contribution are reported in the middle graph above: - The speed correction <span class="math inline">\(\Delta C_T\)</span> follows closely the temperature profile. - Change in speed is about <span class="math inline">\(60-70\)</span> m/s - <span class="math inline">\(\Delta C_P\)</span> is the change in speed due to change in depth - <span class="math inline">\(\Delta C_S\)</span> is the change in speed due to change in salinity. Salinity only contributes a few m/s.</p>
+<ul>
+<li>At shallow depths, sound speed mostly depends on temperature</li>
+<li>At deep depths, sound speed mostly depends on depth.</li>
+</ul>
+<p>(see right most plot).</p>
+<section id="temperature-at-sea-surface" class="level3">
+<h3 class="anchored" data-anchor-id="temperature-at-sea-surface">Temperature at sea surface</h3>
+<section id="monthly-average" class="level4">
+<h4 class="anchored" data-anchor-id="monthly-average">Monthly average</h4>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/Sea-surface-temperature-MYD28M.mov" width="600" height="400" frameborder="0">
+</video>
+<figcaption>
+Sea Surface Temperature, NASA Earth Oservatory. Satellite measurements.
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Maps based on observations by the Moderate Resolution Imaging Spectroradiometer (MODIS) on NASA’s Aqua satellite.</li>
+<li>The satellite measures the temperature of the top millimeter of the ocean surface.</li>
+<li>In this map, the coolest waters appear in blue (approximately -2 degrees Celsius), and the warmest temperatures appear in pink-yellow (35 degrees Celsius).</li>
+</ul>
+<p>The most obvious pattern shown in the time series is the year-round difference in sea surface temperatures between equatorial regions and the poles. Various warm and cool currents stand out even in monthly averages of sea surface temperature. A band of warm waters snakes up the East Coast of the United States and veers across the North Atlantic the Gulf Stream.</p>
+<p>Data is available from the <a href="https://neo.gsfc.nasa.gov/view.php?datasetId=MYD28M">NASA website</a></p>
+</section>
+<section id="seasonal-average" class="level4">
+<h4 class="anchored" data-anchor-id="seasonal-average">Seasonal Average</h4>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/11.sea-surface-temperature-sst.seasonal.gif" alt="11.sea-surface-temperature-average" style="height: 390px;">
+</td>
+</tr>
+</tbody></table>
+<p>Notable features - Humboldt currents - Gulf stream</p>
+<p>Data from <a href="https://psl.noaa.gov/map/clim/sst.shtml">NOAA</a> and <a href="https://psl.noaa.gov/mddb2/makePlot.html?variableID=2705&amp;fileID=118911">its interactive website</a></p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/12.sst-january.png" alt="11.sea-surface-temperature-average" style="height: 350px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/12.sst-july.png" alt="11.sea-surface-temperature-average" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+</section>
+<section id="temperature-vs-depth" class="level2">
+<h2 class="anchored" data-anchor-id="temperature-vs-depth">Temperature vs depth</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/13.temperature-vs-depth-1.png" alt="113.temperature-vs-depth-1" style="height: 400px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/14.temperature-vs-depth-2.png" alt="13.temperature-vs-depth-1" style="height: 400px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Depths are indicatives (they might change depending on latitude/longitudes)</li>
+<li>Note the difference between high latitudes and mid-latitudes</li>
+<li>First layer: Mixed layer where temperature depends on the thermal exchange with the atmosphere
+<ul>
+<li>presence of seasonal thermoclines (right picture)</li>
+</ul></li>
+<li>Main permanent thermocline</li>
+<li>Isothermal deep layer</li>
+<li>Tropics have less seasonal difference, and have a much steeper permanent thermocline due to warmer waters at the surface (see also Montly and seasonal average plots above).</li>
+<li>At High latitudes, surface water is 1 or 2 degrees (e.g.&nbsp;due to ice meltings and salty waters), and there is no (or almost no) thermocline.</li>
+</ul>
+</section>
+<section id="depth-and-temperature-distribution-across-the-atlantic" class="level2">
+<h2 class="anchored" data-anchor-id="depth-and-temperature-distribution-across-the-atlantic">Depth and Temperature Distribution across the Atlantic</h2>
+<ul>
+<li><p>Water physical properties (temperatude, salinity, etc) changes with depth and latitude/longitude</p></li>
+<li><p>The picture below shows what happens when we travel across the Atlantic</p></li>
+<li><p>Data from <a href="https://www.ewoce.org/gallery/Map_Atlantic.html">EWOCE</a></p></li>
+<li><p>Note how the main thermocline moves deeper as we travel from high latitudes to mid-latitudes, to the equator</p></li>
+<li><p>SSP would still resemble a Munk profile but their key points would be different</p></li>
+<li><p>Note also the difference between same latitudes in the North and South Atlantic due to presence of the Gulf Stream in the North Altantic.</p></li>
+<li><p>See also <a href="https://www.metoffice.gov.uk/weather/learn-about/weather/oceans/amoc">Metoffice | The Atlantic Meridional Overturning Circulation</a></p>
+<table>
+<tbody><tr>
+<td>
+<p><img src="./images/2.ocean-acoustics/15.temperatude-depth-atlantic.png" alt="15.temperatude-depth-atlantic" style="height: 600px;"></p>
+</td>
+<td>
+</td></tr>
+</tbody></table></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/16.temperature-depth-atlantic-2.png" alt="16.temperature-depth-atlantic-2" style="height: 600px;">
+</td>
+<td>
+</td></tr>
+</tbody></table>
+</section>
+<section id="measuring-temperature" class="level2">
+<h2 class="anchored" data-anchor-id="measuring-temperature">Measuring Temperature</h2>
+<ul>
+<li><p>Rather than being measured directly, the sound speed profile is commonly computed from temperature and salinity data recovered from a conductivity, temperature and depth (CTD) probe or from temperature data acquired with a bathy-thermograph (BT)</p></li>
+<li><p>In the case of the latter, the salinity, which is not returned by the BT, is often estimated for the purpose of computing the sound speed profile from archival salinity data</p></li>
+<li><p>A direct measure of the sound speed profile may be obtained using a sound velocity sensor (SVX) based on the “sing-around” principle. An ultrasonic pulse is transmitted over a fixed path between a source and a receiver. When the pulse arrives at the receiver, it triggers the transmission of another pulse from the projector. The repetition frequency of the pulses is mainly determined by the travel time over the path length, which is controlled by the speed of sound in the fluid (seawater in the case of ocean profiling) between the source and receiver.</p></li>
+</ul>
+</section>
+<section id="salinity" class="level2">
+<h2 class="anchored" data-anchor-id="salinity">Salinity</h2>
+<p>Definition: <em>“Total material amount in grams dissolved within 1kg of seawater”</em></p>
+<ul>
+<li><p>Dissolved: pass through a 0.2<span class="math inline">\(\mu m\)</span> filter</p></li>
+<li><p>Adimensional quantity: grams over kilos, which is equivalent to say “parts per thousands” (ppt)</p></li>
+<li><p>Operative definition: we can use it to measure salinity. Measuring salinity using the definition is not really practical…</p></li>
+<li><p>Alternative: <strong>Practical Salinity Scale (psu)</strong>,</p>
+<ul>
+<li>The most practical method currently used is through electrical conductivity.</li>
+<li>This is an indirect method which needs an accurate relationship between the conductivity <span class="math inline">\(C\)</span> and the salinity <span class="math inline">\(S\)</span> as a function of temperature <span class="math inline">\(T\)</span> and pressure <span class="math inline">\(p\)</span>.</li>
+<li>The salinity determined in this way is called the <em>practical salinity</em><br>
+</li>
+<li>It is not exactly equivalent to measuring salinity in parts per thousands.</li>
+<li>Electrical conductivity is easy to measure</li>
+</ul></li>
+</ul>
+<p>To reduce measurement errors, we measure the <em>relative conductivity <span class="math inline">\(R\)</span></em>: - The seawater conductivity <span class="math inline">\(C(S,T)\)</span> relative to the conductivity <span class="math inline">\(C(35,15)\)</span> of a standard saline solution at <span class="math inline">\(15^o\)</span>C containing <span class="math inline">\(32.4356 g\)</span> Potassium chloride (KCl, or potassium salt) in a mass of <span class="math inline">\(1\)</span> kg (ppt) at 1 atm pressure (1 atm = 101325 Pa).</p>
+<ul>
+<li>Relative conductivity: <span class="math display">\[R=\frac{C(S,T)}{C(35,15)}\]</span></li>
+</ul>
+<p>The relationship between the salinity <span class="math inline">\(S(T)\)</span> and the relative conductivity <span class="math inline">\(R=R(S,T)\)</span>:</p>
+<p><span class="math display">\[
+S(T) = S(15) + \Delta S(T)
+,\;\;
+R=\frac{C(S,T)}{C(35,15)}
+\]</span></p>
+<p><span class="math display">\[
+S(15) = 0.008 − 0.1692R^{1/2} + 25.3851 R + 14.0941 R^{3/2} − 7.0261 R^2 + 2.7081R^{5/2}
+\]</span></p>
+<p><span class="math display">\[
+ΔS(T) = \frac{(T−15)}{1+0.0162(T−15)} + 0.0005 − 0.0056 R^{1/2} − 0.0066 R − 0.0375 R^{3/2} + 0.0636 R^2 − 0.0144 R^{5/2}
+\]</span></p>
+<p>for <span class="math inline">\(2\le S \le42\)</span>. If <span class="math inline">\(R=1\)</span> we have <span class="math inline">\(S=35\)</span>.</p>
+<section id="salinity-sensors" class="level3">
+<h3 class="anchored" data-anchor-id="salinity-sensors">Salinity Sensors</h3>
+<p>Salinity sensors measure the electrical conductivity of seawater, which is proportional to its salinity.</p>
+<section id="platinum-electrode-conductivity-sensor" class="level4">
+<h4 class="anchored" data-anchor-id="platinum-electrode-conductivity-sensor">Platinum Electrode Conductivity Sensor</h4>
+<ul>
+<li><p>Measure the electrical conductivity of seawater.</p></li>
+<li><p>The sensor consists of two platinum electrodes that are immersed in the seawater.</p></li>
+<li><p>An alternating current is passed through the electrodes, and the electrical resistance of the seawater between the electrodes is measured.</p></li>
+<li><p>The electrical conductivity of the seawater is proportional to the concentration of dissolved salts in the water, including sodium, chloride, and other ions.</p></li>
+<li><p>Platinum electrode conductivity sensors have the advantage of being relatively simple and robust</p></li>
+<li><p>Provide accurate salinity measurements over a wide range of temperatures and salinities.</p></li>
+</ul>
+<p>Conductivity, <span class="math inline">\(C\)</span>, is found as:</p>
+<p><span class="math display">\[
+C = G \cdot k_c
+\]</span></p>
+<p>where <span class="math inline">\(G\)</span> is the conductance, and <span class="math inline">\(k_c\)</span> is the cell constant.</p>
+<ul>
+<li>Conductance is defined as the reciprocal of resistance. When resistance is measured in ohms, conductance is measured using the SI unit, siemens (water samples are commonly measured in microsiemens, or µS - Siemens is a large unit).</li>
+</ul>
+<p>The cell constant is determined for a probe as:</p>
+<p><span class="math display">\[
+k_c = d/A
+\]</span></p>
+<p>where <span class="math inline">\(d\)</span> is the distance between the two electrodes, and <span class="math inline">\(A\)</span> is the area of the electrode surface.</p>
+<ul>
+<li>A potential difference is applied to the two probe electrodes in the salinity sensor.</li>
+<li>The resulting current is proportional to the conductivity of the solution.</li>
+<li>This current is converted into a voltage.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/17.Electrode_conductivity.JPG" alt="17.Electrode_conductivity" style="height: 200px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/18.Conductivity_cell.JPG" alt="18.Conductivity_cell.JPG" style="height: 100px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="electrodeless-conductivity-sensor-inductive" class="level4">
+<h4 class="anchored" data-anchor-id="electrodeless-conductivity-sensor-inductive">Electrodeless Conductivity Sensor (Inductive)</h4>
+<ul>
+<li>Use inductive coils.</li>
+<li>The sensor consists of two coils which are incorporated next to one another in a polymer or ceramic body, and forming a current transformer.</li>
+<li>The coupling between the two coils of a transformer depends on the conductivity of the medium (in our case sea water)</li>
+</ul>
+<p>The sensor is designed so part of the liquid media forms a closed conductive current path passing through the coils. Current is applied to the primary coil (generating coil), which induces an alternating voltage in the liquid loop. In liquids which conduct electricity, this causes a current flow captured by the second coil (receiving coil), which is proportional to the conductivity of the sample solution.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/19.Inductive_Messung_eng.jpg" alt="17.Electrode_conductivity" style="height: 200px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/20.electrodeless-sensors.jpg" alt="20.electrodeless-sensors" style="height: 200px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="salinity-at-sea-surface" class="level3">
+<h3 class="anchored" data-anchor-id="salinity-at-sea-surface">Salinity at sea surface</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/21.smap_RSS_SSS_monthly_2022_05_v5.0.png" alt="17.Electrode_conductivity" style="height: 500px;">
+</td>
+<!--td> <img src="./images/2.ocean-acoustics/21.OISSS_L4_multimission_global_monthly_v1.0_2022-02.png" alt="17.Electrode_conductivity" style="height: 500px;"/></td-->
+</tr>
+<tr>
+<td>
+Global map of monthly sea surface salinity, May 2022. From https://salinity.oceansciences.org/data-maps.htm
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>On average, sea surface salinity is about 35 PSS.</li>
+<li>Over the globe, sea surface salinity varies from 32 to 37 PSS.</li>
+<li>Salinity variations are caused by precipitation, evaporation, runoff, and ice freezing and melting.</li>
+<li>Seawater’s density – mass per volume – is governed by temperature, salinity, and depth.
+<ul>
+<li>Along with temperature, salinity is a major factor in contributing to changes in the density of seawater and therefore ocean circulation.</li>
+</ul></li>
+<li>Ocean circulation below the wind-driven surface (tens to hundreds of meters in depth) is driven by changes in seawater density.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/aquariustour-1280_youtube_hq.mp4" width="600" height="400" frameborder="0">
+</video>
+<figcaption>
+NASA Salinity Ocean Sciences, https://salinity.oceansciences.org/overview.htm.
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="salinity-vs-depth" class="level3">
+<h3 class="anchored" data-anchor-id="salinity-vs-depth">Salinity vs Depth</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/22.salinity-profiles.png" alt="22.salinity-profiles" style="height: 500px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>High Laitudes: low salinity at the surface</li>
+<li>Low Latitudes: high salinity at the surface</li>
+<li>Halocline: salinity gradient</li>
+</ul>
+</section>
+<section id="temperature-salinity-and-density" class="level3">
+<h3 class="anchored" data-anchor-id="temperature-salinity-and-density">Temperature, Salinity and Density</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/23.temperature-salinity-and-density.png" alt="23.temperature-salinity-and-density" style="height: 500px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Density of Ocean is determined by temperature, the quantity of dissolved salts (also known as salinity), and the pressure to which a parcel of seawater is exposed</p></li>
+<li><p>The density of seawater can be increased by reducing its temperature, increasing its salinity, or increasing the pressure</p></li>
+<li><p>Pressure has the least impact on density as water is fairly incompressible, so pressure effects are not very significant except at extreme depths</p></li>
+<li><p>Temperature and salinity are the primary factors determining density, and of these, temperature has the greatest impact</p></li>
+<li><p>Density is lowest at the surface, where the water is the warmest. As depth increases, there is a region of rapidly increasing density with increasing depth</p></li>
+<li><p>Density changes are important for robotics: buoyancy!</p></li>
+<li><p>Affects vehicle balancing</p></li>
+</ul>
+</section>
+<section id="sea-surface-density" class="level3">
+<h3 class="anchored" data-anchor-id="sea-surface-density">Sea surface density</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/24.density-of-water.png" alt="24.density-of-water.png" style="height: 500px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="back-to-sound-speed" class="level2">
+<h2 class="anchored" data-anchor-id="back-to-sound-speed">Back to Sound Speed</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/25.back-to-ssp.png" alt="25.back-to-ssp.png" style="height: 500px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Typical value: 1500 m/s<br>
+</li>
+<li>Polar regions: sound speed is usually only increasing with depth.
+<ul>
+<li>Temperature more or less constant (already low), and sound speed increases with depth</li>
+</ul></li>
+<li>Surface duct profile
+<ul>
+<li>Surface waters has temperature lower (a few degrees) than that 5-10m below (e.g., summer nights cooling thin surface layers after very hot days)</li>
+<li>Sound speed slower than that of lower layers.</li>
+</ul></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Acoustic systems – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Acoustic systems – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/8.acoustic-systems/1.transducers.png">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="1.transducers">
+<meta property="og:image:height" content="334">
+<meta property="og:image:width" content="807">
+<meta name="twitter:title" content="Acoustic systems – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/8.acoustic-systems/1.transducers.png">
+<meta name="twitter:image:alt" content="1.transducers">
+<meta name="twitter:image-height" content="334">
+<meta name="twitter:image-width" content="807">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./acoustic_systems.html">Acoustic systems</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#acoustic-transducers" id="toc-acoustic-transducers" class="nav-link active" data-scroll-target="#acoustic-transducers">Acoustic transducers</a></li>
+  <li><a href="#phased-arrays" id="toc-phased-arrays" class="nav-link" data-scroll-target="#phased-arrays">Phased arrays</a></li>
+  <li><a href="#near-field-and-far-field" id="toc-near-field-and-far-field" class="nav-link" data-scroll-target="#near-field-and-far-field">Near Field and Far Field</a></li>
+  <li><a href="#beamforming" id="toc-beamforming" class="nav-link" data-scroll-target="#beamforming">Beamforming</a>
+  <ul class="collapse">
+  <li><a href="#array-of-transmitters" id="toc-array-of-transmitters" class="nav-link" data-scroll-target="#array-of-transmitters">Array of transmitters</a></li>
+  </ul></li>
+  <li><a href="#transducer-directivity-and-beam-pattern" id="toc-transducer-directivity-and-beam-pattern" class="nav-link" data-scroll-target="#transducer-directivity-and-beam-pattern">Transducer directivity and beam pattern</a></li>
+  <li><a href="#array-size-and-beamwidth" id="toc-array-size-and-beamwidth" class="nav-link" data-scroll-target="#array-size-and-beamwidth">Array Size and Beamwidth</a></li>
+  <li><a href="#sonar-systems" id="toc-sonar-systems" class="nav-link" data-scroll-target="#sonar-systems">SONAR systems</a></li>
+  <li><a href="#range-resolution" id="toc-range-resolution" class="nav-link" data-scroll-target="#range-resolution">Range Resolution</a></li>
+  <li><a href="#ambient-noise-is-the-ocean" id="toc-ambient-noise-is-the-ocean" class="nav-link" data-scroll-target="#ambient-noise-is-the-ocean">Ambient Noise is the Ocean</a></li>
+  <li><a href="#beaufort-scale-sea-state" id="toc-beaufort-scale-sea-state" class="nav-link" data-scroll-target="#beaufort-scale-sea-state">Beaufort Scale, Sea State</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Acoustic systems</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<section id="acoustic-transducers" class="level2">
+<h2 class="anchored" data-anchor-id="acoustic-transducers">Acoustic transducers</h2>
+<ul>
+<li><p>Who generates the pressure? who is the source?</p></li>
+<li><p>A transducer converts some sort of energy to sound (source) or converts sound energy (receiver) to an electrical signal</p></li>
+<li><p>An acoustic source in water is in general a piezoelectric or piezoceramic element.</p>
+<ul>
+<li>Respond to a voltage with a mechanical deformation</li>
+<li>A mechanical deformation produces an electrical signal</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/1.transducers.png" alt="1.transducers" style="height: 200px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure adapted from J.M. Hovem, NTNU</em></p>
+<ul>
+<li>Apply an electric signal (sinusoidal) to piezoelectric discs and they deform</li>
+<li>Discs are anchored to a backloading fixed element and to a Vibrator hear which is a mechanical amplifier</li>
+<li>When deployed in water (with appropriate sealings) produces deformations in the water, i.e., pressure perturbations</li>
+<li>Transmitters and Receivers are conceptually the same</li>
+</ul>
+<p>Frequency of mechanical vibration (for the same voltage) depends on the specific material and on the geometry.</p>
+<p>An acoustic transmitter is composed by one or more of these elements</p>
+<p>An acoustic receiver (i.e., hydrophone) is composed of one or more of these elements (one hydrophone is typically composed by one)</p>
+<ul>
+<li>Each basic element can typically be considered as omnidirectionals
+<ul>
+<li>For ex. one hydrophone detects pressure in all directions</li>
+</ul></li>
+<li>They can be combined together in variuos geometry to obtain directivity of sources and receivers
+<ul>
+<li>Can be done both using specific geometry of the composition</li>
+<li>and with signal processing called beamforming</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/2.transducers-2.png" alt="2.transducers-2" style="height: 200px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure adapted from J.M. Hovem, NTNU</em></p>
+<ul>
+<li>When the geometry is linear, we talk about arrays (of hydrophones) or <em>phased arrays</em>
+<ul>
+<li>They are typically towed by ships (or by UxVs)</li>
+</ul></li>
+<li>Arrays can also be spherical or planar (3D)</li>
+</ul>
+</section>
+<section id="phased-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="phased-arrays">Phased arrays</h2>
+<ul>
+<li>Omnidirectional sources are not ideal for a number of applications</li>
+<li>Not ideal for fast steering applications</li>
+<li>Think of fast tracking targets</li>
+<li>Phased arrays streer beams electronically and can generate multiple beams in parallel and steered independently</li>
+</ul>
+<p>Interference Pattern of the element determines the directivity and depends on: - Number of elements - Element spacing - Array geometry - Individual antenna patterns (in our case omnidirectional)</p>
+</section>
+<section id="near-field-and-far-field" class="level2">
+<h2 class="anchored" data-anchor-id="near-field-and-far-field">Near Field and Far Field</h2>
+<ul>
+<li>Given a omnidirectional source (a point source would produce spherical waves in an isotrope medium - spherical attenuation)</li>
+<li>Unfortunately, transducers are not points and we do not have spherical waves when we are close to the source</li>
+<li>We distringuish between Near and Far Field</li>
+</ul>
+<p>SPL: Sound Pressure Level (measure the source level)</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/3.spl.png" alt="3.spl" style="height: 200px;">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: On-axis SPL from a circular piston with radius 6m, f = 1.2 kHz. From Jasco Underwater Acoustics Pocket Handbook, Fig. 17</em></p>
+<ul>
+<li>Interference and diffraction close to the surface of the piston (see max and min of the intensity in the picture above).
+<ul>
+<li>Near field</li>
+</ul></li>
+<li>The distance after which we have monotonic behaviour is called <em>Fresnel Distance</em></li>
+<li>Far field (or Fraunhofer zone) is where the pressure behaves following spherical attenuation is approximately 4 times the Fresnel Distance</li>
+<li>Depend on frequency and size of the source (higher frequency would have smaller Fresnel distance)</li>
+</ul>
+<p><strong>We will use a Far Field assumption</strong></p>
+<ul>
+<li>Note that we defined the source level as the intensity measured at 1m from the source</li>
+<li>If we want to experimentally measure the SL we would be in the near field so we would not measure the actual SL but rather the interference pattern</li>
+<li>We would instead go to Far Field to measure the received intensity and then we would use spherical spreading to interpolate and get to 1m from the source.
+<ul>
+<li>Requires not to have additional interference in the far field</li>
+<li>For ex if we position the source and receiver close to the surface we would hit the LLoyd’s mirror and we do not measure the SL again.</li>
+</ul></li>
+<li>Operational source/receiver calibrations are done in deep waters</li>
+</ul>
+</section>
+<section id="beamforming" class="level2">
+<h2 class="anchored" data-anchor-id="beamforming">Beamforming</h2>
+<p>Beamforming is a way of utilizing constructive interference to increase the signal gain at a certain point in space.</p>
+<ul>
+<li>Beamforming with linear array</li>
+<li>Suppose you have:
+<ul>
+<li>a set of hydrophones aligned in a line</li>
+<li>source in far field</li>
+</ul></li>
+<li>We would receive a planar wave</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/4.beamforming-11.png" alt="4.beamforming-1" style="weight: 300px">
+</td>
+<td>
+<img src="./images/8.acoustic-systems/4.beamforming-12.png" alt="4.beamforming-1" style="weight: 300px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Wavefronts hit the hydrophones at different times</p></li>
+<li><p>Depends on the arrival angle <span class="math inline">\(\theta\)</span> of the wavefronts and from the distance between two consecutive hydrophones</p></li>
+<li><p>We use a summation point to sum up all signals <span class="math inline">\(P_i\)</span> received at every hydrophone at a specific point in time</p></li>
+</ul>
+<p><span class="math display">\[
+R = \sum_1^N P_i
+\]</span></p>
+<p>where <span class="math inline">\(P_i = P_{max}e^{-ikx_i}\)</span></p>
+<ul>
+<li>The intensity is maximised when <span class="math inline">\(\theta=0\)</span>
+<ul>
+<li>Signal arrival is in phase at each hydrophone</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/4.beamforming-13.png" alt="4.beamforming-13" style="height: 300px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>When <span class="math inline">\(\theta \ne 0\)</span>, every <span class="math inline">\(x_i\)</span> is different: <span class="math display">\[
+x_{i+1} = x_{i} + dx
+\]</span></li>
+</ul>
+<p>where <span class="math inline">\(dx = d\sin\theta\)</span> is the distance to get to the other hydrophone</p>
+<p>this produces a phase shift at the hydrophone due to the different <span class="math inline">\(x_i\)</span> of the wavefronts.</p>
+<p>When <span class="math inline">\(\theta=0\)</span> all hydrophones receive the same signal (<span class="math inline">\(\sin(0)=0\)</span>): <span class="math display">\[
+R = \sum_1^N P_{max}e^{-ikx}\;\;\text{since}\;\; x_i=x,\; \forall i
+\]</span></p>
+<ul>
+<li><p>The arriving wave will have maxs and mins (depends on the wavenumber), but when <span class="math inline">\(\theta=0\)</span>, the sum of max is <span class="math inline">\(NP_{max}\)</span>.</p></li>
+<li><p>The signal is amplified by the number of hydrophones</p></li>
+<li><p>In all other directions (<span class="math inline">\(\theta \ne 0\)</span>) we have a lower gain (or even destructive interference)</p></li>
+<li><p>This is called beamforming: summing up we obtain the part of the acoustic field that is coming from direction <span class="math inline">\(\theta=0\)</span></p></li>
+<li><p>When signals arrive at the hydrophones at the same time, we obtain the same signal amplified (mid picture below)</p></li>
+<li><p>When signals arrive from an angle, they have a phase shift (<span class="math inline">\(kd\sin\theta)\)</span> and we obtain a different signal</p></li>
+<li><p>If there is no signal at <span class="math inline">\(\theta=0\)</span> we get something that is not amplified.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/4.beamforming-2.png" alt="4.beamforming-2" style="height: 200px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Note also that at each hydrophone arrives both the signal and noise (e.g., white noise <span class="math inline">\(n_i\)</span>).</p></li>
+<li><p>If we have white noise, summing up uncorrelated noise means attenuating the noise</p></li>
+<li><p>We have a boost for the coherent signal and attenuation of incoherent signals (noise)</p></li>
+</ul>
+<p>This is useful if we want to know if signal is arriving from direction <span class="math inline">\(\theta=0\)</span></p>
+<ul>
+<li><p>What if I am interested in a different direction?</p></li>
+<li><p>We could rotate the receiver to the specific direction (e.g., mechanically scanning radars)</p>
+<ul>
+<li>Not practical underwater</li>
+</ul></li>
+<li><p>However, when we sample we can sum up all the data that I have received at the same time (priviledged direction <span class="math inline">\(\theta=0\)</span>)</p></li>
+<li><p>I can also note that the phase shift at the next hydrophone is: <span class="math inline">\(kd\sin\theta\)</span></p></li>
+<li><p>The wavafront has traveled <span class="math inline">\(d\sin\theta\)</span> from one hydrophone to the next, in <span class="math inline">\(\frac{d\sin\theta}{c}\)</span> seconds</p></li>
+<li><p>If I buffer all the data from all the hydrophones and then:</p>
+<ul>
+<li>sum the same time <span class="math inline">\(\theta=0\)</span></li>
+<li>sum signals delayed by <span class="math inline">\(i \cdot \frac{d\sin\bar{\theta}}{c}\)</span>, where <span class="math inline">\(i\)</span> is the hydrophone number and <span class="math inline">\(\bar{\theta}\)</span> is a specific direction</li>
+<li>this corresponds to reading the signals at the same time but looking in the direction <span class="math inline">\(\bar{\theta}\)</span></li>
+</ul></li>
+<li><p>Delaying the signals before the sum, the intensity is maximised for different values of <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>This is equivalent to doing a phase shift at the receivers (delay in time is equivalent to phase shifts in frequency): summing signals that are in phase</p>
+<ul>
+<li>time domain: time delay steering</li>
+<li>frequency domain: phase delay steering</li>
+</ul></li>
+<li><p>This is a signal processing operation that we can do very fast and in parallel (across multiple directions at once)</p></li>
+<li><p>Signals depending on the direction <span class="math inline">\(\theta\)</span> are called <strong>beams</strong></p></li>
+<li><p>Beamforming can be <strong>steered</strong> to desired directions <span class="math inline">\(\theta\)</span> forming beams corresponding to the various steering directions</p></li>
+<li><p>If there is a source at a specific direction, the beam corresponding to the source direction will have the highest intensity (the other would have lower intensity)</p></li>
+</ul>
+<section id="array-of-transmitters" class="level3">
+<h3 class="anchored" data-anchor-id="array-of-transmitters">Array of transmitters</h3>
+<ul>
+<li><p>The same principle apply for arrays of receivers and arrays of sources</p></li>
+<li><p>With N sources aligned, in the far field it is equivalent to have a single source with a pressure is <span class="math inline">\(N\)</span> times that of each single element (intensity <span class="math inline">\(N^2\)</span>)</p></li>
+<li><p>If we delay the signal transmitted by each element by <span class="math inline">\(i \cdot \frac{d\sin\bar{\theta}}{c}\)</span> we can steer the generated wavefront</p></li>
+</ul>
+<pre><code>&lt;td&gt; &lt;img src="./images/8.acoustic-systems/5.source-beamforming-1.png" alt="5.source-beamforming" style="width: 300px"/&gt;&lt;/td&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/5.source-beamforming.png" alt="5.source-beamforming" style="width: 300px">
+</td>
+
+</tr>
+</tbody></table>
+<ul>
+<li>Delaying in time is equivalent to a phase shift in frequency</li>
+<li>We can do beamforming in time and in frequency</li>
+</ul>
+<p>Nice library: <a href="https://arlpy.readthedocs.io/en/latest/index.html">arlpy</a></p>
+<p>and reference <a href="https://www.antenna-theory.com/arrays/weights/main.php#phased">Basics of phased arrays</a></p>
+</section>
+</section>
+<section id="transducer-directivity-and-beam-pattern" class="level2">
+<h2 class="anchored" data-anchor-id="transducer-directivity-and-beam-pattern">Transducer directivity and beam pattern</h2>
+<p>The beam patter provides information on how a given array distributes the signal in space. It is calculated using the signal strength as a function of spatial location for a given transmitter array.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/6.directivity-1.png" alt="6.directivity-1.png" style="width: 400px">
+</td>
+</tr>
+<tr>
+<td>
+Line array: maximum directivity along the acoustic axis <span class="math inline">\(\theta=0\)</span>
+</td>
+</tr>
+</tbody></table>
+<p><em>Beam pattern of a linear array. Figure from Bradley and Stern</em></p>
+<ul>
+<li>These diagrams, called beam patterns provide a graphical representation of the value in dB of the received pressure as a function of the angle.</li>
+<li>Note how intensity decreases as we move away from the <span class="math inline">\(\theta=0\)</span></li>
+<li>Note how the received pressure varies
+<ul>
+<li><p>When 0 means we are summing signals in destructive interference (opposite phase)</p></li>
+<li><p>When the signal increase it never goes to the maximum of the main lobe</p></li>
+<li><p>Main lobe is where we have the global maximum</p></li>
+<li><p>Side lobes correspond to local maxima</p></li>
+<li><p>In the sum we had the wavelength (through <span class="math inline">\(k\)</span>) which makes it possible to calculate the minimum and maximum</p></li>
+<li><p>Note the cylindrical symmetry of the problem (every direction that is perpendicular to the array provides a maximum)</p>
+<ul>
+<li>Limiting to a plan case: left-right ambiguity</li>
+</ul></li>
+</ul></li>
+<li>Delaying and summing we can rotate the beam pattern towards the direction we desire
+<ul>
+<li>There is a slight deformation not a pure rotation (pure rotation approximately only between 0 and 45)</li>
+</ul></li>
+</ul>
+<p>Different geometric configuration give rise to different beampatterns</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/6.directivity-2.png" alt="6.directivity-1.png" style="width: 400px">
+</td>
+</tr>
+<tr>
+<td>
+Disc array: maximum directivity along the acoustic axis <span class="math inline">\(\theta=0\)</span>
+</td>
+</tr>
+</tbody></table>
+<p><em>Beampattern of a disc array. Figure from Bradley and Stern</em></p>
+<ul>
+<li>Maximum is along the direction perpendicular to the disc</li>
+</ul>
+</section>
+<section id="array-size-and-beamwidth" class="level2">
+<h2 class="anchored" data-anchor-id="array-size-and-beamwidth">Array Size and Beamwidth</h2>
+<ul>
+<li><p>Array of length <span class="math inline">\(L\)</span></p></li>
+<li><p>Continuous (each element is infinitesimaly close to the next)</p></li>
+<li><p>Beamwidth of the main lobe:</p></li>
+</ul>
+<p><span class="math display">\[
+\Delta\theta = \lambda/L
+\]</span></p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/9.array-1.png" alt="9.array.png" style="width: 600px">
+</td>
+</tr>
+<tr>
+<td>
+Figure adapted from J.M. Hovem, NTNU
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Formula is specific for a continuous array, but generalises for the following aspect:</li>
+</ul>
+<p>In acoustics we cannot obtain similar effects to what we have with lasers which are very focused and narrow.</p>
+<p>To reduce <span class="math inline">\(\Delta\theta\)</span> (focusing), which means having higher resolution: - reduce <span class="math inline">\(\lambda\)</span> wave length (move to high frequency, which however attenuates quickly) - increase <span class="math inline">\(L\)</span>, the length of the array</p>
+<p>Tradeoff between range/frequency/resolution</p>
+<ul>
+<li>The Beamwidth of the main lobe formula makes it possible to approximate the expected resolution of a SONAR system</li>
+</ul>
+<hr>
+</section>
+<section id="sonar-systems" class="level2">
+<h2 class="anchored" data-anchor-id="sonar-systems">SONAR systems</h2>
+<ul>
+<li><p>Any system which uses acoustics to do something underwater</p></li>
+<li><p>Specialised sonars for specific applications (e.g., ASW, echosounders, acoustic modems)</p></li>
+<li><p>It is composed of:</p>
+<ul>
+<li>At least one receiver: we talk about passive sonars
+<ul>
+<li>receiver listens from sound produces by others</li>
+</ul></li>
+<li>At least one transmitted and one receiver: we talk about active sonars
+<ul>
+<li>receiver listens from reflections produced by the sound emitted by the source</li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/10.sonar.png" alt="10.sonar.png" style="width: 600px">
+</td>
+</tr>
+<tr>
+<td>
+Figure adapted from J.M. Hovem, NTNU
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Consider the source as composed of multiple transmitters (an array) so that we can obtain an aperture <span class="math inline">\(\Delta\theta\)</span></p></li>
+<li><p>Assume that the SONAR transmits rectangular pulses with temporal width <span class="math inline">\(T\)</span> (pulse width)</p></li>
+<li><p>The bandwidth of the rectangular pulse <span class="math inline">\(B\approx\frac{1}{T}\)</span></p></li>
+<li><p>Such a system (TX or RX) can:</p>
+<ul>
+<li>steer its beams, and each beam has beamwidth <span class="math inline">\(\Delta\theta\)</span></li>
+<li>receives from a sector that depends on the pulse width</li>
+</ul></li>
+</ul>
+</section>
+<section id="range-resolution" class="level2">
+<h2 class="anchored" data-anchor-id="range-resolution">Range Resolution</h2>
+<ul>
+<li><p>Rectangular pulse is transmitted (see figure below right)</p></li>
+<li><p>Hits something that scatters the signal back</p></li>
+<li><p>The signal travels <span class="math inline">\(2R\)</span></p></li>
+<li><p>The space for the pulse width to hit the target is <span class="math inline">\(\delta R\)</span> and is defined as <span class="math display">\[\delta R = \frac{cT}{2}\]</span></p></li>
+<li><p>Note that we divide by two because the signal goes back and forth</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/11.sonar-1.png" alt="11.sonar-1.png" style="width: 600px">
+</td>
+<td>
+<img src="./images/8.acoustic-systems/12.sonar.png" alt="12.sonar.png" style="width: 600px">
+</td>
+</tr>
+<tr>
+<td>
+Figure adapted from J.M. Hovem, NTNU
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The SONAR resolution cell depends on:
+<ul>
+<li><span class="math inline">\(\Delta\theta\)</span> (the receiver beam)</li>
+<li><span class="math inline">\(\delta R\)</span></li>
+</ul></li>
+<li>To have high resolution
+<ul>
+<li>angular resolution: <span class="math inline">\(\Delta\theta\)</span> (increase frequency or use longer arrays)</li>
+<li>range resolution: <span class="math inline">\(\delta R\)</span> must be small and we can only reduce <span class="math inline">\(T\)</span>
+<ul>
+<li>small <span class="math inline">\(T\)</span> means higher bandwidth <span class="math inline">\(B\approx\frac{1}{T}\)</span></li>
+<li>dirac delta function would be perfect as it has infinite bandwidth</li>
+<li>Problem: again I need high frequency</li>
+<li>Tradeoff between resolution and range</li>
+<li>Note that we are now talking about Bandwidth: different frequencies in my bandwidth will be attenutated differently</li>
+<li>The further away the sound comes the smaller the resolution: only low frequencies come back (this is true in terrestrial acoustics as well).</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>For non rectangular impulses - Specific formulas exist - Empirical rule: take the time width corresponding to maximum signal amplitude within -3dB as rectangular envelope - Good enough for a qualitative understanding</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/13.approx-resolution.png" alt="13.approx-resolution.png" style="width: 600px">
+</td>
+</tr>
+<tr>
+<td>
+Figure adapted from A. Caiti, Univ. of Pisa
+</td>
+</tr>
+</tbody></table>
+<hr>
+</section>
+<section id="ambient-noise-is-the-ocean" class="level2">
+<h2 class="anchored" data-anchor-id="ambient-noise-is-the-ocean">Ambient Noise is the Ocean</h2>
+<ul>
+<li>We saw that together with signals we receive noise</li>
+<li>Noise: any disturbance, any unwanted signal that interferes with the signal carrying information</li>
+<li>In ocean acoustics we not only have the typical noise any information engineer needs to deal with, electrical noise, but also with Acoustic Noise or Ambient Noise.</li>
+</ul>
+<p>Ambient Noise has spectral characteristics that are quite precise depending on what is causing it - Picture below (sound pressure vs frequency (log scale)) represents the typical spectral level of ambient noise, due to physical causes, and far away from the sonar system under analysis - Prevailing noise levels shown with the two solid black lines</p>
+<p>Main sources (numbers are approximate): - Earthquakes and explosions - Low frequency (up to 100Hz) - Wind noise in shallow waters (less than 40m) - Wind propagates sound in the water column (up to 100Hz) - Traffic noise - Shallow waters (&lt;500m) is slightly lower frequency - Deep waters (&gt;500m) - Heavy traffic is shown as dashed line - Marine traffic can get up to 1kHz. - Sea state - Note the presence, between 100Hz and 1kHz, of noise due to the state of sea: waves at the surface produce sound in the water column. In turns, waves are due to atmospheric effects.</p>
+<ul>
+<li><p>Heavy precipitations</p>
+<ul>
+<li>Between 100 and 30kHz</li>
+</ul></li>
+<li><p>Note how moving up in frequency effects of ambient noise decreases</p></li>
+<li><p>Moving to higher frequencies, sound is attenuated (assumption is source in far field)</p></li>
+<li><p>For frequency &gt; 10kHz noise is due to air and bubbles (e.g., white foam of waves: bubbles exploding and making noise at high frequency)</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/14.Composite-of-ambient-noise-spectra-from-Wenz-1962.png" alt="14.Composite-of-ambient-noise-spectra-from-Wenz-1962.png" style="width: 600px">
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="beaufort-scale-sea-state" class="level2">
+<h2 class="anchored" data-anchor-id="beaufort-scale-sea-state">Beaufort Scale, Sea State</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 12%">
+<col style="width: 9%">
+<col style="width: 13%">
+<col style="width: 14%">
+<col style="width: 13%">
+<col style="width: 18%">
+<col style="width: 5%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Beaufort wind scale</th>
+<th>Mean Wind Speed</th>
+<th>Limits of wind speed</th>
+<th>Wind descriptive terms</th>
+<th>Probable wave height</th>
+<th>Probable maximum wave height</th>
+<th>Seastate</th>
+<th>Sea descriptive terms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Knots</td>
+<td>Knots</td>
+<td></td>
+<td>in metres (1)</td>
+<td>in metres (2)</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>&lt;1</td>
+<td>Calm</td>
+<td>-</td>
+<td>-</td>
+<td>0</td>
+<td>Calm (glassy)</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>2</td>
+<td>1-3</td>
+<td>Light air</td>
+<td>0.1</td>
+<td>0.1</td>
+<td>1</td>
+<td>Calm (rippled)</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>5</td>
+<td>4-6</td>
+<td>Light breeze</td>
+<td>0.2</td>
+<td>0.3</td>
+<td>2</td>
+<td>Smooth (wavelets)</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>9</td>
+<td>7-10</td>
+<td>Gentle breeze</td>
+<td>0.6</td>
+<td>1</td>
+<td>3</td>
+<td>Slight</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>13</td>
+<td>11-16</td>
+<td>Moderate breeze</td>
+<td>1</td>
+<td>1.5</td>
+<td>3-4</td>
+<td>Slight - Moderate</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>19</td>
+<td>17-21</td>
+<td>Fresh breeze</td>
+<td>2</td>
+<td>2.5</td>
+<td>4</td>
+<td>Moderate</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>24</td>
+<td>22-27</td>
+<td>Strong breeze</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>Rough</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>30</td>
+<td>28-33</td>
+<td>Near gale</td>
+<td>4</td>
+<td>5.5</td>
+<td>5-6</td>
+<td>Rough-Very rough</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>37</td>
+<td>34-40</td>
+<td>Gale</td>
+<td>5.5</td>
+<td>7.5</td>
+<td>6-7</td>
+<td>Very rough - High</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>44</td>
+<td>41-47</td>
+<td>Strong gale3</td>
+<td>7</td>
+<td>10</td>
+<td>7</td>
+<td>High</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>52</td>
+<td>48-55</td>
+<td>Storm</td>
+<td>9</td>
+<td>12.5</td>
+<td>8</td>
+<td>Very High</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>60</td>
+<td>56-63</td>
+<td>Violent storm</td>
+<td>11.5</td>
+<td>16</td>
+<td>8</td>
+<td>Very High</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>-</td>
+<td>64+</td>
+<td>Hurricane</td>
+<td>14+</td>
+<td>-</td>
+<td>9</td>
+<td>Phenomenal</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Sea state is an empirical scale from 0 (flat) to 9</li>
+<li>Table reports:
+<ul>
+<li>description of the sea state</li>
+<li>value of the sea state</li>
+<li>(average) wave height (peak-to-peak)</li>
+<li>wind speed</li>
+<li>Beaufort scale</li>
+</ul></li>
+<li>Typically we use the Beaufort scale that empirically determines the wind speed from the sea state</li>
+<li>Note how multiple descriptions might match the same seastate number</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/8.acoustic-systems/16.FrancisBeaufort.jpg" alt="16.FrancisBeaufort.jpg" style="height: 300px">
+</td>
+<td style="width:30%">
+The scale was devised in 1805 by the Irish hydrographer Francis Beaufort (later Rear Admiral), a Royal Navy officer, while serving on HMS Woolwich.
+</td>
+</tr>
+</tbody></table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

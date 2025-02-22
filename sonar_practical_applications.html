@@ -1,0 +1,1914 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>SONAR Practical Applications – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="SONAR Practical Applications – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/10.sonar-practical-applications/1.multibeam-codemap.png">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="Multibeam codemap">
+<meta property="og:image:height" content="671">
+<meta property="og:image:width" content="720">
+<meta name="twitter:title" content="SONAR Practical Applications – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/10.sonar-practical-applications/1.multibeam-codemap.png">
+<meta name="twitter:image:alt" content="Multibeam codemap">
+<meta name="twitter:image-height" content="671">
+<meta name="twitter:image-width" content="720">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./sonar_practical_applications.html">SONAR Practical Applications</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#multi-beam-echosounders-an-example" id="toc-multi-beam-echosounders-an-example" class="nav-link active" data-scroll-target="#multi-beam-echosounders-an-example">Multi-beam echosounders: an example</a></li>
+  <li><a href="#side-scan-sonars-an-example" id="toc-side-scan-sonars-an-example" class="nav-link" data-scroll-target="#side-scan-sonars-an-example">Side Scan Sonars: an example</a></li>
+  <li><a href="#multi-beam-echosounders" id="toc-multi-beam-echosounders" class="nav-link" data-scroll-target="#multi-beam-echosounders">Multi-beam echosounders</a>
+  <ul class="collapse">
+  <li><a href="#echo-location-questions-where-is-the-bottom" id="toc-echo-location-questions-where-is-the-bottom" class="nav-link" data-scroll-target="#echo-location-questions-where-is-the-bottom">Echo Location Questions – Where is the Bottom?</a></li>
+  <li><a href="#survey-speed" id="toc-survey-speed" class="nav-link" data-scroll-target="#survey-speed">Survey Speed</a></li>
+  </ul></li>
+  <li><a href="#mbes-operating-principle" id="toc-mbes-operating-principle" class="nav-link" data-scroll-target="#mbes-operating-principle">MBES, Operating Principle</a>
+  <ul class="collapse">
+  <li><a href="#the-mills-cross-technique" id="toc-the-mills-cross-technique" class="nav-link" data-scroll-target="#the-mills-cross-technique">The Mills Cross Technique</a></li>
+  <li><a href="#mbes-and-backscattering" id="toc-mbes-and-backscattering" class="nav-link" data-scroll-target="#mbes-and-backscattering">MBES and backscattering</a></li>
+  <li><a href="#water-column-data" id="toc-water-column-data" class="nav-link" data-scroll-target="#water-column-data">Water Column Data</a></li>
+  <li><a href="#transmitted-signals" id="toc-transmitted-signals" class="nav-link" data-scroll-target="#transmitted-signals">Transmitted signals</a></li>
+  <li><a href="#movement-of-source-and-receiver" id="toc-movement-of-source-and-receiver" class="nav-link" data-scroll-target="#movement-of-source-and-receiver">Movement of source and receiver</a></li>
+  </ul></li>
+  <li><a href="#mbes-on-a-robot" id="toc-mbes-on-a-robot" class="nav-link" data-scroll-target="#mbes-on-a-robot">MBES on a Robot</a>
+  <ul class="collapse">
+  <li><a href="#some-examples" id="toc-some-examples" class="nav-link" data-scroll-target="#some-examples">Some examples</a></li>
+  </ul></li>
+  <li><a href="#side-scan-sonars" id="toc-side-scan-sonars" class="nav-link" data-scroll-target="#side-scan-sonars">Side-Scan Sonars</a>
+  <ul class="collapse">
+  <li><a href="#side-scan-parameters-and-beam-pattern" id="toc-side-scan-parameters-and-beam-pattern" class="nav-link" data-scroll-target="#side-scan-parameters-and-beam-pattern">Side scan parameters and beam pattern</a></li>
+  <li><a href="#main-beam" id="toc-main-beam" class="nav-link" data-scroll-target="#main-beam">Main beam</a></li>
+  <li><a href="#side-scan-sonars-on-an-auv" id="toc-side-scan-sonars-on-an-auv" class="nav-link" data-scroll-target="#side-scan-sonars-on-an-auv">Side Scan Sonars on an AUV</a></li>
+  </ul></li>
+  <li><a href="#side-scan-sonar-imagery" id="toc-side-scan-sonar-imagery" class="nav-link" data-scroll-target="#side-scan-sonar-imagery">Side Scan Sonar Imagery</a>
+  <ul class="collapse">
+  <li><a href="#what-are-we-looking-at" id="toc-what-are-we-looking-at" class="nav-link" data-scroll-target="#what-are-we-looking-at">What are we looking at?</a></li>
+  <li><a href="#impact-of-object-location-in-the-sonar-range" id="toc-impact-of-object-location-in-the-sonar-range" class="nav-link" data-scroll-target="#impact-of-object-location-in-the-sonar-range">Impact of object location in the sonar range</a></li>
+  <li><a href="#flat-sand-bottom-and-flat-mud-bottom" id="toc-flat-sand-bottom-and-flat-mud-bottom" class="nav-link" data-scroll-target="#flat-sand-bottom-and-flat-mud-bottom">Flat sand bottom and Flat mud bottom</a></li>
+  <li><a href="#large-and-small-sand-ridges" id="toc-large-and-small-sand-ridges" class="nav-link" data-scroll-target="#large-and-small-sand-ridges">Large and small sand ridges</a></li>
+  </ul></li>
+  <li><a href="#objects" id="toc-objects" class="nav-link" data-scroll-target="#objects">Objects</a>
+  <ul class="collapse">
+  <li><a href="#vehicle-turns" id="toc-vehicle-turns" class="nav-link" data-scroll-target="#vehicle-turns">Vehicle turns</a></li>
+  <li><a href="#man-made-debries-near-rocks-and-kelps" id="toc-man-made-debries-near-rocks-and-kelps" class="nav-link" data-scroll-target="#man-made-debries-near-rocks-and-kelps">Man made debries near rocks and kelps</a></li>
+  </ul></li>
+  <li><a href="#advanced-systems" id="toc-advanced-systems" class="nav-link" data-scroll-target="#advanced-systems">Advanced Systems</a>
+  <ul class="collapse">
+  <li><a href="#synthetic-aperture-sonar-sas" id="toc-synthetic-aperture-sonar-sas" class="nav-link" data-scroll-target="#synthetic-aperture-sonar-sas">Synthetic Aperture Sonar (SAS)</a></li>
+  </ul></li>
+  <li><a href="#sonars-and-navigation" id="toc-sonars-and-navigation" class="nav-link" data-scroll-target="#sonars-and-navigation">Sonars and Navigation</a></li>
+  <li><a href="#terrain-aided-navigation" id="toc-terrain-aided-navigation" class="nav-link" data-scroll-target="#terrain-aided-navigation">Terrain-aided Navigation</a></li>
+  <li><a href="#sub-bottom-profilers" id="toc-sub-bottom-profilers" class="nav-link" data-scroll-target="#sub-bottom-profilers">Sub-bottom profilers</a></li>
+  <li><a href="#ocean-bottom-seismometers-obs" id="toc-ocean-bottom-seismometers-obs" class="nav-link" data-scroll-target="#ocean-bottom-seismometers-obs">Ocean bottom seismometers (OBS)</a></li>
+  <li><a href="#seismic-exploration" id="toc-seismic-exploration" class="nav-link" data-scroll-target="#seismic-exploration">Seismic exploration</a></li>
+  <li><a href="#seismic-sources" id="toc-seismic-sources" class="nav-link" data-scroll-target="#seismic-sources">Seismic Sources</a></li>
+  <li><a href="#receiving-arrays" id="toc-receiving-arrays" class="nav-link" data-scroll-target="#receiving-arrays">Receiving Arrays</a></li>
+  <li><a href="#air-guns" id="toc-air-guns" class="nav-link" data-scroll-target="#air-guns">Air-Guns</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">SONAR Practical Applications</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<ul>
+<li>Let’s see how what we have seen works in practise with specific SONARS.</li>
+<li>We will mostly focus on those that can be installed on robots</li>
+<li>Deploying SONARS on robots amplified their usage</li>
+</ul>
+<p>Specific devices: - Multi-beam echosounders: used for bathymetric measurements - Side-scan sonars: sea-bed morphology</p>
+<section id="multi-beam-echosounders-an-example" class="level2">
+<h2 class="anchored" data-anchor-id="multi-beam-echosounders-an-example">Multi-beam echosounders: an example</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/1.multibeam-codemap.png" alt="Multibeam codemap" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/41598_2017_9382_MOESM2_ESM.mp4" width="600" height="400" frameborder="0">
+</video>
+<figcaption>
+Fly through the reconstructed Digital Terrain Model (CODEMAP Cruise, NOC)
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<p><em>(a,c) ship-board EM120 downward-looking multibeam echosounder (MBES) (resolution 50 m), (b,d) sideways-looking AUV mounted MBES (b) resolution 0.5 m; (d) resolution 5 m and (e) ROV front-mounted MBES (resolution 0.4 m). Whittard Canyon Acesta Wall (a,b,e) and Whittard Canyon Coral Wall (c,d). Figure from K. Roberts et al, New approaches to high-resolution mapping of marine vertical structures, 2017, Nature Scientific Reports</em></p>
+</section>
+<section id="side-scan-sonars-an-example" class="level2">
+<h2 class="anchored" data-anchor-id="side-scan-sonars-an-example">Side Scan Sonars: an example</h2>
+<ul>
+<li>Comparable to photographic images</li>
+<li>Relatively easy to intuitively read them (although can be very complicated when looking for specific details)</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/2.sss-typo-hires.jpg" alt="Side Scan Sonar NOAA" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Side-scan sonar image of schooner Typo, which collided with steamer W.P. Ketcham in October of 1899. The schooner, which was carrying a cargo of coal, was rammed in the stern. The sonar image shows the bow and upright foremast, cargo hatches across Typo’s deck, and the broken stern with a pile of spilled coal. Image Source: Michigan Technological University Great Lakes Research Center. Image courtesy of the Michigan Technological University Great Lakes Research Center. Downloaded from <a href="https://oceanexplorer.noaa.gov/technology/sonar/side-scan.html">NOAA’s website</a></em></p>
+<hr>
+</section>
+<section id="multi-beam-echosounders" class="level2">
+<h2 class="anchored" data-anchor-id="multi-beam-echosounders">Multi-beam echosounders</h2>
+<ul>
+<li>Bathymetric measurements done reading the time-of-flight of the tranmistted signal (two-way travel time)</li>
+<li>Typically mounted on the keel of the ship</li>
+<li>One transducer that tranmists and one that received. Typically collocated (Active Monostatic Sonar)</li>
+</ul>
+<section id="a-single-beam-echosounder" class="level4">
+<h4 class="anchored" data-anchor-id="a-single-beam-echosounder">A single-beam echosounder</h4>
+<ul>
+<li>Distance is measured by multiplying half the time from the signal’s outgoing pulse to its return by the speed of sound in the water.</li>
+<li>Measurements are repeated periodically to measure the depth of the seabed measuring the time of flight</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/6.Principle_of_SBES.svg.png" alt="single beam" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Multibeam echosounders do the same thing (there is the beam perpendicular to the seabed), but emits a number of other beams that insonify neighbouring areas and calculate the time of flight of all the beams</li>
+<li>Knowing the angle of each beam we can calculate the depth</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/3.MultibeamSurvey.jpg" alt="MultibeamSurvey" style="width: 450px">
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/4.multi-beam-1.png" alt="4.multi-beam-1" style="width: 450px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Figures: Scanning with Multibeam Bathymetry. Credit: Wessex Archaeology (Left), Hydro International (Right)</em></p>
+<ul>
+<li><p>MBES Represented a step change in measuring the ocean</p></li>
+<li><p>The purpose of a large-scale bathymetric survey is to produce accurate depth measurements for many neighboring points on the sea floor such that an accurate picture of the geography of the bottom can be established.</p></li>
+<li><p>To do this efficiently, two things are required of the sonar used:</p>
+<ul>
+<li>it must produce accurate depth measurements that correspond to well-defined locations on the sea floor (that is, specific latitudes and longitudes);</li>
+<li>and it must be able to make large numbers of these measurements in a reasonable amount of time.</li>
+</ul></li>
+</ul>
+<p>Single beams echosounders fall short in both areas.</p>
+</section>
+<section id="echo-location-questions-where-is-the-bottom" class="level3">
+<h3 class="anchored" data-anchor-id="echo-location-questions-where-is-the-bottom">Echo Location Questions – Where is the Bottom?</h3>
+<ul>
+<li><p>Echo sounder is to measure the range to the ocean floor accurately.</p></li>
+<li><p>In a bathymetric survey, a sonar is most useful if it measures the range to a specific location on the bottom, ideally at a point directly below the vessel doing the survey.</p></li>
+<li><p>Using the single-beam echo sounder you might assume that the time of the first echo from a ping determines the range to the bottom directly below the survey vessel.</p>
+<ul>
+<li>Sometime that is the case and the earliest echo is from directly below the sonar, because that is where the ping first encounters the bottom. For example for ideal, flat bottoms.</li>
+</ul></li>
+</ul>
+<p>However…</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/9.echo-sounder-limits.png" alt="9.echo-sounder-limits.png" style="width: 400px">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure from Multibeam Sonar Theory of Operation</em></p>
+<ul>
+<li>In this case, a bottom feature behind the vessel is closer to the sonar than the bottom directly below.</li>
+<li>Pings from the single-beam echo sounder, which spread out spherically from the sonar, equally in all directions, strike the bottom first at this point</li>
+<li>Operators on the survey vessel do not know that the first return echo is not from the bottom directly below</li>
+<li>We can partially deal with this problem introducing some directivity</li>
+<li>In this case, the bulk of the acoustic energy in the ping is focused within a narrow solid angle (beam)</li>
+<li>The ping ensonifies only a small patch of the bottom, and the first returned echo can be assumed to come from this area</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/9.echo-sounder-limits-1.png" alt="9.echo-sounder-limits-1.png" style="width: 400px">
+</td>
+</tr>
+</tbody></table>
+<section id="single-beam-further-problems" class="level4">
+<h4 class="anchored" data-anchor-id="single-beam-further-problems">Single beam: further problems</h4>
+<ul>
+<li><p>Unstabilised beams: the hull of the ship (and hence the sonar) moves with waves. The magnitude of this problem depends on the severity of the weather, but it can be quite large. Roll and pitch angles of tens of degrees in moderately heavy seas are not uncommon in the open ocean.</p></li>
+<li><p>Beams are made narrower by making the transducer face larger.</p>
+<ul>
+<li>For example, a circular 12 kHz transducer with a 30°beam width has a diameter of roughly 25 cm, but requires a diameter of roughly 295 cm for a 2.5°beam.</li>
+<li>The larger the transducer the higher the cost to manufacture.</li>
+</ul></li>
+</ul>
+<div id="34cb8041" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the relationship we saw for an array (delta_theta = lambda/L)</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>delta_theta <span class="op">=</span> (<span class="dv">1500</span><span class="op">/</span><span class="dv">12000</span>)<span class="op">/</span>(<span class="dv">30</span><span class="op">*</span><span class="fl">3.14</span><span class="op">/</span><span class="dv">180</span>) <span class="co"># 30deg</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(delta_theta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.23885350318471338</code></pre>
+</div>
+</div>
+<div id="cb669f15" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the relationship we saw for an array (delta_theta = lambda/L)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1500</span><span class="op">/</span><span class="dv">12000</span>)<span class="op">/</span>(<span class="fl">2.5</span><span class="op">*</span><span class="fl">3.14</span><span class="op">/</span><span class="dv">180</span>) <span class="co"># 2.5deg</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>2.8662420382165603</code></pre>
+</div>
+</div>
+</section>
+<section id="a-further-comment" class="level4">
+<h4 class="anchored" data-anchor-id="a-further-comment">A further comment</h4>
+<ul>
+<li><p>The solid angle size of the beam determines how accurately a narrow beam sonar can determine the location of depths on the bottom.</p></li>
+<li><p>An observer recording an echo from such a sonar can determine only that the bottom is located somewhere within that angle at the computed range.</p></li>
+<li><p>The size of the beam solid angle determines the resolution of a sonar.</p></li>
+<li><p>The term resolution may apply to the angle itself, or to the physical size of the area on the bottom the beam ensonifies.</p></li>
+<li><p>When resolution applies to the size of the ensonified area, it is not fixed and it depends on depth.</p></li>
+<li><p>The deeper a ping goes, the larger an area its fixed solid angle will intersect.</p></li>
+<li><p>The area of the ensonified bottom is proportional to the beam solid angle and to the square of the depth.</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/9.echo-sounder-resolution.png" alt="9.echo-sounder-resolution" style="width: 400px">
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="survey-speed" class="level3">
+<h3 class="anchored" data-anchor-id="survey-speed">Survey Speed</h3>
+<ul>
+<li>With single beam echosounder nautical charts very highly approximated using sparse measurements: extremely high errors
+<ul>
+<li>inappropriate instrument for large-scale bathymetric survey work</li>
+</ul></li>
+<li>With multi-beam echosounders this problem is reduced: we measure a swathe of seabed. Interpolation is still needed by we have much more measurements (typically less than 1m)</li>
+<li>Highly accurate and deep coverage of the sea bed</li>
+<li>Multibeams are only available since 1990s</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/7.single-beam-maps.png" alt="7.single-beam-maps.png" style="width: 350px">
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/8.multi-beam-maps.png" alt="8.multi-beam-maps" style="width: 350px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>GPS is also available since the 1990s (accuracy of a few meters).</p></li>
+<li><p>Before we used radio beacons, which at sea had a 100m accuracy.</p></li>
+<li><p>Before Multibeams and GPS we had the uncertainty of the interpolatin and of the navigation</p></li>
+<li><p>More in general multibeams require knowledge of sound speed profile and ship motion (roll, pitch and heave)</p></li>
+<li><p>Can be installed on ship or smaller versions are available for ROV/AUVs/UxVs</p>
+<table>
+<tbody><tr>
+<td>
+<p><img src="./images/10.sonar-practical-applications/5.multi-beam-1.jpg" alt="Multi Beam RSS SDA" style="width: 250px"></p>
+</td>
+</tr>
+</tbody></table></li>
+</ul>
+</section>
+</section>
+<section id="mbes-operating-principle" class="level2">
+<h2 class="anchored" data-anchor-id="mbes-operating-principle">MBES, Operating Principle</h2>
+<section id="the-mills-cross-technique" class="level3">
+<h3 class="anchored" data-anchor-id="the-mills-cross-technique">The Mills Cross Technique</h3>
+<ul>
+<li>Remember that given an array, the true beam pattern can be seen by rotating the figure about the axis of the line array</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/11.line-array-cylindrical-beampatter-simplified.png" alt="Multi Beam RSS SDA" style="width: 250px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>A projector line array transmits sound preferentially in all directions perpendicular to the axis of the array, ensonifying a strip of the ocean bottom</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/12.ensonified-bottom-1.png" alt="12.ensonified-bottom" style="width: 450px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>A hydrophone array aligned parallel to the projector array receives echoes from all locations along a similar strip of the ocean floor.</p></li>
+<li><p>If you want to accurately locate echoes on the ocean floor, this is not very useful.</p></li>
+<li><p>The projector array will cause echoes all along the ensonified strip, and the hydrophone array will pick up echoes from a similar strip.</p></li>
+<li><p>There will be no way of telling where the echoes are occurring along these strips</p></li>
+<li><p>If the projector and hydrophone arrays are perpendicular to each other, the strip of the ocean floor ensonified by the projectors will intersect with the strip of the ocean floor observed by the hydrophones</p></li>
+<li><p>This occurs in only a small area with dimensions that correspond approximately to the projector and hydrophone array beamwidths</p></li>
+<li><p>Echoes occur along the entire ensonified area,</p></li>
+<li><p>Sound may be received from the entire observed area,</p></li>
+<li><p>However only a small part of the bottom is both ensonified by the projector array and observed by the hydrophone array beam, i.e., where the two strips overlap.</p></li>
+<li><p>This is called, Mills Cross arrangement (named after a pioneering radio astronomy instrument built in New South Wales, Australia)</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/13.intersection.png" alt="13.intersection" style="width: 450px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>We can now leverage beamforming</li>
+<li>Beam steering can be used to observe echoes generated from multiple angles with the hydrophone array</li>
+<li>Different angles observe parallel strips of the bottom, which will intersect with the ensonified area in a series of small patches</li>
+<li>Multiple steered beams can be used to receive the echoes from discrete locations all along the ensonified area, allowing the sonar to determine ranges to a strip of locations with each ping.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/10.T-configuration-of-linear-transducer-arrays-and-the-resulting-beam-patterns-2.png" alt="10.T-configuration-of-linear-transducer-arrays-and-the-resulting-beam-patterns" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Since we know the beam steering angle</li>
+<li>For each patch we measure the two way travel time</li>
+<li>We calculate the depth of the sea bed from the sea surface</li>
+</ul>
+<p>Comments: - With a Multibeam, sound speed plays a bigger role than with the single beam echosounder (where we only go straight) - When we transmit with a slant angle, if the sound speep profile is not constant with depth (and it is not), we have refraction</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/14.ray-bending-mbes-1.png" alt="14.ray-bending-mbes" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>It is important to know the sound speed profile and keep into account how rays might bend (e.g., impact on footprint on the seabed)</p></li>
+<li><p>This is important in MBES and not in single beam echosounder (where we are insterested only in the ship-to-bottom straight path)</p></li>
+</ul>
+</section>
+<section id="mbes-and-backscattering" class="level3">
+<h3 class="anchored" data-anchor-id="mbes-and-backscattering">MBES and backscattering</h3>
+<ul>
+<li>Works measuring the backscatter</li>
+<li>Wavelength must be comparable to the bottom roughness</li>
+<li>Since we want to measure bathymetry everywhere, even when it is centimeters</li>
+<li>Frequency needs to be high enough</li>
+</ul>
+<p>If bottom roughness is <span class="math inline">\(\sigma = 10cm\)</span>, then wavelength should be <span class="math inline">\(\lambda\approx10cm\)</span></p>
+<p><span class="math display">\[\lambda = \frac{c}{f} = \frac{1500}{f} \Rightarrow 0.1 = \frac{1500}{f} \]</span></p>
+<p><span class="math display">\[ f = \frac{1500}{0.1} = 15kHz \]</span></p>
+<ul>
+<li><p><span class="math inline">\(\sigma\)</span> can be easily smaller than <span class="math inline">\(10cm\)</span> (e.g., clay) and MBES frequencies can often go &gt;100kHz</p></li>
+<li><p>Limits to their range</p></li>
+<li><p>Decreasing frequency to increase range MBES constraint their maximum resolution</p></li>
+<li><p>Remember that <span class="math inline">\(\Delta \theta\)</span> (amplitude of the beam) depends on the frequency and we have a larger patch on the seabed (and the resolution decreases accordingly)</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/15.decrease-f.png" alt="15.decrease-f" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Some MBES can use multiple frequencies simultaneously.</p></li>
+<li><p>All the previous limitations still hold, using multiple frequencies can reduce the amount of noise encountered.</p></li>
+<li><p>Rather than not having some (high frequency) depths, these data points can be filled in using lower frequency data (although with a larger footprint and thus showing less detail).</p></li>
+<li><p>The final data density is defined by the number of beams (depths) and the ping rate, or the number of swathes that the MBES can measure per second.</p></li>
+<li><p>The ping rate depends on the water depth, and can be as high as 60 pings per second in shallow water.</p></li>
+</ul>
+</section>
+<section id="water-column-data" class="level3">
+<h3 class="anchored" data-anchor-id="water-column-data">Water Column Data</h3>
+<ul>
+<li><p>A traditional MBES measures a single depth per beam per ping.</p></li>
+<li><p>In general, the ‘first depth strong enough to be detected’ will result in the depth displayed.</p></li>
+<li><p>Less strong depths that may be closer to the multibeam are not detected.</p></li>
+<li><p>Also, a strong reflector close to the transducer may give a depth rather than the weaker bottom below it.</p></li>
+<li><p>Modern MBES systems reads water column data.</p></li>
+<li><p>The water column of each beam is divided into a number of ‘bins’.</p></li>
+<li><p>The MBES now looks for a return within each bin for each beam for each ping.</p></li>
+<li><p>MBES to measure multiple reflections and thus create 3D images of objects in the water column (or to see the bottom through, for example, vegetation).</p></li>
+<li><p>Many beams, multi-frequency and a high ping rate make the amount of data gathered enormous.</p></li>
+<li><p>Time spent processing is not negligible</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/18.mbes-3d.png" alt="18.mbes-3d.png" style="width: 750px"><br>
+
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="transmitted-signals" class="level3">
+<h3 class="anchored" data-anchor-id="transmitted-signals">Transmitted signals</h3>
+<ul>
+<li><p>Where in the past the transmitted signal was a ‘continuous wave’ (CW),</p></li>
+<li><p>Today MBES often also transmit what is called an FM or CHIRP (Compressed High Intensity Radar Pulse) signal. - Main advantage of the CHIRP is a longer range with better range resolution.</p></li>
+<li><p>For a CW type MBES, the range resolution is defined by the pulse length of the signal,</p></li>
+<li><p>For a CHIRP type MBES the range resolution is defined by the bandwidth of the signal,</p></li>
+<li><p>This makes it possible to transmit longer pulses and therefore to have more power in water.</p></li>
+</ul>
+</section>
+<section id="movement-of-source-and-receiver" class="level3">
+<h3 class="anchored" data-anchor-id="movement-of-source-and-receiver">Movement of source and receiver</h3>
+<ul>
+<li><p>Movement is always present</p></li>
+<li><p>MBES has always an angle (roll, pitch and heave in particular) with respect to the sea surface</p></li>
+<li><p>Measure movement of the ship and use it during the calculation of the depth</p></li>
+<li><p>MBES are complex and cost much more than single beam echosounder (1k-1M USD)</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/16.kongsberg.png" alt="16.kongsberg" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/EV Nautilus - Multibeam Mapping Teaching Animation.mp4" width="600" height="400" frameborder="0">
+</video>
+<figcaption>
+Courtesy of Ocean Exploration Trust/ Nautilus Live.
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/20.mbes-1.png" alt="20.mbes-1" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/20.mbes-2.png" alt="20.mbes-1" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="mbes-on-a-robot" class="level2">
+<h2 class="anchored" data-anchor-id="mbes-on-a-robot">MBES on a Robot</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/17.remus-and-mbes.png" alt="17.remus-and-mbes" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Small size, high frequency systems can be installed on AUVs</li>
+<li>Navigating close to the seabed, high resolution bathymetry can be obtained also in deep water</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/19.mbes-autosub.png" alt="19.mbes-autosub" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<section id="some-examples" class="level3">
+<h3 class="anchored" data-anchor-id="some-examples">Some examples</h3>
+<section id="whittard-canyon" class="level4">
+<h4 class="anchored" data-anchor-id="whittard-canyon">Whittard Canyon</h4>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<video controls="" src="./videos/CODEMAP Project - 017 - AUV seabed mapping.mp4" width="600" height="400" frameborder="0">
+</video>
+<figcaption>
+Courtesy of The National Oceanography Centre, CODEMAP project.
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="pianosa-archaeological-site" class="level4">
+<h4 class="anchored" data-anchor-id="pianosa-archaeological-site">Pianosa, Archaeological site</h4>
+<ul>
+<li>30m Depth</li>
+<li>Survey from a ship</li>
+<li>Reason MBES 445 kHz</li>
+<li>Colors are due to image processing only (e.g., shadows are artefacts from the Graphical Rendering)</li>
+<li>Top-Left part of the area is Posidonia (30m is the typical growth limit)
+<ul>
+<li>Posidonia produces high scattering through its length, and this implies that measured time is more uncertain (see zommed area)</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/21.mbes-example-pianosa.png" alt="21.mbes-example-pianosa" style="width: 650px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/21.mbes-example-pianosa-zoomed-2.png" alt="21.mbes-example-pianosa-zoomed" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: A multibeam-sonar image of the underwater archaeological site near the island of Pianosa, off the west coast of Italy. The site contains approximately 100 amphorae of different origins and epochs</em></p>
+</section>
+</section>
+</section>
+<section id="side-scan-sonars" class="level2">
+<h2 class="anchored" data-anchor-id="side-scan-sonars">Side-Scan Sonars</h2>
+<ul>
+<li><p>Sidescan sonars are primarily designed to provide “acoustic images” of the seafloor, with high resolution</p></li>
+<li><p>A sidescan sonar system consists of a recording device, an underwater sensor (a towfish with a transducer on the port and starboard side, respectively), and a tow cable to connect the two</p></li>
+<li><p>Side-scan sonar does not (with the exception of interferometrics) have the capacity to incorporate information about the bottom topography,</p></li>
+<li><p>If the bottom is not flat it requires additional bathymetric data on which to base processing corrections.</p></li>
+<li><p>Without taking these factors into account, the intensity of the backscatter return is significantly affected by bathymetric variation, to the point that it is of limited usefulness for quantitative analysis.</p></li>
+<li><p>Traditional analysis of SSS is primarily image-based, using the constructed sonograph for visual interpretation.</p></li>
+<li><p>Records the backscatter signal from the bottom</p></li>
+<li><p>Leverage Tx beamforming</p>
+<ul>
+<li>Wide beam on the <em>across track</em> direction</li>
+<li>Narrow beam on the <em>along track</em> direction</li>
+</ul></li>
+<li><p>Measures the return signal</p>
+<ul>
+<li>Proportional (there is propagation loss) to the backscatter intensity</li>
+<li>Return signals have a temporal sequencing (first return from the closest point of the bottom, etc.)</li>
+</ul></li>
+<li><p>For each Tx we have a return signal as a function of time and with an intensity that is proportional to the received intensity</p>
+<ul>
+<li>Pixel color is correlated to the backscatter amplitude (e.g., black no signal, white high backscatter, etc)</li>
+<li>Pixel are aligned on a strip</li>
+<li>Aligning strips form an image of the bottom</li>
+</ul></li>
+<li><p>Frequency of operations: 100-700 kHz (typically between 300-400 kHz)</p>
+<ul>
+<li>100 kHz: low resolution</li>
+<li>700 kHz: high resolution</li>
+</ul></li>
+<li><p>For this reason, side scans where towed systems rather than being installed on the ship’s keel</p>
+<ul>
+<li>Need to have the system close to the bottom</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/23.sidescan_sonar_lge.jpg" alt="23.sidescan_sonar_lge.jpg" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<!--table>
+    <tr>
+        <td>
+            <img src="./images/10.sonar-practical-applications/24.sidescan-2.png" alt="24.sidescan-1.png" style="width: 650px"/>       
+        </td>           
+    </tr>
+</table-->
+<ul>
+<li><strong>Two transmit/receive arrays</strong> positioned on the side of the body of the tow fish (side scan)</li>
+</ul>
+<section id="side-scan-parameters-and-beam-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="side-scan-parameters-and-beam-pattern">Side scan parameters and beam pattern</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/24.sidescan-1.png" alt="24.sidescan-1.png" style="width: 650px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/24.sidescan-3.png" alt="24.sidescan-1.png" style="width: 650px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Sidelobes look behind the main transmit direction</p></li>
+<li><p>Range: The maximum distance from the transducers that the SONAR signal can detect usable signals.</p></li>
+<li><p>Slant range: The straight-line distance from the tow fish to an object at any given location</p></li>
+<li><p>Range delay: The distance (or range) that the sonar device is told to wait after pinging before it starts recording acoustic returns. The most common use for range delay is to not record the water column – i.e.&nbsp;the time for the ping to reach the seafloor in a straight line (first return)</p></li>
+</ul>
+</section>
+<section id="main-beam" class="level3">
+<h3 class="anchored" data-anchor-id="main-beam">Main beam</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/24.sidescan-4.png" alt="24.sidescan.png" style="width: 650px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>The main signal moves within the angles of the main beam (remember the 3dB rule we used)</li>
+<li>Note the shadow part after the object: waves do not progate through it and no backscatter signals are received for a while</li>
+</ul>
+</section>
+<section id="side-scan-sonars-on-an-auv" class="level3">
+<h3 class="anchored" data-anchor-id="side-scan-sonars-on-an-auv">Side Scan Sonars on an AUV</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/17.remus-and-mbes.png" alt="17.remus-and-mbes" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Need for careful attitude of the vehicle</li>
+<li>Attitude compensation possible to correct data</li>
+</ul>
+</section>
+</section>
+<section id="side-scan-sonar-imagery" class="level2">
+<h2 class="anchored" data-anchor-id="side-scan-sonar-imagery">Side Scan Sonar Imagery</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/24.sidescan-sources-1.png" alt="24.sidescan-sources" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>side lobes might pick up bottom and surface returns</li>
+<li>presence of fish (in the middle of the water column) generates volume scattering. Returns might come in-between bottom returns. Generate shadows.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/25.sss-1.png" alt="25.sss-1" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/25.sss-2.png" alt="25.sss-1" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<section id="what-are-we-looking-at" class="level3">
+<h3 class="anchored" data-anchor-id="what-are-we-looking-at">What are we looking at?</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/26.sss-3.png" alt="25.sss-1" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Waterfall: A term used to describe a display that puts the newest data at the top and scrolls the data down like a waterfall</li>
+<li>Water column: The water length between the sensor and the seafloor.</li>
+<li>Swath: The total side-to-side coverage of the SONAR signal on each sweep of the seabed</li>
+<li>Nadir: no return area from the water column</li>
+<li>Note the transmit signal as first few pings of the image (strong yellow intensity at the centre), which is also received</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/27.sss-41.png" alt="25.sss-1" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p>A more complex example</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/28.sss-5.png" alt="28.sss-5.png" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: Courtesy of Hydroid, 2010</em></p>
+<ul>
+<li>Surface and bottom returns might be due to sidelobes
+<ul>
+<li>They tend do be constantly present in the image</li>
+</ul></li>
+<li>High backscatter lines (close to nadir) due to surface and bottom returns (left and right).
+<ul>
+<li>The difference in intensity between left and right channel might indicate that there is a left-right slope (we are farther away from the bottom) or a rolled vehicle.</li>
+<li>Surface or bottom returns (their order) depend on which one is the closest</li>
+</ul></li>
+<li>Note the presence of fish (volume scattering)
+<ul>
+<li>shadows make it possible to say that it is fish</li>
+</ul></li>
+</ul>
+<p>Given the specific geometric mounting of the sidescan sonar - We do not see very well right below the sonar - Shadows are compressed and small - And far away from it - Shadows of objects at the edge are cut off - Ideal range is mid-range</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/29.sss-6a.png" alt="28.sss-5.png" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/29.sss-61.png" alt="28.sss-5.png" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="impact-of-object-location-in-the-sonar-range" class="level3">
+<h3 class="anchored" data-anchor-id="impact-of-object-location-in-the-sonar-range">Impact of object location in the sonar range</h3>
+<ul>
+<li>Some object in two different side scan areas</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/30.sss-7right.png" alt="28.sss-5.png" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/30.sss-7left.png" alt="28.sss-5.png" style="width: 550px"><br>
+
+</td>
+</tr>
+<tr>
+<td>
+Near Nadir: high backscatter, short shadow
+</td>
+<td>
+Sweet Area: high backscatter, longer shadow
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Looking at the sweet area is easier to see: a cylindrical weight, a cable and something attached to it.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/31.sss-8.png" alt="31.sss-8.png" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="flat-sand-bottom-and-flat-mud-bottom" class="level3">
+<h3 class="anchored" data-anchor-id="flat-sand-bottom-and-flat-mud-bottom">Flat sand bottom and Flat mud bottom</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/32.sss-flat-sand.png" alt="32.sss-flat-sand.png" style="width: 450px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/33.sss-mud-1.png" alt="33.sss-mud" style="width: 450px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p>Note: - difference in texture between the two types of bottom - color change in the right image. This is due to change of gain of the received signal (no natural surface would produce this change in reflectivity)</p>
+</section>
+<section id="large-and-small-sand-ridges" class="level3">
+<h3 class="anchored" data-anchor-id="large-and-small-sand-ridges">Large and small sand ridges</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/34.sss-large-sand-1.png" alt="34.sss-large-sand" style="width: 250px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/35.sss-small-sand-1.png" alt="33.sss-small-sand" style="width: 450px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/36.sss-rocks-and-sand-1.png" alt="34.sss-rocks and-sand" style="width: 450px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Yellow lines are due to acoustic interference from another device</li>
+</ul>
+</section>
+</section>
+<section id="objects" class="level2">
+<h2 class="anchored" data-anchor-id="objects">Objects</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/37.object-1-1.png" alt="object" style="width: 450px"><br>
+
+</td>
+</tr>
+<tr>
+<td>
+<img src="./images/10.sonar-practical-applications/37.object-2-1.png" alt="object" style="width: 450px"><br>
+
+</td>
+</tr>
+<tr>
+<td>
+<img src="./images/10.sonar-practical-applications/37.object-3-1.png" alt="object" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Top image: Bottom object, sweet area (note how clearly is visible and how regular it is - possibly manmade)</li>
+<li>Middle image: Bottom object, near nadir (limited shadow - difficult to detect)</li>
+<li>Bottom image: Object with clear shadows: weight, cable and buoy
+<ul>
+<li>Something that reflets in the water column (visible in the nadir region)</li>
+<li>Note the long shadow. This is a buoy with a cable (which also produces backscatter)</li>
+</ul></li>
+</ul>
+<section id="vehicle-turns" class="level3">
+<h3 class="anchored" data-anchor-id="vehicle-turns">Vehicle turns</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/38.vehicle-turns.png" alt="38-vehicle-turns" style="width: 450px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>vehicle turns means rolling, and returns from the bottom are not straight anymore.</li>
+</ul>
+</section>
+<section id="man-made-debries-near-rocks-and-kelps" class="level3">
+<h3 class="anchored" data-anchor-id="man-made-debries-near-rocks-and-kelps">Man made debries near rocks and kelps</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/39.man-made-objects.png" alt="39-man-made-objects" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/39.kelp.jpg" alt="Kelp" style="width: 250px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Muddy bottom with rocks</li>
+<li>Objects in the water column with long shadows: kelp</li>
+<li>Man made debries also present</li>
+</ul>
+</section>
+</section>
+<section id="advanced-systems" class="level2">
+<h2 class="anchored" data-anchor-id="advanced-systems">Advanced Systems</h2>
+<ul>
+<li><p>We can combine SSS and multibeam (e.g, install on the same vehicle)</p></li>
+<li><p>Careful with frequency choice or through time division (mission scheduling)</p></li>
+<li><p>Some SSS can operate at multiple frequencies</p>
+<ul>
+<li>Lower frequency (longer range) is used for identification: “I saw something”</li>
+<li>Higher frequency (shorter range) is used for classification: “I know what it is”</li>
+<li>Typically done through two different mission phases</li>
+</ul></li>
+<li><p>Interferometric SSS</p>
+<ul>
+<li>Use not one, but two RX arrays per side are used to measure the phase difference of the received signal and determine the bathymetry.</li>
+<li>Only one TX ping.</li>
+<li>Geometry of the receivers well known (e.g., location on the vehicle).</li>
+</ul></li>
+</ul>
+<section id="synthetic-aperture-sonar-sas" class="level3">
+<h3 class="anchored" data-anchor-id="synthetic-aperture-sonar-sas">Synthetic Aperture Sonar (SAS)</h3>
+<ul>
+<li><p>Newer development (10-15Y)</p></li>
+<li><p>Simple concept but difficult to engineer</p></li>
+<li><p>The same point is ensonified by a number of different pings from different locations</p></li>
+<li><p>Identifing the time of arrivals of each point</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/40.sas.png" alt="40.sas" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/41.sas-1.png" alt="41.sas-1" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p>Backscatter from a single ping, at time <span class="math inline">\(t_1\)</span>: <span class="math display">\[
+b_{1} = b_{true} + n_1
+\]</span></p>
+<p>Having multiple pings: <span class="math display">\[
+b_{HD} = b_{1} + b_{2} + b_{3}
+\]</span></p>
+<p>Since the point is the same,</p>
+<p><span class="math display">\[
+b_{HD} = 3b_{true} + n_1 + n_2 + n_3
+\]</span></p>
+<p>if the noise has zero mean, we have a gain in the true backscatter value and a decrease (we are averaging) of the noise associated to different ping.</p>
+<p>The identification of the reception times (<span class="math inline">\(t_1\)</span>, <span class="math inline">\(t_2\)</span>, <span class="math inline">\(t_3\)</span>) is critical. If I use wrong times, I am summing up backscatters from different points of the bottom and results are wrong.</p>
+<p>The association of time to spatial coordinates is difficult and depends on the vehicle navigation. In this case the relative navigation across the pings is important and we often talk of micronavigation.</p>
+<p>Only a minor numer of systems are able to do it (e.g., Kongsberg).</p>
+<p>Called Synthetic Aperture, because it is equivalent to build an antenna of sidescan sonars (receivers)</p>
+<p>Terminology - Length of antenna: aperture - Length of array of sidescans is synthetic because it is built through digital processing</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/42.side-scan-sas.png" alt="42.side-scan-sas" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/43.dolias.png" alt="43.dolias" style="width: 150px"><br>
+
+</td>
+</tr>
+<tr>
+<td>
+SSS 384kHz (left) and SAS 300 kHz (middle)
+</td>
+<td>
+</td>
+<td>
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Inverted colorscale for left SSS image: shadows are white</p></li>
+<li><p>SSS is high frequency of SAS but has lower resolution</p></li>
+<li><p>Roman Dolias</p></li>
+<li><p>Off the coast of Isola d’Elba</p></li>
+<li><p>60m depth</p></li>
+</ul>
+</section>
+</section>
+<section id="sonars-and-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="sonars-and-navigation">Sonars and Navigation</h2>
+<ul>
+<li>Side Scan Sonar is often payload for Self Localisation and Mapping (SLAM)</li>
+<li>Multi-beam is often payload for Terrain-based navigation and can be useful for SLAM as well.</li>
+</ul>
+</section>
+<section id="terrain-aided-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="terrain-aided-navigation">Terrain-aided Navigation</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-1.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+<tr>
+<td>
+DYNOPO Cruise, NOC
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-2.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-3.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-4.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-5.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Salavasidis et al, “Terrain‐aided navigation for long‐range AUVs in dynamic under‐mapped environments”, Journal of Field Robotics</em></p>
+</section>
+<section id="sub-bottom-profilers" class="level2">
+<h2 class="anchored" data-anchor-id="sub-bottom-profilers">Sub-bottom profilers</h2>
+<ul>
+<li><p>So far we have focused on exploring the surface of the bottom</p></li>
+<li><p>Often we would like to understand what is behing the surface (e.g., oil and gas exploration)</p></li>
+<li><p>To produce maps not only of the surface of the bottom but also of the layers underneath we use sub-bottom profilers</p></li>
+<li><p>Similar to echosounders (ping right below) but at lower frequencies</p></li>
+<li><p>Typical frequency: 1kHz-7kHz (most often 3.5kHz)</p></li>
+<li><p>Normal incident reflections from seabed and substrata</p></li>
+<li><p>Frequencies are low enough that some of the energy is transmitted through the seabed</p>
+<ul>
+<li>We receive as many pulses back as the number of interfaces (change in the medium)
+<ul>
+<li>This is when some energy is reflected back to the receiver</li>
+</ul></li>
+</ul></li>
+<li><p>Coloring pixels based on the backscattering strength of received pulses we obtain layering maps similar to what is shown below</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/45.sub-bottom-ex.png" alt="46.sub-bottom-ex" style="width: 450px"><br>
+
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/46.sub-bottom-concept.png" alt="46.sub-bottom-concept" style="width: 350px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Sediments are soft and we have lower reflections</p></li>
+<li><p>Hard bottoms have higher reflections</p></li>
+<li><p>Low frequency and hence low resolution</p></li>
+</ul>
+<p><em>Figure: from www.geoviewing.com and Lurton 2002</em></p>
+</section>
+<section id="ocean-bottom-seismometers-obs" class="level2">
+<h2 class="anchored" data-anchor-id="ocean-bottom-seismometers-obs">Ocean bottom seismometers (OBS)</h2>
+<ul>
+<li><p>When OBS sensors are deployed on the sea bottom and locked on the bottom, it is possible to investigate the structure of the bottom in more details</p></li>
+<li><p>This makes it possible to read S-Waves as well as P-Waves and to obtain directionality</p></li>
+<li><p>Refractions arrive at the different sensors in different ways</p>
+<ul>
+<li>Is the equivalent of seismic tomography</li>
+<li>Not acoustics but seismic because it uses elastic waves.</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/47.obs.png" alt="47.obs" style="width: 450px">
+</td>
+<td>
+<img src="./images/10.sonar-practical-applications/47.obs-1.png" alt="47.obs-1" style="width: 450px">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: from geology.gsapubs.org and seismo.berkeley.edu</em></p>
+<ul>
+<li>Deploying OBS is complex, they need to lock to the bottom</li>
+<li>Usage of robots attempted for:
+<ul>
+<li>Deploying sensors</li>
+<li>Directly use the robots as OBS</li>
+<li>Depending on the type of bottom robots might struggle to leave the bottom to come back</li>
+</ul></li>
+</ul>
+</section>
+<section id="seismic-exploration" class="level2">
+<h2 class="anchored" data-anchor-id="seismic-exploration">Seismic exploration</h2>
+<ul>
+<li>Seismic reflection</li>
+<li>More deep than sub-bottom profilers, less deep than OBS</li>
+<li>Perform a seismic tomography but using linear arrays</li>
+<li>This makes it possible to read P-Waves only (loss of directionality)</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/48.seismic-reflection.png" alt="48.seismic-reflection" style="width: 450px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Sources with frequency &lt; 200Hz</li>
+<li>Large aperture arrays &gt; 1km</li>
+<li>Wavelength is long so large apertures are needed (<span class="math inline">\(\Delta\theta = \frac{\lambda}{L}\)</span>)</li>
+</ul>
+</section>
+<section id="seismic-sources" class="level2">
+<h2 class="anchored" data-anchor-id="seismic-sources">Seismic Sources</h2>
+<ul>
+<li><p>Explosives (TNT): 10Hz-1kHz</p></li>
+<li><p>Air-guns: &lt; 100Hz</p></li>
+<li><p>Air-guns array: &lt; 100Hz</p></li>
+<li><p>Water-guns: 50Hz-1kHz</p></li>
+<li><p>Sparkers: 100Hz-3kHz</p></li>
+<li><p>Source Levels are very high, and given that they have low frequency, signals are mostly geometrically attenuated and propagate for extremely long ranges.</p></li>
+<li><p>Acoustic and environmental assessments are mandatory to avoid affecting marine life (e.g., marine mammals)</p>
+<ul>
+<li>Sonar equations are used for this, together with tables that codify marine mammals pain levels, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="receiving-arrays" class="level2">
+<h2 class="anchored" data-anchor-id="receiving-arrays">Receiving Arrays</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/49.receiveing-arrays.png" alt="49.receiveing-arrays" style="width: 350px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Electronics and hydrophones are immersed in oil to balance pressure</li>
+</ul>
+</section>
+<section id="air-guns" class="level2">
+<h2 class="anchored" data-anchor-id="air-guns">Air-Guns</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/50.air-guns.png" alt="50.air-guns" style="width: 750px">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Large and complex systems, large ships needed to deploy</p></li>
+<li><p>Tx signals: sequence of signals (Figure Airgun Waveform, dashed line) that have multiple peaks</p>
+<ul>
+<li>Signals might not be simple to signal process (due to multiple peaks)</li>
+<li>We would like to have a delta function</li>
+</ul></li>
+<li><p>Arrays of airguns can be used to coordinate their firing and attenuate the problem above</p>
+<ul>
+<li>First peak is obtained as constructive interference of the signals</li>
+<li>Other peaks are obtained as destructive interference and hence attenuated</li>
+<li>See Figure Airgun Waveform, blue line and the blue line in the Airgun Spectrum where the low frequency spectrum is much cleaner (no resonant frequencies)</li>
+</ul></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

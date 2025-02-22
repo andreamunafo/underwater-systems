@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Ray Tracing – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Ray Tracing – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/4.ray-tracing/32.rays-11.png">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="32.rays-11">
+<meta property="og:image:height" content="694">
+<meta property="og:image:width" content="948">
+<meta name="twitter:title" content="Ray Tracing – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/4.ray-tracing/32.rays-11.png">
+<meta name="twitter:image:alt" content="32.rays-11">
+<meta name="twitter:image-height" content="694">
+<meta name="twitter:image-width" content="948">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ray_tracing.html">Ray Tracing</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#ray-paths-refraction-and-snells-law" id="toc-ray-paths-refraction-and-snells-law" class="nav-link active" data-scroll-target="#ray-paths-refraction-and-snells-law">Ray Paths, Refraction and Snell’s Law</a></li>
+  <li><a href="#snells-law" id="toc-snells-law" class="nav-link" data-scroll-target="#snells-law">Snell’s Law</a></li>
+  <li><a href="#ray-paths-and-wave-guide-effects" id="toc-ray-paths-and-wave-guide-effects" class="nav-link" data-scroll-target="#ray-paths-and-wave-guide-effects">Ray paths and wave-guide effects</a>
+  <ul class="collapse">
+  <li><a href="#source-is-at-the-surface" id="toc-source-is-at-the-surface" class="nav-link" data-scroll-target="#source-is-at-the-surface">Source is at the surface</a></li>
+  <li><a href="#source-at-the-minimum-of-the-sound-speed-internal-sound-channel" id="toc-source-at-the-minimum-of-the-sound-speed-internal-sound-channel" class="nav-link" data-scroll-target="#source-at-the-minimum-of-the-sound-speed-internal-sound-channel">Source at the minimum of the sound speed: internal sound channel</a></li>
+  <li><a href="#bottom-limited-sound-channel" id="toc-bottom-limited-sound-channel" class="nav-link" data-scroll-target="#bottom-limited-sound-channel">Bottom limited sound channel</a></li>
+  </ul></li>
+  <li><a href="#sofar-sound-fixing-and-ranging-channel" id="toc-sofar-sound-fixing-and-ranging-channel" class="nav-link" data-scroll-target="#sofar-sound-fixing-and-ranging-channel">SOFAR (SOund Fixing And Ranging) Channel</a>
+  <ul class="collapse">
+  <li><a href="#history-of-the-sofar-channel" id="toc-history-of-the-sofar-channel" class="nav-link" data-scroll-target="#history-of-the-sofar-channel">History of the SOFAR Channel</a></li>
+  </ul></li>
+  <li><a href="#surface-duct-and-shadow-zones" id="toc-surface-duct-and-shadow-zones" class="nav-link" data-scroll-target="#surface-duct-and-shadow-zones">Surface duct and shadow zones</a></li>
+  <li><a href="#wrap-up" id="toc-wrap-up" class="nav-link" data-scroll-target="#wrap-up">Wrap up</a></li>
+  <li><a href="#a-very-simple-ray-tracer" id="toc-a-very-simple-ray-tracer" class="nav-link" data-scroll-target="#a-very-simple-ray-tracer">A Very Simple Ray Tracer</a>
+  <ul class="collapse">
+  <li><a href="#soundparticle" id="toc-soundparticle" class="nav-link" data-scroll-target="#soundparticle">SoundParticle</a></li>
+  <li><a href="#ssp" id="toc-ssp" class="nav-link" data-scroll-target="#ssp">SSP</a></li>
+  <li><a href="#raytracer" id="toc-raytracer" class="nav-link" data-scroll-target="#raytracer">RayTracer</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ray Tracing</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<section id="ray-paths-refraction-and-snells-law" class="level3">
+<h3 class="anchored" data-anchor-id="ray-paths-refraction-and-snells-law">Ray Paths, Refraction and Snell’s Law</h3>
+<ul>
+<li><p>Wavefronts are points that are reached by the pressure perturbation at the same time.</p></li>
+<li><p>At each point of the wavefront we can associate a vector: the gradient <span class="math inline">\(\nabla\tau\)</span> of the time of arrival <span class="math inline">\(\tau\)</span>. Its direction is towards points that are reached with increasing time.</p></li>
+<li><p>The gradient, w.r.t to the wavefront, is perpendicular to the local tangent of the wavefront.</p></li>
+<li><p>Acoustic propagation is continuous: wavefronts are continuous (even though we are drawing them discretely)</p></li>
+<li><p>We can build a continuous curve that connects the directions of the gradients of the wavefronts: we call this ray.</p></li>
+<li><p>When wavefronts are circumferences (or spheres), rays are straight lines that start at the source</p>
+<ul>
+<li>Medium must be isotrope (same properties in all directions) to have spherical wavefronts</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/32.rays-11.png" alt="32.rays-11" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>For each ray we can define the angle <span class="math inline">\(\theta\)</span> with the tangent to the ray</li>
+<li>We can do this for every point along the ray, and for every ray</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/32.rays-2.png" alt="32.rays-2" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="snells-law" class="level3">
+<h3 class="anchored" data-anchor-id="snells-law">Snell’s Law</h3>
+<ul>
+<li>For each ray, <span class="math inline">\(\theta\)</span> must locally satisfy:</li>
+</ul>
+<p><span class="math display">\[
+\frac{\cos\theta}{c} = const
+\]</span></p>
+<p>where <span class="math inline">\(c\)</span> is the <strong>local</strong> speed of sounds (right on the point under analysis - for ex. when the ray starts at the source location)</p>
+<ul>
+<li>If the medium is isotrope, <span class="math inline">\(c=constant\)</span> everywhere</li>
+</ul>
+<p><span class="math display">\[
+\frac{\cos\theta}{c_{const}} = const \Rightarrow \theta = const
+\]</span></p>
+<p>Consider now:</p>
+<ul>
+<li>At the source <span class="math inline">\(c=c_0\)</span>, and we have initial <span class="math inline">\(\theta=\theta_0\)</span></li>
+<li><span class="math inline">\(\Rightarrow const = \frac{\cos\theta_0}{c_0}\)</span></li>
+</ul>
+<p>what is <span class="math inline">\(\theta\)</span> in another point?</p>
+<ul>
+<li>if <span class="math inline">\(c&gt;c_0\)</span> (speed of sound is increasing): <span class="math display">\[
+\frac{\cos\theta}{c}= \frac{\cos\theta_0}{c_0} \Rightarrow \cos\theta &gt; \cos\theta_0 \Rightarrow \theta &lt; \theta_0
+\]</span></li>
+</ul>
+<p><strong>This means that the ray must bend towards the surface <span class="math inline">\(\theta &lt; \theta_0\)</span>.</strong></p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/34-ray-upwards.png" alt="34-ray-upwards" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>if <span class="math inline">\(c&lt;c_0\)</span> (speed of sound is decreasing): <span class="math display">\[
+\frac{\cos\theta}{c}= \frac{\cos\theta_0}{c_0} \Rightarrow \cos\theta &lt; \cos\theta_0 \Rightarrow \theta &gt; \theta_0
+\]</span></li>
+</ul>
+<p><strong>This means that the ray must bend downwards <span class="math inline">\(\theta &gt; \theta_0\)</span>.</strong></p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/35-ray-downwards.png" alt="34-ray-upwards" style="height: 300px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="ray-paths-and-wave-guide-effects" class="level2">
+<h2 class="anchored" data-anchor-id="ray-paths-and-wave-guide-effects">Ray paths and wave-guide effects</h2>
+<ul>
+<li>The discussion before means that reading the sound speed profile</li>
+<li>Assuming sound speed profile only varies with depth (generaly true for range &lt; <span class="math inline">\(20\)</span> km</li>
+<li>Several rays pattern can appear depending on the source depth</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/36.rays-example-ssp.png" alt="36.rays-example-ssp" style="height: 450px;">
+</td>
+<td>
+<img src="./images/4.ray-tracing/36.rays-example-rays.png" alt="36.rays-example-rays" style="height: 450px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>SSP is measured: note the change in SSP at the surface (higher at 30m than at 0m)</li>
+</ul>
+<p>Let’s zoom in:</p>
+<section id="source-is-at-the-surface" class="level3">
+<h3 class="anchored" data-anchor-id="source-is-at-the-surface">Source is at the surface</h3>
+<ul>
+<li>Rays will bend upwards until they hit the surface and will be reflected down, etc.</li>
+<li>Not all rays will bend upwards so much that they hit the surface. It depends on the initial ray angle.</li>
+</ul>
+<pre><code>&lt;/tr&gt;&lt;/table&gt;</code></pre><ul>
+<li><p>An approximation is shown in the picture below.</p></li>
+<li><p>This is called surface sound channel.</p></li>
+</ul><table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/37.rays-layer-1-increasing-speed.png" alt="37.rays-layer-1-increasing-speed" style="height: 450px;">
+</td>
+
+
+</tr></tbody></table><pre><code>&lt;/tr&gt;&lt;/table&gt;</code></pre><section id="source-at-the-minimum-of-the-sound-speed-internal-sound-channel" class="level3">
+<h3 class="anchored" data-anchor-id="source-at-the-minimum-of-the-sound-speed-internal-sound-channel">Source at the minimum of the sound speed: internal sound channel</h3>
+<ul>
+<li>Ray pointing downwards propagates within regions where sound speed increases: angle decreases, and bend upwards.
+<ul>
+<li>Depending on the initial angles some rays will graze or hit the sea bottom.</li>
+</ul></li>
+<li>Ray pointing upwards propagates within regions where sound speed increases: angle decreases, and bend downwards
+<ul>
+<li>Depending on the initial angle, some rays might get inside the surface channel</li>
+</ul></li>
+<li>Intuitively, rays tend to go to the minimum of the sound speed.</li>
+</ul>
+</section><table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/38.channel-1-rays.png" alt="38.channel-1-rays" style="height: 450px;">
+</td>
+
+
+</tr></tbody></table><pre><code>&lt;/tr&gt;&lt;/table&gt;    </code></pre><section id="bottom-limited-sound-channel" class="level3">
+<h3 class="anchored" data-anchor-id="bottom-limited-sound-channel">Bottom limited sound channel</h3>
+<ul>
+<li>Upwards rays will bend downwards and have total reflections (reflections generated by refraction)</li>
+<li>Downwards rays do not have total reflections and they all hit the seabed.</li>
+</ul>
+</section><table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/39.channel-2-rays.png" alt="39.channel-2-rays" style="height: 450px;">
+</td>
+
+
+</tr></tbody></table><pre><code>&lt;/tr&gt;&lt;/table&gt;    </code></pre><p>Let’s go back to our experimental picture:</p><table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/40.channel-3-rays.png" alt="40.channel-3-rays" style="height: 450px;">
+</td>
+
+
+</tr></tbody></table><table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/36.rays-example-ssp.png" alt="36.rays-example-ssp" style="height: 450px;">
+</td>
+<td>
+<img src="./images/4.ray-tracing/36.rays-example-rays.png" alt="36.rays-example-rays" style="height: 450px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Ray bending is possible only if the medium is not isotrope (speed changes along some directions, i.e.&nbsp;depth)</li>
+<li>Along each of the rays travels our harmonic wave.</li>
+<li>Some rays will go through the same point in space and they all interfere.</li>
+<li><strong>We saw this already with the Lloys’ mirror case. But in that case we only had two rays and was easier to describe.</strong> All these rays interfere with each other (some constructively, some other destructively).</li>
+<li>Unisotropic propagation contributes to propogation loss.</li>
+<li>When we have multiple paths that the sound can take (see for instance, internal sound channel, km 5) is called multi-path structure.</li>
+<li>Multi-path can causes interference patterns (constructive or destructive) - i.e.&nbsp;an additinal loss factor.</li>
+<li><strong>Convergent zones</strong> are all areas where interference patterns is in-phase (i.e.&nbsp;constructive)</li>
+</ul>
+<p>Intruitively, if we start with uniformely spaced rays: - Denser rays (at least in some areas) should correspond to maxima (constructive interference) - Sparser rays corresponds to minima - The density of the rays corresponds to the acoustic intensity</p>
+</section>
+</section>
+<section id="sofar-sound-fixing-and-ranging-channel" class="level2">
+<h2 class="anchored" data-anchor-id="sofar-sound-fixing-and-ranging-channel">SOFAR (SOund Fixing And Ranging) Channel</h2>
+<ul>
+<li>Generalises the <strong>internal sound channel</strong></li>
+<li>Corresponds to the global minimum of the SSP</li>
+<li>In deep water (&gt;600m), the global minimum always exists</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/42.sofar.png" alt="42.sofar" style="height: 450px;">
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Sound can travel thousands of km without significant loss. In some cases even half way around the world (Australia to Bermuda)</li>
+<li>To compare, similar sound level would only travel kms in air</li>
+</ul>
+<section id="history-of-the-sofar-channel" class="level3">
+<h3 class="anchored" data-anchor-id="history-of-the-sofar-channel">History of the SOFAR Channel</h3>
+<p>Adapted from <a href="https://dosits.org/science/movement/sofar-channel/history-of-the-sofar-channel/">History of the SOFAR channel</a> and <a href="https://dosits.org/science/movement/sofar-channel/sound-travel-in-the-sofar-channel/">Sound travel in the SOFAR channel</a>.</p>
+<div class="alert alert-block alert-warning">
+<pre><code>In the spring of 1944, ocean scientists, Maurice Ewing and J. Worzel, departed Woods Hole, Massachusetts, aboard the research vessel R/V Saluda to test a theory that predicted that low-frequency sound should be able to travel long distances in the deep ocean. 
+A deep receiving hydrophone was hung from R/V Saluda. A second ship dropped 4-pound explosive charges set to explode deep in the ocean at distances up to 900 miles from the R/V Saluda’s hydrophone. Ewing and Worzel heard, for the first time, the characteristic sound of a SOFAR (SOund Fixing And Ranging) transmission, consisting of a series of pulses building up to its climax.</code></pre>
+</div>
+<div id="63dba5f0" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> IPython</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b87624e8" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>IPython.display.Audio(<span class="st">"./mp3/SOFAR1.mp3"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+
+                <audio controls="controls">
+                    <source src="data:audio/mpeg;base64,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RtrbqQJB7yQBRQ0Aoo3/13a/9GzqxFev/7///IQ+iN3U56EIn////pbbfQhP////6KrfuIEHEc9u2n/7/yDCBwUK4IHCMiRBDMQBCDjL+PbqDBnE/JJFxp8bZeQgUEBKYcC0YtByAh6NKiXI/+MoxBshLB40C10QAFdTf55TqCjzT4YzrNBzkRgzYJ7TZZSTTYFzBwTDEAEEWFRwp2Gzv+/OdmVUtBjr/////////5//ahjFMhk/////pN/RHNet//////SZ/////+lFt3QxjAygJjJ////rUpQbetSlDHHtb1UYCv+TU7gCJMCAOBw4DgADAjUUqv6qX/LP/+MYxBkEyGa5QYUAAPwHojIAsSLJMIWO5C3EE8TzT7/qi/81DCQU71P1ST8POyBguDhoYnKphY5gQ2GNSMZPzpg6PmF6yYgi/+MYxEAG6IaMAY8AAIaDSplhaGCq+YjPIKIxnsOGFAi/wkFWLyTK1SO+9OV4Ih3//2f/+zZ///////hG9KxATMYt/RXJlmBt/+MYxF8ZEJI0C9wQAux4PoNnlYAAWgACJSwPWL5NSGgUwzGmGCg9kKuhLZRYaXGTfTMghYmYEdGlbcotYLj0mjn//////////+MYxDUPkHJcPhZ0BP////xW///0+tUNSX8+QdlssWOiYYaDEImYwDGan5xTCcwnH3oxpToBmQ8C/NSIjRVQhQhGaOjSu7M4/+MYxDERQJJECVsQAkvrztuvLsl//////////////88ODBJBwBr2GRCIC6SngpU9mq8CsJCL4EJowSAxXxi8hhzAyRyiuhoE/+MoxCcc26JYM50QACAYZqYcnxwYyICaDDmhdAWGQNAVqOeJZadqVP///9LqdDEeVJlL////9P/wghoG7f0////2V1O///////zuxwlrf+UswE3+z8PLD/LKCxA2f9u6ggjUIDpAGD7n4o/GAcATKYUQBmHblpWz9R+At2eJiGD48mZYIG8iaDSSCE1zZpcT/+MYxDYEcHbN4YUAAcGU8ziAUOB0wvcQx3GACAbDE9zaFsnxzRhtb7//+33dp6kDhoS/T////++tvxGocKlOf2///T/W5pxd/+MYxF8eDCJoXZ04AbZP///mN/7KhrDxwKmVf/9E//eZ27fy3EZV5/I1/22y/9iAnTMeSHX5UFUpSogxmQhKOpZrP5/9F//X/+MYxCEIaIqIAZkQAOIIIUUAASX5I4QyBN+giQABOkt5gECTB8wDaJFzE5RTFYTjAEiDgH1DJUXTJoQxAJpMJBmWCZcqCICs/+MYxDocM15YNZ0QAN0eFCdvbKApmb+L/f//P3dHVqP////0/8c9EX/0f///e93b+y6lX///6c4cb/9lxm//6muhjlb////+/+MYxAQD+GakAckQADiyiRKSh4yiKolIMwwBcilJTxOcg1RZbYCCCnpDGSowjPhlnPEozb48+foObAjNBc5qEMLEjQkwFSJm/+MYxC8TIJJADMbMKEDteZLB8zcEpLRQHCT//////////////3f//c/xVQCgDHtPLOb3DIiAV4vszsx4dB3WBQ8xfzOYOTJ5/+MYxB0UOI5IFVsQAuIuow5hM7WSqCmwpJhwQjKAAGgdykpML0tnsq//////////////5kXWVv//aLGhVddwx9AAgA4A/usH/+MoxAcUSIZoUZwQABv1TFgAbxiAyCkdTJp1Ax0CCuMBU2bJzvQdNFh8xqHzMknMpn40qIFiWObZp+83RCb//+Gf///5Y4Qfrlv/////ziA9/LHv/9Ll1QgAwAA+biCIHPp1K/5JWotzMgBwGDhW4aCJiEAmLxg2gjEZn8vntloAlJKLffzu91Egq////////+MYxDgRQIZwFZwQAP+Ul3///////71Gf5QQMFIRoAMCMWbspTS5dqO/hT0yO5UKE0mUU6gHkyIAAQAOFV2MejbARSmEY4iJ/+MoxC4cM95oP504AIIwDMIHA0hbdy0TAbV1hFanefX/9r3lP///9f//8ms8dLnf//9v+tHt//f///o8da6BOjK/+ptVN//+//1x4823lq0EAMBgUAAQRcuvo4PNx5dfPoEXzAQJTAAXgSGYkEJQLpggLRQPpiyGpgkiQlkp8IToCe5Zl39Mope6l3da//+v/+MYxEAdu+ZwP51QAP/+fPMKN////9f///x+YhwxLnNT/////VTDzix7X//////0uovImJhZAvLmO7Or/NoU//gqXDwFoArU/+MoxAQhtCZEFd0oAfPxykhqNtdT1SfBAMmFgSgkRjI9DjX+ODrmrj4XDj5HqjdSGTS4+TAYwDKtEDLcmDGsHg4GTAwCQcBqCZY0WjM5Zz1dtf3////////8cf/f/3Mb////1K8pf/1L//////ShjGN////+rM3tylDoCiRv////MYweDweK0xnllEQ6HQVS/+M4xAAjDCo4DO+KSQwBNxuIQfAEUftaYhAIvGHDUMDgNCiYCj0ZUGEbnASarXKcVquaOB+xjhEHmOCCyYFoJhhhAMGA4AA3pQCGPAMvrLIhGKCHodq4i483/1308mdz+qi55P////3IhX/0IdT5/////0byKp/////8hCLT1VwEFBTJ///10RqhMTA4gbkJoHBWLi7WB/4T1Qwls5RzEP9aonsGIA4KM4jg0iEDzFAbTISTDBIiz6HrjUxhD3pKTYNdzIFODV4fDIUs0xTCADCyC6XqisUi/+MoxD4j1Co4CtdKL1AUtpoTRIn//V1RqpplpshTlX/7///IdRJzt0rZA9dv///9dl/zf////9Rw0jVSjsqiAmAyDpr1ux0/X6WdFFxQJgpWV7OQ4sPAYXDy3N1vkJUA8An4at2H+iGanTbLoNgI8dwgJTDpDTEeiDmcXzcoljpE4jOuNTXdCDZ9jTSRBTHs/+MoxDEh9C48FM9ELJQwWB8w4DkwFAFxYOdaCpNMztNjmLMv/7//3vNZbO3////0dWVD38s9q//////2T/////pR3VLakAhIAw44lP1Re3/fdAYzjBwIAFM+4MFcCKGd1xUeSQwpH0qyl74taTKbuYGAmAQbhoWGEwOJMyPPwyGIQ26hY14ug0RyHTDsPqMq/+MoxCwi5CI4Cu+KSGDjMXcRcwBwozBLBJEABi00OmSx5jsP2ZVMzIsMb/65H/9kZ0Ioopzv////+pCHF0+hBNyEJZv///7a6NkU//f///6Mp0bTiIuHARKN6f//6ai7hwOCBEnexBYONbyhdRagCk+cldmvD7IUeGnLJAgE5UAcEhfDCQGdMs0PQ2tArzNH/+MoxCMl/CpEFPdOSQ5TrI3zBpNTKFNzRddDJAEjBEFwIAwYCTlyPO/K5mtST1ua3/29D/4+YnzDjiJP/r///RiznfqUWaw0G51LH+3/+nzFXMZNCJP/Rd///UkWPOa/PHj2NMBYDhu3o3/+nYbhINypQ8kYlUGpdVEcIiLeFuvsHjwb29l2qxmcTJFgCwEA/+M4xA4slCY4C14oAYGAEC2YAAMhgLgZGFuEAEB8mVonua7wrhp3nLGVSKqaORbJizFHGVGJ4YtAQIwAIDgQVSo0u1OwDFub/KYouf//////+t83xENR2VlRyHKhxUaQREBZtP1R5v/1wkQeIGK1MowWVCpWVPX9/9FZMqOjoJOWKiT0rf5fr/LWpRI5pUlMoqEhYOnFRXVprTf/9zTMIgoDKHiG2UrB4cPHC0vUPpZaagBgAmHBKABbJf5HWB/22rfrOkHQCCoMmIo2g4kBIHTAALTAUCzY/+MoxCYeI+p4X50oAAN4xyAgQDya4XmYoD4YNAu9n89zMNcZ3zv////7fO96GNf////6f/nPnP+K6iKf///5z/0WVmEq9////Od4mLim36sIs8BQIImXT85kcI/93RFqNGYL1ahEznQLIQNMA8A0wCgATBfBjMBAY4x1xeDOyejMJQhk324BDDyGFNXcKEwu/+M4xDAwhC5ACd44AUcUzDAQTBODuMJsC4wFALESl2ve6ry3opTXcrmO//X4/3//98y1kco9Y5zTFHB481zpEmNRQIyr3t7nKh331pQ4axJMLntPtNUuVFo46zvnX5qJ9kc0gqGx5Dbqw4PFR3va6snOm/daVq41LEj2Su8k4wFBKHHSvdjrdP9WVrCo0BsXoXoerq46SGR0tIRqtSm7BwtwwBZ1ztqrWjTcG6w0YLgoYQBYMCUYNIYYRGKaRwGYqo0aDYaJiigLGNIAsCBKzA/B5k4QAi1C/+MoxDkkFB5UXO+KRQDVjBDDBwizP//0ezb7KcYixw0UDowOM/////0OjndtaQ+JjhM9mtRP+/+sjbIQmRRdEt5zuuhO36cm7nOf9liAoZv///+jUGEAQODyZ3WwwBAV2lv5ZaoSH4uxJ+rMXrzTW2qDQAoCAyBQEZgMCuGCsQyYqg9xhHngHe2gcZkyKZuL/+M4xCswfFo8EPZQYBrJoLCzGN2OwYMI/hgfAMGEKDLQMrhK3/C0yHpWlN11396zU2Qu0qMiKsoezShosIwM1P998/DD5uP/v6+pplCI455mOaLFQUgaJrh7Pr+16++ef/jVJ9nVeNjh4jNdcc8jWv4dYaP6VR0XzZKj77ueLyw5DkB4exs1/3X//9/8Rw/MCEEZrkNF3LSUSYDUdUrNffEDBl0RbjgBSNKAymXwWnugsCgYMFghMOxDME0VMQj8M+Z1OpnPNHVUPfd3Ms3YCxJGDg/hwKl0/+MoxDQk1CJUPB9ODJR5p1S7sw4qTnG//+/+ujoroxCz/////oxrFSjZ946D8sOljmnc+u/6dPWc01TXZhuY6OyM2fXMS9KNmetmmzSeiMew0A88qOGH3zF///88w8amiwaau9RwSjiQkdRFlQ+bccAc+7ZzzrUjuNNTsHgCacYTCGYcp6YkggfneEbTwWZk/+MoxCMkPCZcXO8OREQaAr5gXPm2y+YoLwCB4IAVC4G/zoxxn//80w93cyqnjTORSTOI4oIP/vTp//mC8gaOrvPHJqqIhV9Tm1f//1et21c9bEBuc0z1Rv/T/QcNuzU2JoPTQdjcvmK+qJ//15gpJIUZG5xAyxYS6W8oL9yZ4BTHTeok7yHqQiOphCDRgwQp/+MoxBUjlCZkXBdKDJ3JeZnJOZY3kZllYaQL8YBD6akgeBAZeJCqD8bWWRbI3//VpDI77stSHdiodhMxSf/bX//UqCIujPyx4xgmIB612b//9NiVYiuQogUXMxlJzmINpS9bXuS9UrmJP7qKCIfCQiaf///+2YwWgcIOuQtCDA4LqdHNxwbqFmFJfmqaxPQR/+M4xAkpXC5EEvZKZAys5CAVAFLlmAqCmYC4oJgpDhmlwZ0ZOxPxscGUGNm6qYRBcRgxHFGHqKkYsAHhgFAYn5A15SMe3c7GaebpsUXS39VjjyO1koiMOu4uQeJzt9f0b//VxCKnHn3Y4iJgMgYQoxPZJ699f+Rb5HQg1R5zI11V/S1vVaEtJPONfpWcWBAAFBNGvs///3skSYYKgQ9FOfEBgcDhBzo403UKg3HABIITL7MN07+iIAzAEBTCcUBkwzkdDjTgGDU1VzsyXDcBYDrYQjE9KQwO/+MoxC4j3BZcXA9KDQiAFJByKavyeGuZLv//7kQ9LpuiERUFDjzEF//t3//yo5zv2eJ1KKCKHd7///0d1nVVvUXD5zML+7nXu/T2RvqZDi5z7ucoTGi7hwQd3e////5xUaEzii3Os4tsONvz+USqOlN6ltVqtXOkeVA9L8SAdMEgFwwrQwzEzEbMPZNc0D0G/+M4xCEpzCZQMPdORAye1UzGeITeXdDeC0Da60DQETw4mS9zTS/7vxSfQcIGDjqa//2eOllO2Q25xEeQ4mYORqSHXX1ta/+//OGR0nHCPmkzTRgeLXZ27fvOtbe1zkIHEVLKL8aILHbS0y379tb2xx2dLMhiiggLRCJA3J3SZZf///UUHkDTBpMopg6cKjRp2tULVQGCfAP///krnrz4svZBBRhICgQNmtYqZFl5qlZhcQmU3QYweJm4Dll1eHgdbko4Fd///0pmHHkeRGw5FQb4uZ/BHDUE/+M4xEQ0JEKIVOPMeZxABPx1j4Lwf62wTPJY9NenvTL+Ph5ElV7gp0Pdn4XBSi3pYW88y2JRD3yB6ydIfe9texHe/FtF6Zh6Z6bRl7GRl77ohhDLvWh7y02IICwGcA0iE7GXt63/y9vYz/fGtn/e2J6QxyemZGPtTcKbD7bPnh9aHvYWZl7GXr7/CGH6nrY995doyMu4TYyPxRnSktAAW8mAquxIvQCQFHACUIBwBlUCTAIOBGHJjGFpgsRRj0dJrEnhqtNJuyrhu4qJqeNQBHgyOPUw7EAw/+NYxD5hxGKEXu6eeLAhMWCGmAGNp4iQdirQ3InYHa43N5WJySBZRLE61zDQQZCSxQUwwsOLmFfEx0G2RgUaXSbRYY5gcUqFgY1EAQpm6CFNFc6Tk6+9rUgooEfl/3+gKo7LGW5CoVfq5BkI55hR4sEBzwmXgZaDmRaYwwd/C4RASlHqNoWqOcK6X0mbDYpGZSItTnhUyqIhC9mqcZChUBaRSgeomwWgdpOzoXB1G6exQ7SCnQg5h/kNOIkqvTjGZSUJCrjNSi2K8rAZahAXBVBGAty5iUjFqXFKopCUw0ysiuUqpN5KlyclDF8RCoR/OTCqFeZY4EAG+dIW47BSR9qxFHkjTeOVbPw/7l8PI7y9FxOUnznKpESr0W4uzmQBMTzEEginK8ZJyKZVqllUTCuocaAzFtRppK0/m5jUL6EqWZxQp+qHhhvCYEvPwf8A+muNGs6kR/AAODDELZyzJlaoS7znsxIQ/+NIxBJDrGJ0FuYYcJGKQIYkLZkQSmKgWZdfR5WjGcVybjOBg8fmDBoZFIhVDqTMVTcTyWGYNMwzFZVdqRZ9pe/tiadqA10sydWVNKXUghFigGAk86ZFTnQYhIi0kK/EPWrsaksVKypatgMqGUZy60ZLwarxJUphGGkDILC4QjcmtX636ubPcaeZPU0UtPHLj1cy7rTZiXjYJT8Gp4JTZ7mLoHme+bb1cmfrjzP9rp0+YrCcmVHNHtdm3W+vTMzm9nzNZmeaeKqgSk5OLpZKyNb3NdbaWrR7dz6ztHmfnVqZUVURKcMruwX55m/etdrA8y2ewPey61drTmIlH4klwdhyNxFSFrVrrXIL+w7G4cpXdmIGAAIoQASDthMPhk0K/+MoxBYUoJo4CM82ICkyQcjV/sCFaaVSBy1ifWUHLlB3hEbOrBY1jAkFKWSKK2aaHpmB8cquJ//////7PX//////7/ZDv/+qjqqtyAB6oF3L2HUY48C5n4ZIel+CSgCwC3P0kbjESp3DiBCPBAEY+NlFSIDM5KJBzeZ8tmKxh3OccWdmktJyMWEUJiA8a4AL/+MYxEYE8GKIAAHeAdXze2gjliltWbdW0f//////////////l4b//66TqF4FsgCCCEAwIBAKBQL/akY/uca5fnIIVWRzDESx/+MYxG0UsJZAFVsQAKCZYGkrXEAyfteMxX+8nP/j8xmmvf/iRxAJnP6hYOG3f8uLCUOGTn/ygOCpYyBD//9YqCxgCCMRN//+/+MYxFUYKM58/5gQAJNB8ExYqaMhBqp4rZn6GAgkHeCoKqBp2WDicRJMQU1FMy45Nqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq/+MYxC8D6CZQAcIYAKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqVEFHICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIAA=" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+              
+</div>
+</div>
+<div class="alert alert-block alert-warning">
+<p>Although sound travels away from a sound source in all directions, only sound traveling away from a source on paths that leave the source at specific angles will reach a receiver at a specific location. The sound waves traveling on these different paths have slightly different travel times. A single explosive source will therefore be heard as a number of separate arrivals, leading to the characteristic signature of a SOFAR transmission building up to its climax. The final pulse of sound is typically the loudest and comes from the sound wave that travels nearly on the sound channel axis. Although this sound wave travels the shortest distance, it travels in the region near the sound speed minimum where the sound speed is lowest.</p>
+</div>
+</section>
+</section>
+<section id="surface-duct-and-shadow-zones" class="level2">
+<h2 class="anchored" data-anchor-id="surface-duct-and-shadow-zones">Surface duct and shadow zones</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/43.surface-duct.png" alt="43.surface-duct" style="height: 450px;">
+</td>
+</tr>
+</tbody></table>
+<p><strong>What happens to those rays that get out of the surface duct?</strong></p>
+<ul>
+<li>It depends..if there is a SOFAR channel below.</li>
+<li>Note the presence of an area where there are NO acoustic rays: shadow zone.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/44.surface-duct-over-sofar.png" alt="44.surface-duct-over-sofar" style="height: 450px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="wrap-up" class="level2">
+<h2 class="anchored" data-anchor-id="wrap-up">Wrap up</h2>
+<ul>
+<li><p>This is a <em>qualitative analysis</em>: Given a SSP profile, intuitively understand how sound propagates.</p></li>
+<li><p>Transmission Loss affects the Signal-to-Noise Ratio:</p>
+<ul>
+<li>Higher Loss, Lower SNR</li>
+<li>Lowe Loss, Higher SNR</li>
+</ul></li>
+<li><p>Multi-path structure generates Symbolic Interference</p>
+<ul>
+<li><p>Symbolic interference, often referred to as symbol interference or inter-symbol interference (ISI), occurs when signals from multiple paths interfere with each other. Specifically, the overlapping of symbols from different paths at the receiver can cause the symbols to become indistinct or overlap in time, making it difficult for the receiver to accurately decode the intended message. This interference is a direct result of the multi-path structure of the environment through which the acoustic signals travel.</p></li>
+<li><p>When signals overlap at the receiver, they sum up and the symbols that the signal is carring interfere with each other.</p></li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/4.ray-tracing/45.multi-path.png" alt="45.multi-path" style="height: 550px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="a-very-simple-ray-tracer" class="level2">
+<h2 class="anchored" data-anchor-id="a-very-simple-ray-tracer">A Very Simple Ray Tracer</h2>
+<hr>
+<p><a href="https://github.com/andreamunafo/underwater-systems/blob/main/underwater_systems/ray_tracing.py#L51" target="_blank" style="float:right; font-size:smaller">source</a></p>
+<section id="soundparticle" class="level3">
+<h3 class="anchored" data-anchor-id="soundparticle">SoundParticle</h3>
+<blockquote class="blockquote">
+<pre><code> SoundParticle (r0, d0, theta0, ssp)</code></pre>
+</blockquote>
+<p>*Models the movement of a sound particle along a ray.</p>
+<p>Example usage:</p>
+<pre><code>sp = SoundParticle(r0=0, d0=50, theta0=np.deg2rad(-1), ssp=ssp)
+print('Initial conditions:', sp)
+
+# initial state 
+r_t, d_t, q_t, c_t = sp.get_state()
+r, d, q, c = [], [], [], []
+
+# simulation times
+t0 = 0
+tf = 4
+dt = 0.01
+for t in np.arange(t0, tf, dt):  
+    r.append(r_t)
+    d.append(d_t)
+    q.append(q_t)
+    c.append(c_t)
+    sp.move(dt)     
+    r_t, d_t, q_t, c_t = sp.get_state()*</code></pre>
+<hr>
+<p><a href="https://github.com/andreamunafo/underwater-systems/blob/main/underwater_systems/ray_tracing.py#L15" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="ssp" class="level3">
+<h3 class="anchored" data-anchor-id="ssp">SSP</h3>
+<blockquote class="blockquote">
+<pre><code> SSP (depths, speeds)</code></pre>
+</blockquote>
+<p><em>Defines one sound speed profile (depth (m) and speed (m/s) at each depth)</em></p>
+<p>Let’s try it out.</p>
+<p>Below there are three different sound speed profiles, similar to those experimentally collected before. Each one gives rise to a different type of propogation.</p>
+<p>Try them all out.</p>
+<div id="ff61402c" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># increasing sound speed (surface duct)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ssp = SSP(np.linspace(0, 15, 9), </span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#           [1501, 1501.5, 1502, 1502.5, 1503, 1504.5, 1508, 1509, 1510])</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co"># internal sound channel</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ssp = SSP(np.linspace(0, 15, 9),</span></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#           [1505, 1504.5, 1503, 1502.5, 1503, 1504.5, 1508, 1509, 1510])</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co"># bottom limited sound channel</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>ssp <span class="op">=</span> SSP([<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">250</span>],</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>          [<span class="dv">1501</span>, <span class="dv">1502</span>, <span class="dv">1505</span>, <span class="dv">1490</span>, <span class="dv">1480</span>, <span class="dv">1480</span>, <span class="dv">1485</span>])</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>ssp.plot()</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>ssp.plot_speed_at_depth(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_ray_tracing_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And now we can try what happens when we change the depth of the source using the <span class="math inline">\(d0\)</span> variable: - d0=8m - d0=50m - d0=100m</p>
+<div id="ce837b57" class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># theta0: negative angles: downwards</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># theta0: positive angles: upwards</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>sp <span class="op">=</span> SoundParticle(r0<span class="op">=</span><span class="dv">0</span>, d0<span class="op">=</span><span class="dv">50</span>, theta0<span class="op">=</span>np.deg2rad(<span class="op">-</span><span class="dv">1</span>), ssp<span class="op">=</span>ssp)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Initial conditions:'</span>, sp)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># initial state </span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>r_t, d_t, q_t, c_t <span class="op">=</span> sp.get_state()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>r, d, q, c <span class="op">=</span> [], [], [], []</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation times</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>tf <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> np.arange(t0, tf, dt):  </span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    r.append(r_t)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    d.append(d_t)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    q.append(q_t)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    c.append(c_t)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    sp.move(dt)     </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># print(sp)</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    r_t, d_t, q_t, c_t <span class="op">=</span> sp.get_state()</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>plt.scatter(r[<span class="dv">0</span>], d[<span class="dv">0</span>], color<span class="op">=</span><span class="st">'r'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>plt.plot(r, np.array(d), color<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>plt.ylim((<span class="bu">min</span>(ssp._depths), <span class="bu">max</span>(ssp._depths)))</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_yaxis()</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Range (m)'</span>)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Depth (m)'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): -1.00, speed (m/s): 1490.00</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_ray_tracing_files/figure-html/cell-7-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>And we can plot more rays:</p>
+<div id="97f471e6" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>source_depth_m <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> theta0 <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">1</span>):</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="co"># theta0: negative angles: downwards</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># theta0: positive angles: upwards</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    sp <span class="op">=</span> SoundParticle(r0<span class="op">=</span><span class="dv">0</span>, d0<span class="op">=</span>source_depth_m, theta0<span class="op">=</span>np.deg2rad(theta0), ssp<span class="op">=</span>ssp)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Initial conditions:'</span>, sp)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># initial state </span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>    r_t, d_t, q_t, c_t <span class="op">=</span> sp.get_state()</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    r, d, q, c <span class="op">=</span> [], [], [], []</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># simulation times</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    t0 <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    tf <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    dt <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> np.arange(t0, tf, dt):  </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        r.append(r_t)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        d.append(d_t)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        q.append(q_t)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>        c.append(c_t)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        sp.move(dt)     </span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># print(sp)</span></span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>        r_t, d_t, q_t, c_t <span class="op">=</span> sp.get_state()</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="co">##</span></span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">## Plot</span></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    plt.scatter(r[<span class="dv">0</span>], d[<span class="dv">0</span>], color<span class="op">=</span><span class="st">'r'</span>, linewidth<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    plt.plot(r, np.array(d), color<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    plt.ylim((<span class="bu">min</span>(ssp._depths), <span class="bu">max</span>(ssp._depths)))</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    plt.gca().invert_yaxis()</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    plt.xlabel(<span class="st">'Range (m)'</span>)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'Depth (m)'</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): 5.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): 4.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): 3.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): 2.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): 1.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): 0.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): -1.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): -2.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): -3.00, speed (m/s): 1490.00
+Initial conditions: range (m): 0.00, depth (m): 50.00, angle (deg): -4.00, speed (m/s): 1490.00</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_ray_tracing_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Let’s make it a class to use it later</p>
+<hr>
+<p><a href="https://github.com/andreamunafo/underwater-systems/blob/main/underwater_systems/ray_tracing.py#L139" target="_blank" style="float:right; font-size:smaller">source</a></p>
+</section>
+<section id="raytracer" class="level3">
+<h3 class="anchored" data-anchor-id="raytracer">RayTracer</h3>
+<blockquote class="blockquote">
+<pre><code> RayTracer (time, source_depth, min_range, thetas, ssp)</code></pre>
+</blockquote>
+<p><em>time : simulation time as [t0, tf, dt] source_depth: depth of the source in m min_range: min_range from source in m thetas: range of tx angles (deg). E.g. thetas=range(5, -5, -1) ssp: sound speed profile (defined using class SSP)</em></p>
+<div id="58b10e8d" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bottom limited sound channel</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>ssp <span class="op">=</span> SSP([<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">25</span>, <span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">150</span>, <span class="dv">250</span>],</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>          [<span class="dv">1501</span>, <span class="dv">1502</span>, <span class="dv">1505</span>, <span class="dv">1490</span>, <span class="dv">1480</span>, <span class="dv">1480</span>, <span class="dv">1485</span>])</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>source_depth_m <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="co"># simulation times</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>t0 <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>tf <span class="op">=</span> <span class="dv">4</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>rt <span class="op">=</span> RayTracer(time<span class="op">=</span>[t0, tf, dt], </span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>               source_depth<span class="op">=</span>source_depth_m, </span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>               min_range<span class="op">=</span><span class="dv">0</span>, </span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>               thetas<span class="op">=</span><span class="bu">range</span>(<span class="dv">5</span>, <span class="op">-</span><span class="dv">5</span>, <span class="op">-</span><span class="dv">1</span>), </span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>               ssp<span class="op">=</span>ssp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="beb62c63" class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>rt.run()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="04_ray_tracing_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

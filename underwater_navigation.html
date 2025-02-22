@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Underwater Navigation – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Underwater Navigation – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/11.underwater-navigation/1.underwater-navigation.png">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="1.underwater-navigation">
+<meta property="og:image:height" content="1230">
+<meta property="og:image:width" content="1886">
+<meta name="twitter:title" content="Underwater Navigation – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/11.underwater-navigation/1.underwater-navigation.png">
+<meta name="twitter:image:alt" content="1.underwater-navigation">
+<meta name="twitter:image-height" content="1230">
+<meta name="twitter:image-width" content="1886">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./underwater_navigation.html">Underwater Navigation</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#a-taxonomy-of-underwater-navigation-systems" id="toc-a-taxonomy-of-underwater-navigation-systems" class="nav-link active" data-scroll-target="#a-taxonomy-of-underwater-navigation-systems">A taxonomy of underwater navigation systems</a></li>
+  <li><a href="#geophysical-navigation" id="toc-geophysical-navigation" class="nav-link" data-scroll-target="#geophysical-navigation">Geophysical Navigation</a>
+  <ul class="collapse">
+  <li><a href="#geophysical-navigation-terrain-aided" id="toc-geophysical-navigation-terrain-aided" class="nav-link" data-scroll-target="#geophysical-navigation-terrain-aided">Geophysical navigation: terrain-aided</a></li>
+  </ul></li>
+  <li><a href="#self-localisation-and-mapping-slam" id="toc-self-localisation-and-mapping-slam" class="nav-link" data-scroll-target="#self-localisation-and-mapping-slam">Self Localisation And Mapping (SLAM)</a></li>
+  <li><a href="#base-line-systems" id="toc-base-line-systems" class="nav-link" data-scroll-target="#base-line-systems">Base-Line Systems</a>
+  <ul class="collapse">
+  <li><a href="#long-base-line-lbl" id="toc-long-base-line-lbl" class="nav-link" data-scroll-target="#long-base-line-lbl">Long-base line (LBL)</a></li>
+  <li><a href="#short-base-line-sbl" id="toc-short-base-line-sbl" class="nav-link" data-scroll-target="#short-base-line-sbl">Short-base line (SBL)</a></li>
+  <li><a href="#ultra-short-base-line-usbl" id="toc-ultra-short-base-line-usbl" class="nav-link" data-scroll-target="#ultra-short-base-line-usbl">Ultra short base line (USBL)</a></li>
+  <li><a href="#long-base-line-systems" id="toc-long-base-line-systems" class="nav-link" data-scroll-target="#long-base-line-systems">Long-base line systems</a></li>
+  <li><a href="#hyperbolic-and-spherical-navigation" id="toc-hyperbolic-and-spherical-navigation" class="nav-link" data-scroll-target="#hyperbolic-and-spherical-navigation">Hyperbolic and Spherical Navigation</a></li>
+  <li><a href="#localisation-precision" id="toc-localisation-precision" class="nav-link" data-scroll-target="#localisation-precision">Localisation precision</a></li>
+  <li><a href="#issues" id="toc-issues" class="nav-link" data-scroll-target="#issues">Issues</a></li>
+  <li><a href="#reversed-lbl" id="toc-reversed-lbl" class="nav-link" data-scroll-target="#reversed-lbl">Reversed LBL</a></li>
+  <li><a href="#short-base-line-sbl-1" id="toc-short-base-line-sbl-1" class="nav-link" data-scroll-target="#short-base-line-sbl-1">Short Base Line (SBL)</a></li>
+  <li><a href="#ultra-short-base-line-usbl-1" id="toc-ultra-short-base-line-usbl-1" class="nav-link" data-scroll-target="#ultra-short-base-line-usbl-1">Ultra Short Base Line (USBL)</a></li>
+  <li><a href="#example---sonardyne-scout" id="toc-example---sonardyne-scout" class="nav-link" data-scroll-target="#example---sonardyne-scout">Example - Sonardyne SCOUT</a></li>
+  </ul></li>
+  <li><a href="#hipap-kongsberg" id="toc-hipap-kongsberg" class="nav-link" data-scroll-target="#hipap-kongsberg">HiPAP (Kongsberg)</a>
+  <ul class="collapse">
+  <li><a href="#measurement-compensation" id="toc-measurement-compensation" class="nav-link" data-scroll-target="#measurement-compensation">Measurement compensation</a></li>
+  <li><a href="#hipap-500-technical-specifications" id="toc-hipap-500-technical-specifications" class="nav-link" data-scroll-target="#hipap-500-technical-specifications">HiPAP 500 Technical Specifications</a></li>
+  </ul></li>
+  <li><a href="#network-based-localisation-and-navigation" id="toc-network-based-localisation-and-navigation" class="nav-link" data-scroll-target="#network-based-localisation-and-navigation">Network-based Localisation and Navigation</a></li>
+  <li><a href="#underwater-communications" id="toc-underwater-communications" class="nav-link" data-scroll-target="#underwater-communications">Underwater Communications</a>
+  <ul class="collapse">
+  <li><a href="#what-can-you-theoretically-achieve" id="toc-what-can-you-theoretically-achieve" class="nav-link" data-scroll-target="#what-can-you-theoretically-achieve">What can you theoretically achieve</a></li>
+  </ul></li>
+  <li><a href="#robustness" id="toc-robustness" class="nav-link" data-scroll-target="#robustness">Robustness</a></li>
+  <li><a href="#doppler-velocity-logger" id="toc-doppler-velocity-logger" class="nav-link" data-scroll-target="#doppler-velocity-logger">Doppler Velocity logger</a>
+  <ul class="collapse">
+  <li><a href="#doppler-equation" id="toc-doppler-equation" class="nav-link" data-scroll-target="#doppler-equation">Doppler Equation</a></li>
+  </ul></li>
+  <li><a href="#acoustic-doppler-current-profiler-adcp" id="toc-acoustic-doppler-current-profiler-adcp" class="nav-link" data-scroll-target="#acoustic-doppler-current-profiler-adcp">Acoustic Doppler Current Profiler (ADCP)</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Underwater Navigation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<ul>
+<li>Electro-magnetic waves are highly attenuated in salt water</li>
+<li>GPS, radio, optics do not work but for very short distances</li>
+<li>Acoustic waves are the only mean to propagate information through the ocean at distances beyond 50m</li>
+</ul>
+<section id="a-taxonomy-of-underwater-navigation-systems" class="level2">
+<h2 class="anchored" data-anchor-id="a-taxonomy-of-underwater-navigation-systems">A taxonomy of underwater navigation systems</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/1.underwater-navigation.png" alt="1.underwater-navigation" style="width: 550px">
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: from Paull et al, JOE, 2014</em></p>
+<ul>
+<li><p>Note those sensors that are used for terrestrial navigation</p></li>
+<li><p>Optic sensors are used for short range navigation</p></li>
+<li><p>Magnetic sensors</p>
+<ul>
+<li>Magnetic sensors can be used for ‘terreain-based’ navigation where we measure local deviation of the Earth magnetic field</li>
+<li>Use to locally orient (e.g., pipeline following)</li>
+</ul></li>
+<li><p>Acoustic modems</p>
+<ul>
+<li>cooperative localisation (e.g., network of robots)</li>
+<li>with surface ship</li>
+</ul></li>
+</ul>
+</section>
+<section id="geophysical-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="geophysical-navigation">Geophysical Navigation</h2>
+<ul>
+<li><p>Use a map of geophysical bottom properties as aided sensor in navigation</p></li>
+<li><p>Compare the map value of your estimated position with the measured one (e.g., bathymetry)</p></li>
+<li><p>Requires appropriate on-board sensors (e.g., multi-beam)</p></li>
+<li><p>Assumptions:</p>
+<ul>
+<li><p>the map needs to be enough informative</p></li>
+<li><p>the environment is considered invariant</p></li>
+<li><p>Can be done also with magnetometers</p></li>
+</ul></li>
+</ul>
+<section id="geophysical-navigation-terrain-aided" class="level3">
+<h3 class="anchored" data-anchor-id="geophysical-navigation-terrain-aided">Geophysical navigation: terrain-aided</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-1.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+<tr>
+<td>
+DYNOPO Cruise, NOC
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-2.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-3.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-4.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/10.sonar-practical-applications/44.tan-5.png" alt="TAN" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Salavasidis et al, “Terrain‐aided navigation for long‐range AUVs in dynamic under‐mapped environments”, Journal of Field Robotics</em></p>
+</section>
+</section>
+<section id="self-localisation-and-mapping-slam" class="level2">
+<h2 class="anchored" data-anchor-id="self-localisation-and-mapping-slam">Self Localisation And Mapping (SLAM)</h2>
+<ul>
+<li>SLAM is a popular and powerful tool in robotics</li>
+<li>Underwater landmark definition and recognition is much more challenging
+<ul>
+<li>Optics works at very close range only (can be done when performing inspections)</li>
+<li>Side-scan sonar imagery might differ depending on the relative position of the vehicle and of the objects (think of the difference between the sweep area and near nadir areas)</li>
+</ul></li>
+<li>Some recent attempts to use SLAM in specific environments</li>
+<li>An alternative is using acoustic beacons deployed by vehicles as landmarks of opportunity</li>
+</ul>
+<hr>
+</section>
+<section id="base-line-systems" class="level2">
+<h2 class="anchored" data-anchor-id="base-line-systems">Base-Line Systems</h2>
+<section id="long-base-line-lbl" class="level3">
+<h3 class="anchored" data-anchor-id="long-base-line-lbl">Long-base line (LBL)</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/2.lbl.png" alt="LBL" style="width: 350px"><br>
+
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="short-base-line-sbl" class="level3">
+<h3 class="anchored" data-anchor-id="short-base-line-sbl">Short-base line (SBL)</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/3.sbl.png" alt="SBL" style="width: 350px"><br>
+
+</td>
+</tr>
+</tbody></table>
+</section>
+<section id="ultra-short-base-line-usbl" class="level3">
+<h3 class="anchored" data-anchor-id="ultra-short-base-line-usbl">Ultra short base line (USBL)</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/4.usbl.png" alt="USBL" style="width: 350px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Figures: From Paull et all, JOE, 2014</em></p>
+<ul>
+<li><p>Vehicle localises itself with respect to acoustic beacons</p></li>
+<li><p>Beacons transmit signals regularly (scheduled times)</p></li>
+<li><p>Synchronised clocks of beacons and vehicle</p>
+<ul>
+<li>Not necessarily easy to achieve, especially for long missions</li>
+<li>Usage of atomic clocks to limit clock drifts (temperature control)</li>
+</ul></li>
+<li><p>Assumes vehicle does not move too much between transmissions</p></li>
+<li><p>Inverted systems when the vehicle transmits and beacons localise the vehicle</p></li>
+<li><p>Difference betwen One-Way Travel Time (OWTT) and Two-Way Travel Time (TWTT)</p></li>
+<li><p>LBL requires deployment and calibration which is not trivial</p></li>
+<li><p>SBL alleviates some of this issue deploying transponders from the ship directly</p></li>
+<li><p>USBL uses similar concept. Having multiple hydrophones close together form an <em>antenna</em> and obtain to determine the bearing from the vehicle</p></li>
+<li><p>Localisation obtained measuring the range from a set of transponders which are in known locations</p></li>
+<li><p>Range calculated as Time-of-Arrival of acoustic signals</p></li>
+<li><p>Speed of sound is required and ray path corrections might be needed</p>
+<ul>
+<li>Think of surface ship and vehicle at 400m (there is a thermocline)</li>
+</ul></li>
+<li><p>The distance between two transponders is the base-line</p></li>
+</ul>
+</section>
+<section id="long-base-line-systems" class="level3">
+<h3 class="anchored" data-anchor-id="long-base-line-systems">Long-base line systems</h3>
+<ul>
+<li>Base-line length: 500m - 5000m</li>
+<li>Frequency: 10-40 kHz</li>
+<li>2 Way ToA or TDoA (no need of clock synchronisation)</li>
+<li>Different frequencies can be used to identify transponders and have parallel transmissions</li>
+<li>Transponders are usually moored at the bottom</li>
+<li>Geo-referentiation of the transponders through a calibration procedure from ship</li>
+</ul>
+<p>Long baseline navigation (LBL) is a method of determining the position of a underwater vehicle or diver using a series of acoustic transponders that are strategically placed on the ocean floor. The transponders emit a unique acoustic signal that can be detected by a transceiver on the underwater vehicle or diver. By measuring the time it takes for the signal to travel from the transponder to the transceiver, and knowing the speed of sound in water, the distance between the transponder and the transceiver can be calculated. By measuring the distance to multiple transponders, the position of the underwater vehicle or diver can be determined using trilateration. LBL is commonly used in oceanographic research, underwater exploration, and commercial diving operations.</p>
+</section>
+<section id="hyperbolic-and-spherical-navigation" class="level3">
+<h3 class="anchored" data-anchor-id="hyperbolic-and-spherical-navigation">Hyperbolic and Spherical Navigation</h3>
+<ul>
+<li><p>Hyperbolic navigation and spherical navigation are both methods of determining the position of a vehicle or diver using acoustic signals, however they differ in the way they process the information.</p></li>
+<li><p>Spherical navigation, also known as time-of-arrival (TOA) navigation, relies on measuring the time of arrival (TOA) of a signal at a single receiver. By measuring the TOA at a single receiver, the distance between the vehicle or diver and the receiver can be determined using the speed of sound in water. The position of the vehicle or diver can be determined by using a process called multilateration, which involves measuring the distance to multiple emitters.</p></li>
+<li><p>Hyperbolic navigation, also known as time-difference-of-arrival (TDOA) navigation, relies on measuring the time difference of arrival (TDOA) of a signal at two or more receivers. By measuring the TDOA at multiple receivers, the position of the vehicle or diver can be determined using hyperbolic lines of position (LOPs).</p></li>
+</ul>
+</section>
+<section id="localisation-precision" class="level3">
+<h3 class="anchored" data-anchor-id="localisation-precision">Localisation precision</h3>
+<ul>
+<li>Localisation precision depends on vehicle location with respect to the transducers</li>
+<li>Bingham’s rule of thumb for Horizontal Dilution of Precisionn (HDoP) for spherical navigation (IROS, 2009)
+<ul>
+<li>Rule is exact when doing trilateration, 3 transponders and gaussian noise</li>
+<li>Gaussian noise is rarely true</li>
+</ul></li>
+<li>HDoP is the error in the horizontal position compared to the measurement error <span class="math display">\[
+HDoP \approx 2\frac{D}{BL}
+\]</span></li>
+</ul>
+<p>where <span class="math display">\[
+HDoP = \frac{\Delta(Horizontal position)}{\Delta(Measurement)}
+\]</span></p>
+<p>Where - <span class="math inline">\(D\)</span> is the distance of the vehicle from the baricenter of the transponder configuration (e.g., transponders form an equilateral triangle: baricentre of triangle D=0) - <span class="math inline">\(BL\)</span> is the length of the baseline</p>
+<p>We can reduce <span class="math inline">\(HDoP\)</span> either with the vehicle in the baricentre or with long baselines</p>
+<ul>
+<li>Hyperbolic navigation uses time difference of arrival at multiple receivers to calculate position where as Spherical navigation uses time of arrival at a single receiver and uses multilateration to calculate position.</li>
+</ul>
+</section>
+<section id="issues" class="level3">
+<h3 class="anchored" data-anchor-id="issues">Issues</h3>
+<ul>
+<li>When we enlarge the baseline we have refraction: Snell’s law must be accounted for.
+<ul>
+<li>Requires computation (Casalino et al, J.ISR 2011)</li>
+</ul></li>
+<li>Outliers due to multipath</li>
+<li>Missing data due to environmental fluctations</li>
+</ul>
+<p>Typical performance - Accuracy: 0.1% - 2% of the acoustic path - The higher the frequency, the greater the accuracy, the shorter the baseline (attenuation)</p>
+<ul>
+<li>Precision: standard deviation between 0.2m -10m (Kinsey et al, MCMC 2006)
+<ul>
+<li>The longer the baseline, the higher the standard deviation (e.g., higher multipath, larger environmental variations, etc.)</li>
+</ul></li>
+</ul>
+</section>
+<section id="reversed-lbl" class="level3">
+<h3 class="anchored" data-anchor-id="reversed-lbl">Reversed LBL</h3>
+<ul>
+<li><p>Transponders are on the surface and hence with GPS</p>
+<ul>
+<li>No need for calibration</li>
+</ul></li>
+<li><p>Position available to a centre station, not to the vehicle<br>
+</p></li>
+<li><p>Buoys need a radio antenna as well to communicate its measurements</p></li>
+<li><p>Navigation is refined after the mission</p></li>
+<li><p>Requires clock synchronisation</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/5.inverse-lbl.png" alt="5.inverse-lbl" style="width: 1050px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/5.inverse-lbl-1.png" alt="5.inverse-lbl" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/11.underwater-navigation/5.inverse-lbl-2.png" alt="5.inverse-lbl" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: From Alcocer, 2006 (Left), Caiti, 2001 (Right)</em></p>
+<ul>
+<li>0.5m accuracy - points are close to the truevalue (green dot)</li>
+<li>1m Precision</li>
+</ul>
+</section>
+<section id="short-base-line-sbl-1" class="level3">
+<h3 class="anchored" data-anchor-id="short-base-line-sbl-1">Short Base Line (SBL)</h3>
+<ul>
+<li><p>Baseline 20-100m</p></li>
+<li><p>Installed on ship hull or fixed structures</p></li>
+<li><p>Calibration in dry-dock</p></li>
+<li><p>Easy integration with on-board GPS</p>
+<ul>
+<li>Compensation of ship motion needed</li>
+</ul></li>
+<li><p>Rarely used today</p></li>
+<li><p>Still some applications for special systems and cases</p>
+<ul>
+<li>WHOI under-ice monitoring of AUVs</li>
+</ul></li>
+<li><p>Performance includes with transponders separation</p></li>
+<li><p>Same characteristics of LBL</p></li>
+</ul>
+</section>
+<section id="ultra-short-base-line-usbl-1" class="level3">
+<h3 class="anchored" data-anchor-id="ultra-short-base-line-usbl-1">Ultra Short Base Line (USBL)</h3>
+<ul>
+<li><p>Baseline: &lt;0.1m</p></li>
+<li><p>Installed on ship hull of deployed from side (portable)</p></li>
+<li><p>Range and bearings interrogating transponders on the vehicle</p></li>
+<li><p>It is an array! Beamforming / Phase information</p></li>
+<li><p>Easy integration with on-board GPS, easy of deployment, no calibration needed for portable systems</p>
+<ul>
+<li>Compensation of ship motion needed</li>
+</ul></li>
+<li><p>The ship knows the vehicle position, the vehicle does not</p>
+<ul>
+<li>USBL with communication capabilities to send back the position</li>
+<li>USBL main transponder installed on the vehicle (inverted USBL)</li>
+</ul></li>
+</ul>
+</section>
+<section id="example---sonardyne-scout" class="level3">
+<h3 class="anchored" data-anchor-id="example---sonardyne-scout">Example - Sonardyne SCOUT</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/6.usbl.png" alt="6.usbl Sonardyne" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Frequency: 35-55kHz</li>
+<li>Operating range: 500m</li>
+<li>Accuracy: 2.7% of slant range</li>
+</ul>
+</section>
+</section>
+<section id="hipap-kongsberg" class="level2">
+<h2 class="anchored" data-anchor-id="hipap-kongsberg">HiPAP (Kongsberg)</h2>
+<ul>
+<li><p>Developed as part of the Hugin AUV programme in the mid-90s</p></li>
+<li><p>High performance, transferred to almost all Kongsberg positioning systems</p></li>
+<li><p>Sometime called Super LBL</p></li>
+<li><p>240/280 elements to form a bulb array</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/7.Hipap.jpg" alt="HiPaP array" style="width: 550px"><br>
+
+</td>
+<td>
+<img src="./images/11.underwater-navigation/7.Hipap-1.png" alt="HiPaP transponders" style="width: 350px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><a href="https://pdf.nauticexpo.com/pdf/kongsberg-maritime/hipap-high-precision-acoustic-positioning/31233-38089.html">HiPAP High Precision Acoustic Positioning</a></p>
+<section id="cymbal-acoustic-protocol" class="level4">
+<h4 class="anchored" data-anchor-id="cymbal-acoustic-protocol">Cymbal Acoustic Protocol</h4>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/8.cymbal.png" alt="8.cymbal" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure: examples of time-frequency plots of Cymbal signals for navigation and communication. High intensity signals are from HiPAP, followed by weaker replies from a remote transponder (cNode)</em></p>
+</section>
+<section id="measurement-compensation" class="level3">
+<h3 class="anchored" data-anchor-id="measurement-compensation">Measurement compensation</h3>
+<p>Positions calculated from the raw measurements are influenced by variable sound velocity through the water column. The variable sound velocity causes an error in both range measurements and the angular measurements. By use of a sound profile, the system can correct these errors.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/9.hipap-rays.png" alt="9.hipap-rays" style="width: 550px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p>The sound velocity values may be measured by a probe and transferred to the system. If the depth of the target (transponder) is known either by depth sensor in the transponder or by an ROV depth sensor, these data can be transferred to the system and they will be used in the compensation. The range calculation is compensated for the error caused by different sound velocities in the water column, and for the extra propagation path caused by the ray bending. The angular measurements are compensated for the ray bending. The compensation is used in all positioning modes.</p>
+<p>From <em>HiPAP High Precision Acoustic Positioning Product description.</em></p>
+<ul>
+<li>No reply problems - how can we explain it?</li>
+</ul>
+</section>
+<section id="hipap-500-technical-specifications" class="level3">
+<h3 class="anchored" data-anchor-id="hipap-500-technical-specifications">HiPAP 500 Technical Specifications</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/10.hipap-specs.png" alt="10.hipap-specs" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Angle accuracy depends on Signal to Noise Ratio</p></li>
+<li><p>Note how reported performance are based on a number of assumptions</p></li>
+<li><p>Assumptions are not always reported in the datasheet</p></li>
+<li><p><strong>HiPAP is also an acoustic modem</strong></p></li>
+<li><p>Think of HiPAP-AUV operations</p>
+<ul>
+<li>AUV can send messages to the command and control</li>
+<li>Command and control can send messages to vehicle</li>
+<li>Quality of data collected (rare and compressed images of collected data sent to C2)</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="network-based-localisation-and-navigation" class="level2">
+<h2 class="anchored" data-anchor-id="network-based-localisation-and-navigation">Network-based Localisation and Navigation</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/18.lcat-1.png" alt="Network-based navigation" style="width: 650px"><br>
+
+</td>
+</tr>
+<tr><td>
+<img src="./images/11.underwater-navigation/18.lcat-4.png" alt="Network-based navigation" style="width: 450px"><br>
+
+</td>
+</tr></tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/18.lcat-2.png" alt="Network-based navigation" style="width: 650px"><br>
+
+</td>
+<td>
+<img src="./images/11.underwater-navigation/18.lcat-3.png" alt="Network-based navigation" style="width: 250px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/18.lcat-5.png" alt="Network-based navigation" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p>Fenucci et al, Ad hoc Acoustic Network Aided Localization for micro-AUVs, 2022</p>
+<section id="comments" class="level4">
+<h4 class="anchored" data-anchor-id="comments">Comments</h4>
+<ul>
+<li><p>Moving calculations at application level dramatically improves flexibility</p></li>
+<li><p>Autonomy and Navigation can be explicitly linked</p></li>
+<li><p>Usage of different MAC (Medium Access Control) leads to different performance</p></li>
+</ul>
+</section>
+</section>
+<section id="underwater-communications" class="level2">
+<h2 class="anchored" data-anchor-id="underwater-communications">Underwater Communications</h2>
+<ul>
+<li>Underwater Acoustic Communications are difficult due to:
+<ul>
+<li>Limited bandwidth as range increases
+<ul>
+<li>Longer range require lower frequencies</li>
+<li>Larger bandwidth would achieve higher resolution</li>
+<li>Narrow bandwidth means less information we can transmit (lower bitrate)</li>
+<li>Usual resolution-range trade-off</li>
+</ul></li>
+<li>Channel dependent performance (source-receiver geometry, environment)
+<ul>
+<li>E.g., shadow zones</li>
+</ul></li>
+</ul></li>
+<li>Most Systems
+<ul>
+<li>Direct-Sequence Spread Spectrum (which enhanced SNR - same method as GPS)</li>
+<li>Estimation of the channel transfer function
+<ul>
+<li>Effectively the Transmission Loss (TL) at the various frequencies</li>
+<li>Depends on the environment</li>
+<li>Typically each acoustic message starts with a preamble (same bits)
+<ul>
+<li>Distortion of this known message due to TF of the channel</li>
+<li>Continuous channel estimation</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>Some technology is available in US only
+<ul>
+<li>WHOI, Teledyne Benthos</li>
+</ul></li>
+<li>Today acoustic modems tend to be coupled with USBL</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/11.acoustic-modems-1.png" alt="11.acoustic-modems" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Note the very limited bitrate</p></li>
+<li><p>Nominal performance vs operational performance (bitrate, range)</p></li>
+<li><p>Robots need to be careful about information that they transmit (careful selection of data)</p></li>
+</ul>
+<section id="what-can-you-theoretically-achieve" class="level3">
+<h3 class="anchored" data-anchor-id="what-can-you-theoretically-achieve">What can you theoretically achieve</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/12.theoretical-limits.png" alt="12.theoretical-limits" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Source power and optimal power to have 20dB SNR (lower SNR means lower performance)</p></li>
+<li><p>The plot tells that (for ex.) at 1km, max capacity is 100 kbps. We cannot go faster than this.</p></li>
+<li><p>Commercial modems are below this limit but even the optical case is still very limited</p>
+<ul>
+<li>We cannot enlarge the bandwidth to have better capacity (bandwidth is limited by all the factors that we have studies already - e.g., range less than desired)</li>
+</ul></li>
+</ul>
+<p>From <em>Caiti, Munafo, Crisostomi, Physical Characterisation of Acoustic Communication Channel Properties, 2010</em></p>
+</section>
+</section>
+<section id="robustness" class="level2">
+<h2 class="anchored" data-anchor-id="robustness">Robustness</h2>
+<ul>
+<li>Even with degraded performance, some equipment proven reliable in repeated field tests</li>
+<li>WHOI, Evologics, Teledyne Benthos, Tritech, LinkQuest</li>
+<li>Evologics modems have ranging and USBL capabilities</li>
+<li>These capabilities open up a series of possibilities for localization, even with AUV teams</li>
+</ul>
+<hr>
+</section>
+<section id="doppler-velocity-logger" class="level2">
+<h2 class="anchored" data-anchor-id="doppler-velocity-logger">Doppler Velocity logger</h2>
+<ul>
+<li><p>A Doppler velocity logger (DVL) uses the Doppler effect to measure the velocity of a moving object.</p></li>
+<li><p>The Doppler effect is a change in frequency or wavelength of a wave caused by the motion of the source or the observer.</p></li>
+<li><p>A DVL typically works by emitting a high-frequency sound wave (acoustic pulses) and measuring the frequency shift of the returning echoes.</p></li>
+<li><p>The frequency shift, also known as the Doppler shift, is directly proportional to the velocity of the object. By measuring the Doppler shift of multiple echoes and using trigonometric calculations, the DVL can determine the velocity of the object in multiple dimensions (e.g.&nbsp;forward and lateral velocity, or velocity relative to the bottom).</p></li>
+<li><p>Used to measure the velocity of an object in water by emitting acoustic pulses and measuring the Doppler shift of the echoes that reflect off the seafloor or other objects in the water.</p></li>
+<li><p>DVLs are commonly used in a variety of applications such as underwater navigation, oceanography, hydrographic surveying, and underwater mapping.</p></li>
+<li><p>A DVL is an acoustic sensor that estimates velocity relative to the sea bottom.</p></li>
+<li><p>Achieved by sending a long pulse along a minimum of three acoustic beams, each pointing in a different direction.</p></li>
+<li><p>Typically, this produces estimates of velocity converted into an XYZ coordinate frame of reference – the DVL’s frame of reference.</p></li>
+<li><p>Together with a heading estimate, these velocity estimates may be integrated over the ping interval to estimate a step-by-step change of position - i.e.&nbsp;displacement = velocity × time step.</p></li>
+<li><p>Measurement of velocity relative to the seabed from doppler shift of acoustic echos</p></li>
+<li><p>Emission of very high frequency signals (200 KHz – MHz)</p></li>
+<li><p>Originally designed as a system to measure the sea current from backscatter of particles in the water column</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/13.dvl-1.png" alt="13.dvl-1" style="width: 650px"><br>
+
+</td>
+<td>
+<img src="./images/11.underwater-navigation/13.dvl-2.png" alt="13.dvl-2" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<pre><code>&lt;td&gt;
+        &lt;img src="./images/11.underwater-navigation/13.dvl-3.png" alt="13.dvl-3" style="width: 650px"/&gt;           
+    &lt;/td&gt; </code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/14.Bo-awac+frame91.jpg" alt="14.Bo-awac+frame91.jpg" style="width: 650px"><br>
+
+</td>
+
+</tr>
+</tbody></table>
+<section id="doppler-equation" class="level3">
+<h3 class="anchored" data-anchor-id="doppler-equation">Doppler Equation</h3>
+<ul>
+<li>The Doppler shift is directly related to the velocity of an object.</li>
+<li>The Doppler shift is the change in frequency or wavelength of a wave caused by the motion of the source or the observer. <em>When an object is moving towards a stationary observer, the frequency of the waves emitted by the object will appear to be higher (known as a blue shift) than it actually is. Conversely, when an object is moving away from a stationary observer, the frequency of the waves emitted by the object will appear to be lower (known as a red shift) than it actually is.</em></li>
+</ul>
+<p>In the case of a Doppler velocity logger (DVL), the instrument emits a high-frequency sound wave and measures the frequency shift of the returning echoes. The DVL then uses the measured frequency shift, also known as the Doppler shift, to calculate the velocity of the object.</p>
+<p>The Doppler velocity logger (DVL) measures the velocity of an object by comparing the frequency of the emitted wave and the frequency of the wave that is reflected back from the moving object. The difference in these frequencies is directly proportional to the velocity of the object.</p>
+<p>The relationship between the Doppler shift and the velocity of an object is given by the Doppler equation, which relates the velocity of the object to the ratio of the frequency of the emitted wave to the frequency of the reflected wave. The equation takes into account the speed of sound in the medium and the angle between the object’s velocity vector and the line connecting the object to the observer.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/15.doppler-equation.png" alt="15.doppler-equation.png" style="width: 650px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p>The general form of the Doppler equation:</p>
+<p><span class="math display">\[
+f = \frac{c\pm V_r}{c\pm V_s}f_0
+\]</span></p>
+<p>C = propagation speed of waves in the medium;</p>
+<p>Vr = speed of the receiver relative to the medium, +c if the receiver is moving towards the source, -c if the receiver is moving away.</p>
+<p>Vc = speed of the source relative to the medium, +c if the source is moving away -c if the source is moving towards the receiver.</p>
+</section>
+</section>
+<section id="acoustic-doppler-current-profiler-adcp" class="level2">
+<h2 class="anchored" data-anchor-id="acoustic-doppler-current-profiler-adcp">Acoustic Doppler Current Profiler (ADCP)</h2>
+<ul>
+<li>Operated from surface or moored at the bottom</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/16.adcp.jpg" alt="16.adcp.jpg" style="width: 450px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<p><em>Figure from [ADCP | WHOI]9https://www.whoi.edu/what-we-do/explore/instruments/instruments-sensors-samplers/acoustic-doppler-current-profiler-adcp/)</em></p>
+<p>An Acoustic Doppler Current Profiler (ADCP) is a type of instrument that uses the Doppler effect to measure the velocity of water currents at different depths. It operates by emitting a series of high-frequency sound pulses, which travel through the water and are reflected back by particles or scatterers in the water. The ADCP then measures the Doppler shift of the returning echoes, which is directly proportional to the velocity of the water current.</p>
+<p>The operating principle of an ADCP can be broken down into several steps:</p>
+<ul>
+<li>Transmitting: The ADCP emits a series of high-frequency sound pulses, which travel through the water and are reflected back by particles or scatterers in the water.</li>
+<li>Receiving: The ADCP receives the echoes of the sound pulses, which have been reflected back by the particles or scatterers in the water.</li>
+<li>Doppler shift measurement: The ADCP measures the Doppler shift of the returning echoes, which is directly proportional to the velocity of the water current. The ADCP uses the Doppler equation to determine the velocity of the water current.</li>
+<li>Beamforming: The ADCP uses a beamforming algorithm to determine the direction of the water current. This is done by emitting the sound pulses in different directions and measuring the Doppler shift of the returning echoes in each direction.</li>
+<li>Profiling: The ADCP uses the measured velocities and directions of the water current to profile the current at different depths. This is done by emitting the sound pulses at different depths and measuring the Doppler shift of the returning echoes at each depth.</li>
+<li>Data processing: The ADCP processes the data and generates a current velocity profile, which shows the velocity of the water current at different depths</li>
+</ul>
+<p>In summary, an Acoustic Doppler Current Profiler (ADCP) uses the Doppler effect to measure the velocity of water currents at different depths by emitting a series of high-frequency sound pulses, measuring the Doppler shift of the returning echoes, and using the data to profile the current at different depths.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/17.sdcp-drawing.png" alt="17.sdcp-drawing" style="width: 450px"><br>
+
+</td>
+</tr>
+</tbody></table>
+<pre><code>&lt;td&gt;
+        &lt;img src="./images/11.underwater-navigation/fig2-hires.jpg" alt="fig1-hires" style="width: 450px"/&gt;           
+    &lt;/td&gt;       </code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/11.underwater-navigation/fig1-hires.jpg" alt="fig1-hires" style="width: 450px"><br>
+
+</td>
+
+</tr>
+</tbody></table>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

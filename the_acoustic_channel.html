@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.41">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>The Acoustic Channel – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-48ffa3e5b9d089919c6712c39e5b00f2.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-a46dc4aef9e391a85643b3ed89f95805.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="The Acoustic Channel – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/2.ocean-acoustics/26.spread-circles2.jpg">
+<meta property="og:site_name" content="underwater-systems">
+<meta property="og:image:alt" content="26.spread-circles2">
+<meta name="twitter:title" content="The Acoustic Channel – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/2.ocean-acoustics/26.spread-circles2.jpg">
+<meta name="twitter:image:alt" content="26.spread-circles2">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./the_acoustic_channel.html">The Acoustic Channel</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Explore the Frontier of Underwater Systems: Join our MSc Thesis Program</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-short.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems (Short)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#key-facts" id="toc-key-facts" class="nav-link active" data-scroll-target="#key-facts">Key facts</a></li>
+  <li><a href="#absorption-or-intrinsic-attenuation" id="toc-absorption-or-intrinsic-attenuation" class="nav-link" data-scroll-target="#absorption-or-intrinsic-attenuation">Absorption or Intrinsic Attenuation</a></li>
+  <li><a href="#phasor-notation-for-absorption" id="toc-phasor-notation-for-absorption" class="nav-link" data-scroll-target="#phasor-notation-for-absorption">Phasor Notation for absorption</a></li>
+  <li><a href="#geometrical-spreading" id="toc-geometrical-spreading" class="nav-link" data-scroll-target="#geometrical-spreading">Geometrical Spreading</a></li>
+  <li><a href="#combined-spreading-loss-geometric-absorption" id="toc-combined-spreading-loss-geometric-absorption" class="nav-link" data-scroll-target="#combined-spreading-loss-geometric-absorption">Combined Spreading Loss: Geometric + Absorption</a></li>
+  <li><a href="#additional-loss-factors-interference" id="toc-additional-loss-factors-interference" class="nav-link" data-scroll-target="#additional-loss-factors-interference">Additional Loss Factors: Interference</a>
+  <ul class="collapse">
+  <li><a href="#transmission-loss-in-water" id="toc-transmission-loss-in-water" class="nav-link" data-scroll-target="#transmission-loss-in-water">Transmission Loss in water</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">The Acoustic Channel</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<div id="c436b5b5" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> copy</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="key-facts" class="level3">
+<h3 class="anchored" data-anchor-id="key-facts">Key facts</h3>
+<ul>
+<li>It is a channnel where energy/information is transmitted subjected to specific characteristics:</li>
+</ul>
+<ol type="1">
+<li>High propagation delay
+<ul>
+<li>Typical sound speed: 1500 m/s (<span class="math inline">\(\pm\)</span> 50m/s)</li>
+<li>ex. Tx-Rx are 1500m away, propagation delay is 1s</li>
+</ul></li>
+<li>Absorption (<strong>intrinsit attenuation</strong> of the medium) is proportional to frequency</li>
+</ol>
+<ul>
+<li>see this for a nice intuitive introduction <a href="https://dosits.org/science/movement/why-does-sound-get-weaker-as-it-travels/sound-absorption/">here</a></li>
+<li>ex. <span class="math inline">\(\alpha \approx 30\)</span> dB/km at <span class="math inline">\(100\)</span> kHz</li>
+<li>Attenuation is sometime also expressed in terms of how much dB I lose per wavelength.
+<ul>
+<li>The higher the frequency, the more wavelengths we have between Tx and Rx</li>
+<li>Practically useful: we can represent attenuation with a single number independently of frequency</li>
+<li><span class="math inline">\(\approx 0.0005\)</span> dB/wavelength. Attenuation is point-wise linear (we will see this later)</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+A = A_oe^{-\alpha x}
+\]</span></p>
+<p>see also <a href="http://resource.npl.co.uk/acoustics/techguides/seaabsorption/">National Physical Laboratory | Technical Guide</a></p>
+<ol start="3" type="1">
+<li>A second attenuation mechanism of acoustic signals: Sound Spreading (<strong>Geometrical attenuation</strong>)</li>
+</ol>
+<ul>
+<li><p>Recall that acoustic intensity, is <strong>power per unit surface</strong>:</p>
+<p><span class="math display">\[I = \frac{p^2}{\rho c}, \;\; Z=\rho c \;\; \text{is the sound impedance}\]</span></p></li>
+<li><p>Let’s think of a spherical wavefront under a sinuosoidal perturbation in an isotropic medium, power is ditributed across the wavefront. As the wavefront gets bigger and bigger, the same power must distribue across a larger area, hence power per unit of surface decreases as the wavefront gets bigger.</p></li>
+</ul>
+<p><em>Spreading loss occurs because the total amount of energy in a wave remains the same as it spreads out from a source. (We are neglecting sound absorption for the moment.) When the circle of a surface wave gets bigger the energy spreads to fill it. Therefore, the energy per unit length of the wave must get smaller.</em> From <a href="https://dosits.org/science/movement/why-does-sound-get-weaker-as-it-travels/sound-spreading/">Discovery of sound in the sea</a>.</p>
+<ul>
+<li>There are two limiting cases:
+<ul>
+<li><strong>spherical spreading</strong> (<span class="math inline">\(\approx R^2\)</span>). Surface is proportial to square of the distance (between Tx and RX).
+<ul>
+<li>Corresponds to a point source radiating wave crests that are three-dimensional spheres.<br>
+In this case, the area of the spherical shell over which the energy is spread depends on the square of the distance from the source: <span class="math inline">\(A=4 \pi r^2\)</span>.<br>
+</li>
+<li>By convention, a reference intensity, <span class="math inline">\(I_0\)</span>, is located at a 1 m distance from an acoustic source.</li>
+<li>The total energy transport through the spherical shell at <span class="math inline">\(1\)</span> m distance is: <span class="math inline">\(I_0 4 \pi 1^2=4 \pi I_0\)</span>.</li>
+<li>The total energy transport must be the same through the spherical shell located at <span class="math inline">\(r\)</span> meters from the source: <span class="math inline">\(4 \pi I_0 = 4 \pi r^2 I(r)\)</span>.</li>
+<li>Thus, the intensity at radius, r is: $I(r) = $</li>
+</ul></li>
+<li><strong>cylindrical spreading</strong> (<span class="math inline">\(\approx R\)</span>).
+<ul>
+<li>We can have cylindrical propagation in shallow waters when the wavefront hits the seafloor and sea surface.</li>
+<li>Corresponds to the situation where the sound has already reached the top and bottom of the ocean and is repeatedly reflecting from both boundaries.</li>
+<li>Most of the energy that would have left the system is redirected by these reflections back into the ocean interior (with some loss).</li>
+<li>This purely horizontal spreading results in distribution of energy over cylindrical shells of area <span class="math inline">\(A=2 \pi r H\)</span>, where <span class="math inline">\(H\)</span> is the depth of the ocean. The intensity at a distance, r, from the source is: <span class="math inline">\(I(r) = \frac{I_0}{r}\)</span></li>
+</ul></li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/26.spread-circles2.jpg" alt="26.spread-circles2" style="width: 550px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/27.spread-dwsi.gif" alt="27.spread-dwsi" style="width: 550px;">
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td>
+Pictures from Discovery of sound in the sea: https://dosits.org/science/advanced-topics/cylindrical-vs-spherical-spreading/
+</td>
+</tr>
+</tbody></table>
+<p><em>Sound traveling in the sound channel behaves the most like cylindrical spreading, because in this case the channelization is caused by continuous refraction rather than reflection off the top and bottom of the ocean; the latter process involves much more loss of sound energy due to interactions with the boundaries. Spherical spreading is usually applied only relatively close to a source, perhaps 1-5 km in distance depending on the depth of the ocean and source. In most modern applications, complex numerical models of sound propagation are used for greater accuracy.</em></p>
+<ul>
+<li>As sound waves travel through the water, the intensity is also decreased due to chemical attenuation (negligible for our purposes).</li>
+</ul>
+<ol start="4" type="1">
+<li>Waveguide character of the acoustic channel</li>
+</ol>
+<p>This means:<br>
+- Acoustic rays are refracted by Snell’s law - Multipath arrivals (e.g.&nbsp;reflections from sea surface or sea bottom) - Local refractions depend on local sound speed gradient depends on local oceanography</p>
+</section>
+<section id="absorption-or-intrinsic-attenuation" class="level2">
+<h2 class="anchored" data-anchor-id="absorption-or-intrinsic-attenuation">Absorption or Intrinsic Attenuation</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/28.attenuation.png" alt="28.attenuation" style="width: 550px;">
+</td>
+</tr>
+<tr>
+<td>
+From Springer Handbook of Acoustics
+</td>
+</tr>
+</tbody></table>
+<p>Phasor form of the intrinsic attenuation: <span class="math display">\[
+A = A_oe^{-\alpha x}
+\]</span></p>
+<ul>
+<li>Attenuation depends on frequency
+<ul>
+<li><p><span class="math inline">\(1\)</span> Hz signal, is attenuated by approx <span class="math inline">\(0.001\)</span> per km (1 dB attenuation after 1000km, equator is 40K km)</p></li>
+<li><p><span class="math inline">\(1\)</span> kHz signal, is attenuated by approx <span class="math inline">\(1\)</span> dB per km</p></li>
+<li><p><span class="math inline">\(100\)</span> kHz signal, is attenuated by <span class="math inline">\(100\)</span> dB after <span class="math inline">\(1\)</span> km</p></li>
+<li><p>Low frequencies are not intrinsically attenuated very much (geometric attenuation counts more)</p></li>
+<li><p>High frequencies are highly intrinsically attenuated (counts much more than geometric attenuation)</p></li>
+<li><p>Low frequency signals (which have low bitrate or low resolution) can propagate very far</p></li>
+<li><p>High frequency signals (which have higher bitrate or high resolution) can propagate only for small distances.</p></li>
+</ul></li>
+<li>Pointwise linear: at different frequencies different mechanisms affect attenuation
+<ul>
+<li>e.g., heat produced by friction between water particles and hence energy is transformed into heat</li>
+</ul></li>
+</ul>
+</section>
+<section id="phasor-notation-for-absorption" class="level2">
+<h2 class="anchored" data-anchor-id="phasor-notation-for-absorption">Phasor Notation for absorption</h2>
+<ul>
+<li><p>Used in scientific papers (e.g., considering a complex sound speed)</p></li>
+<li><p>Including an imaginary term in the sound speed makes it possible to mathematically model the intrinsic attenuation</p></li>
+<li><p>Pressure (at fixed angular frequency <span class="math inline">\(\omega\)</span>) including perturbation and attenuation:</p></li>
+</ul>
+<p><span class="math display">\[
+p(x) = Ae^{ikx}e^{-\alpha x} = Ae^{ikx(1+i\delta)}
+\]</span></p>
+<p>where <span class="math inline">\(\delta = \frac{\alpha}{k} = \frac{\alpha c}{\omega}\)</span></p>
+<ul>
+<li><p>Remember that <span class="math inline">\(k=\frac{\omega}{c}\)</span></p></li>
+<li><p>If we consider no attenuation:</p></li>
+</ul>
+<p><span class="math display">\[
+p(x) = Ae^{ikx}
+\]</span></p>
+<ul>
+<li>if <span class="math inline">\(c = c_r - ic_i\)</span>: sound speed is composed of a real term (the actual sound speed) and of an imaginary term</li>
+</ul>
+<p><span class="math display">\[
+\Large p(x) = Ae^{i\omega x \frac{c_r + ic_i}{c_r^2+c_i^2}} \approx Ae^{ikx}e^{-\frac{\omega x}{c_r^2}c_i}
+\]</span></p>
+<p>where <span class="math inline">\(c_i=\frac{\alpha}{\omega}c_r^2\)</span></p>
+<ul>
+<li>Using a complex sound speed we have recovered the generic form of the pressure which included the attenuation (see equation above)</li>
+<li>Phasor notation makes it possible to model the intrinsic attenuation, adding an imaginary term (which depends on the intrinsic attenuation) to the speed of sound.</li>
+</ul>
+</section>
+<section id="geometrical-spreading" class="level2">
+<h2 class="anchored" data-anchor-id="geometrical-spreading">Geometrical Spreading</h2>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/29.geometrical-spreading.png" alt="29.geometrical-spreading" style="width: 550px;">
+</td>
+</tr>
+<tr>
+<td>
+From Computational Ocean Acoustics
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Geometrical spreading is an additional source of attenuation</li>
+<li>Note that when we have multiple sources of attenutation and they are represented in dB, we cannot sum them in dB and need to be converted back to a linear scale (and then back to dB)
+<ul>
+<li>Typically one of the mechanism is much higher and we can safely consider that</li>
+<li>Geometrical attenuation is prevalent in low frequency regimes</li>
+<li>Intrinsic attenuation is prevalent in high frequency regimes</li>
+</ul></li>
+</ul>
+</section>
+<section id="combined-spreading-loss-geometric-absorption" class="level2">
+<h2 class="anchored" data-anchor-id="combined-spreading-loss-geometric-absorption">Combined Spreading Loss: Geometric + Absorption</h2>
+<ul>
+<li>Sound will propagate spherically near the source. At some range H, the spherical wave hits the sea floor, from here on, sound propagates cylindrically.</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/30.combined-spreading.png" alt="30.combined-spreading" style="width: 550px;">
+</td>
+</tr>
+<tr>
+<td>
+From Jasco Underwater Acoustics: Noise and the Effects on Marine Mammals Pocket Handbook.
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><span class="math inline">\(RL\)</span>, Received Level</li>
+<li>Cylindrical attenuation: <span class="math inline">\(RL\)</span> decreases <span class="math inline">\(10\)</span>dB/decade</li>
+<li>Spherical attenuation: <span class="math inline">\(RL\)</span> decreases <span class="math inline">\(20\)</span>dB/decade</li>
+<li>Combined curve: starts spherical and then goes cylindrical (e.g., shallow waters)</li>
+<li>At <span class="math inline">\(100\)</span> kHz: <span class="math inline">\(&gt;40\)</span> m, intrinsic attenuation starts to prevail</li>
+<li>At <span class="math inline">\(10\)</span> kHz: <span class="math inline">\(&gt;40\)</span> m, intrinsic attenuation starts to prevail</li>
+</ul>
+</section>
+<section id="additional-loss-factors-interference" class="level2">
+<h2 class="anchored" data-anchor-id="additional-loss-factors-interference">Additional Loss Factors: Interference</h2>
+<ul>
+<li><p>Most sources of interest in the deep ocean are closer to the surface than to the bottom</p></li>
+<li><p>In this case, the direct path and the surface reflected path are the two main short-range paths</p></li>
+<li><p>When these two paths interfere, they produce a spatial distribution of sound often referred to as a <strong>Lloyd mirror pattern</strong></p></li>
+<li><p><strong>This loss depends on the geometry between source and received</strong></p></li>
+<li><p>Does not depend on the property of the medium</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/31.lloyd-mirror-3.png" alt="31.lloyd-mirror" style="width: 550px;">
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Source (and Receivers) are close to the surface</li>
+<li>Source is a point source placed near a smooth, perfectly reflecting sea surface</li>
+<li>Distance between Source and Receiver is much larger than the distance between Source and sea surface</li>
+<li>Isotropic medium (sound speed is the same in every direction)</li>
+<li>What is the pressure <span class="math inline">\(p(r,z)\)</span> at the receiver’s location when the source at depth <span class="math inline">\(z_s\)</span> transmits an harmonic signal <span class="math inline">\(e^{i\omega t}\)</span> (i.e., <span class="math inline">\(\omega\)</span> is known) with outward propagating spherical waves (<span class="math inline">\(e^{-ikr}\)</span>)?</li>
+</ul>
+<p>Let’s follow each path (we suppress the time dependence <span class="math inline">\(e^{-i\omega t}\)</span> for simplicity).</p>
+<ul>
+<li>Direct: <span class="math display">\[
+R_1 = \sqrt{r^2 + (z_r-z_s)^2}
+\]</span></li>
+</ul>
+<p><span class="math display">\[
+p_1(r,z) = \frac{e^{ikR_1}}{R_1}
+\]</span></p>
+<ul>
+<li><p>Note that this is spherical spreading (we are describing pressures not intensities, which are the square of the pressure)</p></li>
+<li><p>Reflected path:</p>
+<ul>
+<li>We can imagine that is a straight path from the source specular reflection (<span class="math inline">\(-z_s\)</span>) around the ocean surface to the receiver</li>
+</ul></li>
+</ul>
+<p><span class="math display">\[
+R_2 = \sqrt{r^2 + (z_r+z_s)^2}
+\]</span></p>
+<p><span class="math display">\[
+p_2(r,z) = -\frac{e^{ikR_2}}{R_2}
+\]</span></p>
+<ul>
+<li>Since pressures are additive:</li>
+</ul>
+<p><span class="math display">\[
+p(r,z) = p_1(r,z) + p_2(r,z) = \frac{e^{ikR_1}}{R_1} -\frac{e^{ikR_2}}{R_2}
+\]</span></p>
+<ul>
+<li><p>Note that the wavefront <span class="math inline">\(p_2\)</span> changes phase (180 deg) when it is reflected off the sea surface to satisfy the pressure-release boundary condition (<span class="math inline">\(p = 0\)</span>) at the sea surface.</p></li>
+<li><p>Let’s call <span class="math inline">\(R\)</span> the distance between the 0 depth point along the source-ocean line (origin) and the receiver</p></li>
+<li><p>Let’s consider the angle <span class="math inline">\(\phi\)</span> between <span class="math inline">\(R\)</span> and the <span class="math inline">\(x\)</span>-axis</p></li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/31.lloyd-mirror-4.png" alt="31.lloyd-mirror" style="width: 550px;">
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody></table>
+<p>The previous equation is a complex interference pattern.</p>
+<p>We can simplify it, assuming <span class="math inline">\(R &gt;&gt; z_s\)</span>:</p>
+<p><span class="math display">\[
+R_1 \approx R-z_s\sin(\phi)
+\]</span></p>
+<p><span class="math display">\[
+R_2\approx R+z_s\sin(\phi)
+\]</span></p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/31.lloyd-mirror-5.png" alt="31.lloyd-mirror" style="width: 550px;">
+</td>
+</tr>
+<tr>
+<td>
+</td>
+</tr>
+</tbody></table>
+<p><span class="math display">\[
+p(r,z) \approx \frac{1}{R} \Big [ e^{ik(R-z_s\sin(\phi))} -  e^{ik(R+z_s\sin(\phi)) } \Big ] =
+\frac{e^{ikR}}{R} \Big [ e^{-ik(z_s\sin(\phi))} -  e^{ik(z_s\sin(\phi))} \Big ]
+\]</span></p>
+<p>We next replace the two exponentials by a trigonometric function to obtain:</p>
+<p><span class="math display">\[
+p(r,z) = \frac{-2i}{R}sin(kz_s \sin(\phi))e^{ikR}
+\]</span></p>
+<p>which means that the amplitude variation takes the simple form:</p>
+<p><span class="math display">\[
+|p| = \frac{2}{R}|sin(kz_s\sin(\phi))|
+\]</span></p>
+<p>and the maximum:</p>
+<p><span class="math display">\[
+|p_{max}| = \frac{2}{R}\;\; \text{for}\;\;\sin(\phi)=(2m-1)\frac{\pi}{2}\frac{1}{kz_s}\;\; m=1,2,...M
+\]</span></p>
+<ul>
+<li><p>Note that when <span class="math inline">\(\sin(\phi)=(2m-1)\frac{\pi}{2}\frac{1}{kz_s}\)</span>, then <span class="math inline">\(\sin(kz_s\sin(\phi))\)</span> is a multiple of <span class="math inline">\(\pi/2\)</span> and hence a maximum.</p></li>
+<li><p>Since, <span class="math inline">\(\sin(\phi)=(2m-1)\frac{\pi}{2kz_s}\)</span> and <span class="math inline">\(\sin(\phi)\in [-1, 1 ]\)</span> (or we would have a complex number and we are only interested in real numbers), this limits the maximum <span class="math inline">\(m\)</span> and hence the number of Lloyd-mirror beams <span class="math inline">\(M\)</span> is <em>finite</em> and can be obtained from:</p></li>
+</ul>
+<p><span class="math display">\[
+(2M-1)\frac{\pi}{2kz_s} \le 1 \Rightarrow M= \Big \lfloor \frac{2z_s}{\lambda}+\frac{1}{2} \Big \rfloor
+\]</span></p>
+<p>where <span class="math inline">\(\lambda\)</span> is the acoustic wavelength.</p>
+<ul>
+<li><p>The number <span class="math inline">\(M\)</span> tells us what are the directions <span class="math inline">\(\phi\)</span> where we have a maximum (see Depth-Range Contour Figure below). In effect, we are calculating for which values of <span class="math inline">\(\phi\)</span> the harmonic waves are arriving in phase or in opposition of phase.</p></li>
+<li><p>the number of beams is directly protional to the distance of the source from the surface in terms of wavelengths.</p></li>
+</ul>
+<p>In underwater acoustics, the dependence of sound pressure on distance at a fixed depth <span class="math inline">\(z_r\)</span> is of great importance.</p>
+<p>When <span class="math inline">\(r&gt;&gt;z_r\)</span>:</p>
+<ul>
+<li>Substituting <span class="math inline">\(\sin(\phi) = z_r/R\)</span> in $ |p| = |sin(kz_s())| $ and considering large ranges (<span class="math inline">\(r &gt;&gt; z_r;\;\; \sin(\phi) \approx \phi)\)</span>; <span class="math inline">\(r \approx R\)</span>) we obtain:</li>
+</ul>
+<p><span class="math display">\[
+|p| \approx \frac{2kz_sz_r}{r^2}
+\]</span></p>
+<ul>
+<li>This is a farfield decay.</li>
+<li>When <span class="math inline">\(r\)</span> is large enough w.r.t. <span class="math inline">\(z_s\)</span> we do not have directions <span class="math inline">\(\theta\)</span> where we have interference (constructive or distructive).</li>
+</ul>
+<p>A pressure amplitude decay proportional to <span class="math inline">\(r^2\)</span> (intensity <span class="math inline">\(\propto\)</span> to <span class="math inline">\(r^4\)</span>) is equivalent to a transmission loss of:</p>
+<p><span class="math display">\[
+TL = 40\log(r)
+\]</span></p>
+<p>which is twice the loss associated with spherical spreading.</p>
+<p>Note, that this strong farfield field decay is entirely an interference effect!</p>
+<ul>
+<li>Depending on where we are in space, the harmonic wave travelling along the two paths can arrive in phase (constructive interference) or out of phase (destructive interference).</li>
+<li>Waves sum up</li>
+<li><span class="math inline">\(e^{kx}\)</span> determines the phase of the wave and how they interfere at the receiver</li>
+<li>As we move in space we vary <span class="math inline">\(r\)</span> and we change <span class="math inline">\(\theta\)</span>.</li>
+</ul>
+<section id="example" class="level4">
+<h4 class="anchored" data-anchor-id="example">Example</h4>
+<p>Let’s consider a <span class="math inline">\(150\)</span> Hz source, placed <span class="math inline">\(25\)</span> m below the sea surface in a homogeneous water column of infinite extent and with a sound speed of <span class="math inline">\(1500\)</span> m/s. The acoustic wavelength is <span class="math inline">\(\lambda=10\)</span> m.</p>
+<p>Receiver is <span class="math inline">\(200\)</span> m deep.</p>
+<p><span class="math display">\[
+p(r, z)= \frac{e^{ikR_1}}{R_1} -\frac{e^{ikR_2}}{R_2}
+\]</span></p>
+<p>We can now plot the TL field.</p>
+<div id="4646aa15" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="dv">150</span>   <span class="co"># source frequency (Hz)</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">1500</span>  <span class="co"># sound speed (m/s)</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> c<span class="op">/</span>f   <span class="co"># wavelength lambda (10m in our example)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>z_s <span class="op">=</span> <span class="dv">25</span>  <span class="co"># source depth (m)</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>z_r <span class="op">=</span> <span class="dv">200</span> <span class="co"># receiver depth (m)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>f <span class="co"># angular frequency</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">/</span>λ     <span class="co"># wavenumber</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>range_v <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>,<span class="dv">5000</span>,<span class="dv">10</span>) <span class="co"># horizontal range (receiver)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co"># apply the equations seen above</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> []   <span class="co"># pressure</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> r <span class="kw">in</span> range_v:</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    R1 <span class="op">=</span> np.sqrt(r<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(z_r<span class="op">-</span>z_s)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    R2 <span class="op">=</span> np.sqrt(r<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(z_r<span class="op">+</span>z_s)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    p.append(<span class="dv">1</span><span class="op">/</span>R1<span class="op">*</span>np.exp(<span class="ot">1j</span><span class="op">*</span>k<span class="op">*</span>R1)<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2<span class="op">*</span>np.exp(<span class="ot">1j</span><span class="op">*</span>k<span class="op">*</span>R2))</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot results</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. plot the pressure computed from the exact field solution</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Note the oscillating field structure with five peaks and a farfield decay proportional to 40 log r .</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>plt.plot(range_v, <span class="op">-</span><span class="dv">20</span><span class="op">*</span>np.log10(np.<span class="bu">abs</span>(p)), </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">'20log(|p|)'</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. plot the 20*log10(r) behaviour</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>plt.plot(range_v, <span class="dv">20</span><span class="op">*</span>np.log10(range_v),</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'20log(r)'</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. plot the 40*log10(r) behaviour corresponding to farfield decay. </span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotted with an offset to make it simpler to compare with the exact pressure field.</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>plt.plot(range_v, <span class="dv">40</span><span class="op">*</span>np.log10(range_v)<span class="op">-</span><span class="dv">75</span>, </span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>         color<span class="op">=</span><span class="st">'k'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'40log(r)'</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="co"># set axis limits and invert y axis</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="bu">min</span>(range_v), <span class="bu">max</span>(range_v))</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">40</span>, <span class="dv">90</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_yaxis()</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="co"># add labels</span></span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'f:150 Hz, Source depth: 25m, Receiver depth: 200m'</span>)</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Transmission Loss (dB)"</span>)<span class="op">;</span></span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Range (m)"</span>)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_the_acoustic_channel_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li><p><span class="math inline">\(TL=10\log\frac{I}{I_0}=20\log\frac{p}{p_0}\)</span>, always negative (or less than 1 in linear scale)</p></li>
+<li><p><span class="math inline">\(TL\)</span> represented as a positive value in dB (we invert its sign and the <span class="math inline">\(y\)</span> axis when we plot it)</p></li>
+<li><p>Minimum of <span class="math inline">\(TL\)</span> corresponds to maximum of pressure <span class="math inline">\(p\)</span>.</p></li>
+<li><p>For large enough <span class="math inline">\(r\)</span> there are no more maxima, and we are in the far field decay which is proportional to <span class="math inline">\(40\log(r)\)</span></p></li>
+<li><p><span class="math inline">\(20\log(r)\)</span> (dashed line) is the ideal gemetrical spherical attenuation.</p></li>
+<li><p>For large enough <span class="math inline">\(r\)</span>, the attenuation due to interference is higher than gemetrical spherical attenuation (happens at about <span class="math inline">\(8\)</span> km in this example)</p></li>
+<li><p>The attenuation due to interence adds to the intrinsic and gemetrical attenuation.</p></li>
+<li><p>We can still use a dominant attenuation.</p></li>
+</ul>
+<p>And if we vary the receiver horizontal range <span class="math inline">\(r\)</span> and its depth <span class="math inline">\(z_r\)</span>:</p>
+<div id="f282876a" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="dv">150</span>   <span class="co"># source frequency (Hz)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">1500</span>  <span class="co"># sound speed (m/s)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> <span class="dv">10</span>    <span class="co"># wavelength lambda</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>z_s <span class="op">=</span> <span class="dv">25</span>  <span class="co"># source depth (m)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>f <span class="co"># angular frequency</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">/</span>l     <span class="co"># wavenumber</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>range_v <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">500</span>, <span class="dv">1</span>)       <span class="co"># horizontal range (receiver)</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>range_z_r <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">500</span>, <span class="dv">1</span>) <span class="co"># receiver depth (m)</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.zeros(shape<span class="op">=</span>(<span class="bu">len</span>(range_z_r), <span class="bu">len</span>(range_v)), dtype<span class="op">=</span><span class="bu">complex</span>) <span class="co"># pressure</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> id_zr, z_r <span class="kw">in</span> <span class="bu">enumerate</span>(range_z_r):         </span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># apply the equations seen above</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> id_r, r <span class="kw">in</span> <span class="bu">enumerate</span>(range_v):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        R1 <span class="op">=</span> np.sqrt(r<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(z_r<span class="op">-</span>z_s)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>        R2 <span class="op">=</span> np.sqrt(r<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(z_r<span class="op">+</span>z_s)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>        p[id_zr, id_r] <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>R1<span class="op">*</span>np.exp(<span class="ot">1j</span><span class="op">*</span>k<span class="op">*</span>R1)<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2<span class="op">*</span>np.exp(<span class="ot">1j</span><span class="op">*</span>k<span class="op">*</span>R2)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>plt.matplotlib.pyplot.contourf(range_v, range_z_r, <span class="op">-</span><span class="dv">20</span><span class="op">*</span>np.log10(np.<span class="bu">abs</span>(p)),</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>                              levels<span class="op">=</span>[<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>, <span class="dv">50</span>, <span class="dv">55</span>])</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_yaxis()</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co"># add labels</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'TL, f:150 Hz, Source depth: 25m'</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Depth (m)"</span>)<span class="op">;</span></span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Range (m)"</span>)<span class="op">;</span></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_the_acoustic_channel_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<ul>
+<li>Note the <span class="math inline">\(\theta\)</span> directions corresponding to the pressure maximum</li>
+<li>The <span class="math inline">\(\theta\)</span> directions are finite</li>
+<li>Interference patterns vary depending on frequency (depend on <span class="math inline">\(k\)</span>)</li>
+</ul>
+<p>If we increase the frequency to <span class="math inline">\(f=300\)</span> Hz</p>
+<div id="27b21ee9" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="dv">300</span>   <span class="co"># source frequency (Hz)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="dv">1500</span>  <span class="co"># sound speed (m/s)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>λ <span class="op">=</span> c<span class="op">/</span>f   <span class="co"># wavelength lambda</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>z_s <span class="op">=</span> <span class="dv">25</span>  <span class="co"># source depth (m)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">*</span>f <span class="co"># angular frequency</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span><span class="op">*</span>np.pi<span class="op">/</span>λ     <span class="co"># wavenumber</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>range_v <span class="op">=</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">500</span>, <span class="dv">1</span>)       <span class="co"># horizontal range (receiver)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>range_z_r <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">500</span>, <span class="dv">1</span>) <span class="co"># receiver depth (m)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> np.zeros(shape<span class="op">=</span>(<span class="bu">len</span>(range_z_r), <span class="bu">len</span>(range_v)), dtype<span class="op">=</span><span class="bu">complex</span>) <span class="co"># pressure</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> id_zr, z_r <span class="kw">in</span> <span class="bu">enumerate</span>(range_z_r):         </span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># apply the equations seen above</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> id_r, r <span class="kw">in</span> <span class="bu">enumerate</span>(range_v):</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        R1 <span class="op">=</span> np.sqrt(r<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(z_r<span class="op">-</span>z_s)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        R2 <span class="op">=</span> np.sqrt(r<span class="op">**</span><span class="dv">2</span><span class="op">+</span>(z_r<span class="op">+</span>z_s)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>        p[id_zr, id_r] <span class="op">=</span> <span class="dv">1</span><span class="op">/</span>R1<span class="op">*</span>np.exp(<span class="ot">1j</span><span class="op">*</span>k<span class="op">*</span>R1)<span class="op">-</span><span class="dv">1</span><span class="op">/</span>R2<span class="op">*</span>np.exp(<span class="ot">1j</span><span class="op">*</span>k<span class="op">*</span>R2)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="co">##</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="co">## Plot</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">6</span>))</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>plt.matplotlib.pyplot.contourf(range_v, range_z_r, <span class="op">-</span><span class="dv">20</span><span class="op">*</span>np.log10(np.<span class="bu">abs</span>(p)),</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>                              levels<span class="op">=</span>[<span class="dv">25</span>, <span class="dv">30</span>, <span class="dv">35</span>, <span class="dv">40</span>, <span class="dv">45</span>, <span class="dv">50</span>, <span class="dv">55</span>])</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.gca().invert_yaxis()</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="co"># add labels</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'TL, f:1500 Hz, Source depth: 25m'</span>)</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Depth (m)"</span>)<span class="op">;</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Range (m)"</span>)<span class="op">;</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>plt.colorbar()</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="03_the_acoustic_channel_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="transmission-loss-in-water" class="level3">
+<h3 class="anchored" data-anchor-id="transmission-loss-in-water">Transmission Loss in water</h3>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/2.ocean-acoustics/32.tl-mediterranean-sea.png" alt="32.tl-mediterranean-sea" style="width: 350px;">
+</td>
+<td>
+<img src="./images/2.ocean-acoustics/33.tl-baltic-sea.png" alt="33.tl-baltic-sea" style="width: 350px;">
+</td>
+</tr>
+<tr>
+<td>
+Simulation of Transmission Loss (dB) in the Mediterranean Sea; salinity: 38psu. EU FP7 UAN Project.
+</td>
+<td>
+Simulation of Transmission Loss (dB) in the Baltic Sea; salinity: 7psu. EU FP7 UAN Project.
+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><p>Attenuations due to intrinsic attenuation and geometric attenuation.</p></li>
+<li><p><strong>No interference.</strong></p></li>
+<li><p>At the same distance (range), the higher the frequency, the higher the loss (intrinsic attenuation).</p></li>
+<li><p>At the same frequency, the higher the distance, the higher the loss (geometric attenuation).</p></li>
+<li><p>Difference between the two plots due to difference in salinity.</p></li>
+<li><p>Salinity is dramatically different (Mediterranean 38psu; Baltic 7psu).</p></li>
+<li><p>Salinity has a high impact on attenuation.</p></li>
+<li><p>Consider for example:</p>
+<ul>
+<li>5km and 15kHz: around 5dB of difference;</li>
+<li>15km and 20kHz: around 8dB of difference.</li>
+</ul></li>
+</ul>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
