@@ -1,0 +1,53 @@
+myst: v1
+version: "1.0.0"
+title: "Underwater Systems LaTeX"
+description: "Local LaTeX template (offline)"
+license: MIT
+thumbnail: curvenote.png
+
+# Options referenced inside template.tex as option.<name>
+options:
+  - id: link
+    type: string
+    title: "Link color / style"
+    description: "Used by the template for link formatting"
+    default: "blue"
+
+# Document metadata used in template.tex as doc.<name>
+doc:
+  - id: title
+    required: false
+  - id: authors
+    required: false
+  - id: date
+    required: false
+  - id: bibliography
+    required: false
+
+# Parts referenced in template.tex as parts.<id>
+parts:
+  - id: abstract
+    title: Abstract
+    required: false
+
+# This must be a list of file paths (strings)
+files:
+  - template.tex
+
+# List ALL LaTeX packages you use via \usepackage{...}
+# Add/remove to match your template.tex exactly
+packages:
+  - geometry
+  - graphicx
+  - hyperref
+  - xcolor
+  - listings
+  - longtable
+  - booktabs
+  - caption
+  - float
+  - fancyhdr
+  - datetime
+  - natbib
+  - fancyvrb
+  - fvextra

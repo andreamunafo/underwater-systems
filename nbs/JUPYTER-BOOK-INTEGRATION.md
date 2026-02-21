@@ -1,6 +1,6 @@
 # Jupyter Book Integration
 
-This document provides a detailed overview of the modifications and enhancements made to integrate and optimize Jupyter Book within the existing project repository. The enhancements primarily focus on improving the visual appeal of the Jupyter Book PDF output and ensuring efficient workflow.
+This document provides an overview of the modifications and improvements made to integrate and optimize Jupyter Book within the existing project repository. The improvements primarily focus on have a better the visual appeal of the Jupyter Book PDF output.
 
 ## Custom Styling for Jupyter Book
 
@@ -8,7 +8,7 @@ To enhance the visual appeal of the Jupyter Book, custom CSS styles have been im
 
 ### Key Features:
 
-- **Typography**: Customized fonts and line spacing for improved readability.
+- **Typography**: Customized fonts and line spacing for better readability.
 - **Color Scheme**: A carefully selected color palette that is consistent across all pages.
 - **Code Styling**: Enhanced styling for code blocks and inline code for better distinction from regular text.
 - **Navigation Menu**: A revamped navigation menu with intuitive design for ease of navigation.
@@ -17,32 +17,19 @@ The custom styles can be found in the `_static/custom_styles.css` file. To modif
 
 ## Script for Image Inclusion and Book Building
 
-The `build_jupyterbook_with_images.py` script has been developed to streamline the process of including images in the PDF version of the Jupyter Book. This script automates the copying of image files to the correct directory and triggers the Jupyter Book build process.
+The `build_jupyterbook_with_images.py` script has been developed to simplify the process of including images in the PDF version of the Jupyter Book. This script automates the copying of image files to the correct directory and triggers the Jupyter Book build process.
 
-### Usage:
+### Usage of `build_jupyterbook_with_images`:
 
-1. Place the script in the `bin` directory at the root of your Jupyter Book project.
+1. Place the script in the `bin` directory at the root of your Jupyter Book project (i.e. inside `nbs`).
 2. Run the script using the command:
 
    ```bash
    python bin/build_jupyterbook_with_images.py [notebooks_dir]
    ```
 
-The script prompts for confirmation before proceeding with the operations, ensuring user control over the process.
+The script prompts for confirmation before proceeding with the operations, to make sure the user controls the process.
 
-## Fix for pyppeteer.errors.TimeoutError
-
-A common issue encountered during PDF generation (`pyppeteer.errors.TimeoutError`) has been addressed by modifying the `pdf.py` file in the Jupyter Book or pyppeteer environment.
-
-### Modification:
-
-The line in `pdf.py` responsible for page navigation has been altered to:
-
-```python
-await page.goto(f"file:///{html_file}", {"timeout": 0, "waitUntil": ["networkidle2"]})
-```
-
-This change eliminates the timeout restriction, allowing for the complete loading of pages, thereby resolving the timeout issue during PDF creation.
 
 ## Fix for 
 
@@ -58,7 +45,7 @@ To resolve this issue, you need to downgrade `mdit-py-plugins` to a version comp
 1. **Activate your environment**: Ensure you're working in the correct environment where Jupyter Book is installed.
 
    ```bash
-   source activate underwatersystems
+   source activate underwater-systems
    ```
 
 2. **Downgrade `mdit-py-plugins`**: Use `pip` to install a version of `mdit-py-plugins` that is compatible with `myst-parser`.
@@ -119,9 +106,23 @@ When converting Jupyter Notebooks to PDF, especially through Jupyter Book, it is
 
 - **Custom Styles**: Ensure that any custom CSS or LaTeX styling in your Jupyter Book configuration does not override these page break commands.
 
-By following these instructions, you can effectively manage the layout and pagination of your Jupyter Book's PDF output, enhancing the readability and professionalism of the document.
+By following these instructions, you can effectively manage the layout and pagination of your Jupyter Book's PDF output, improving the readability and professionalism of the document.
 
 
-## Conclusion
+This script aims to provide a more aesthetically pleasing and user-friendly experience when working with Jupyter Books in this project. For any queries or further modifications, feel free to update this document accordingly.
 
-These enhancements aim to provide a more aesthetically pleasing and user-friendly experience when working with Jupyter Books in this project. For any queries or further modifications, feel free to update this document accordingly.
+
+## No longer Applicable, after moving to JBV2:
+### Fix for pyppeteer.errors.TimeoutError
+
+A common issue encountered during PDF generation (`pyppeteer.errors.TimeoutError`) has been addressed by modifying the `pdf.py` file in the Jupyter Book or pyppeteer environment. 
+
+#### Modification:
+
+The line in `pdf.py` responsible for page navigation has been altered to:
+
+```python
+await page.goto(f"file:///{html_file}", {"timeout": 0, "waitUntil": ["networkidle2"]})
+```
+
+This change eliminates the timeout restriction, allowing for the complete loading of pages, thereby resolving the timeout issue during PDF creation.

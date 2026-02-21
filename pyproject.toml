@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "underwater-systems"
+dynamic = ["version"]
+description = "Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "Apache-2.0"}
+authors = [{name = "Andrea Munafo", email = "andrea.munafo@ieee.org"}]
+keywords = ['nbdev', 'jupyter', 'notebook', 'python']
+classifiers = ["Natural Language :: English", "Intended Audience :: Developers", "Development Status :: 3 - Alpha", "Programming Language :: Python :: 3", "Programming Language :: Python :: 3 :: Only"]
+dependencies = ['fastcore', 'pandas', 'matplotlib', 'scipy']
+
+[project.urls]
+Repository = "https://github.com/andreamunafo/underwater-systems"
+Documentation = "https://andreamunafo.github.io/underwater-systems"
+
+[project.entry-points.nbdev]
+underwater_systems = "underwater_systems._modidx:d"
+
+[tool.setuptools.dynamic]
+version = {attr = "underwater_systems.__version__"}
+
+[tool.setuptools.packages.find]
+include = ["underwater_systems"]
+
+[tool.nbdev]
+custom_sidebar = true

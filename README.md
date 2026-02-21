@@ -7,13 +7,13 @@
 
 </div>
 
-The course provides an extensive foundation in oceanic engineering,
-covering both theoretical concepts and practical applications.
+The course provides a foundation in oceanic engineering, covering both
+theoretical concepts and practical applications.
 
 It is part of the Master Degree in Robotics and Automation Engineering,
 University of Pisa, Italy
 
-Teaching semester: Spring 2025
+Teaching semester: Spring 2026
 
 Language of instruction: Italian and English
 

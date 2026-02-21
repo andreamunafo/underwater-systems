@@ -2,15 +2,11 @@ website:
   sidebar:
     contents:
       - index.ipynb
-      - 00_FAQ.ipynb
-      - 00_Getting_started_with_Python_and_Jupyter_Notebook.ipynb
-      - 00_MSc_Thesis_Program.ipynb
-      - 00_ROS.ipynb
       - 00_Syllabus.ipynb
       - 00_TOC.ipynb
-      - 01_intro-short.ipynb
-      - 01_intro.ipynb
-      - 02_ocean_acoustics.ipynb
+      - 01_intro-handout.ipynb
+      - 02_ocean_acoustics-handout_part_1.ipynb
+      - 02_ocean_acoustics-handout_part_2.ipynb
       - 03_the_acoustic_channel.ipynb
       - 04_ray_tracing.ipynb
       - 05_environmental-variability.ipynb
@@ -21,4 +17,11 @@ website:
       - 10_sonar_practical_applications.ipynb
       - 11_underwater_navigation.ipynb
       - 12_References.ipynb
+      - 96_FAQ.ipynb
+      - 97_ROS.ipynb
+      - 98_MSc_Thesis_Program.ipynb
+      - 99_Getting_started_with_Python_and_Jupyter_Notebook.ipynb
+      - 100_Template_Final_Presentation.ipynb
+      - 100_Template_Final_Report.ipynb
+      - 100_Template_Weekly_Update.ipynb      
       - news.ipynb

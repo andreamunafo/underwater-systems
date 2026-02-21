@@ -156,3 +156,14 @@ ppts
 video-bookmarks.txt
 videos
 more-nbs
+*Copy*
+nbs/_build/
+nbs/_config.yml
+nbs/_toc.yml
+myst.yml
+JUPYTER-BOOK-INSTRUCTIONS(Andrea).md
+settings.ini.TO_REMOVE
+setup.py.TO_REMOVE
+install-instructions.rtf
+nbs/bin/archive/
+underwater-systems/

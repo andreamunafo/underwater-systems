@@ -1,0 +1,66 @@
+\documentclass{article}
+
+\usepackage{xurl}
+\usepackage{datetime}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{booktabs}
+
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+
+\usepackage{caption}
+\captionsetup{skip=8pt}
+
+\usepackage{microtype}
+
+% Optional (layout)
+% \usepackage[margin=1in]{geometry}
+
+% Spacing around figures/tables
+\setlength{\floatsep}{12pt}
+\setlength{\textfloatsep}{16pt}
+\setlength{\intextsep}{12pt}
+
+% Code blocks (Pandoc/MyST Highlighting)
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{
+  commandchars=\\\{\},
+  breaklines=true,
+  breakanywhere=true,
+  breaksymbolleft={},
+  fontsize=\small
+}
+\fvset{breaklines=true,breakanywhere=true}
+
+\bibliographystyle{abbrvnat}
+
+[-IMPORTS-]
+
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, allcolors=blue}
+
+\title{[-doc.title-]}
+\author{[-doc.authors|join(" \\and ", "name")-]}
+
+\newdate{articleDate}{[-doc.date.day-]}{[-doc.date.month-]}{[-doc.date.year-]}
+\date{\displaydate{articleDate}}
+
+\begin{document}
+
+\maketitle
+[# if parts.abstract #]\begin{abstract}[-parts.abstract-]\end{abstract}[# endif #]
+
+[# if options.link #]
+\newcommand{\documentnote}[1]{{%
+  \let\thempfn\relax%
+  \footnotetext[0]{\emph{#1}}%
+}}
+\documentnote{Available online at:\\ \href{[-options.link-]}{[-options.link-]}}
+[# endif #]
+
+[-CONTENT-]
+
+[# if doc.bibliography #]
+\bibliography{[- doc.bibliography | join(", ") -]}
+[# endif #]
+\end{document}
