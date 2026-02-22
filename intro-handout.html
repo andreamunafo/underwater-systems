@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Introduction to Underwater Systems – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Introduction to Underwater Systems – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/1.introduction/0.robot-x300.jpg">
+<meta property="og:site_name" content="underwater-systems">
+<meta name="twitter:title" content="Introduction to Underwater Systems – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/1.introduction/0.robot-x300.jpg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./intro-handout.html">Introduction to Underwater Systems</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-handout.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Introduction to Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics-handout_part_1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_ocean_acoustics-handout_part_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean acoustics: quantities and jargon</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MSc Thesis Programs: Maritime Robotics, Artificial Intelligence and Robot Autonomy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100_Template_Final_Presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project Presentation Template</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100_Template_Final_Report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project Report Template</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./template_weekly_update.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Weekly 5-Minute Project Update Template</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#lab-overview" id="toc-lab-overview" class="nav-link active" data-scroll-target="#lab-overview">Lab overview</a>
+  <ul class="collapse">
+  <li><a href="#robots-and-platforms" id="toc-robots-and-platforms" class="nav-link" data-scroll-target="#robots-and-platforms">Robots and Platforms</a></li>
+  <li><a href="#locations" id="toc-locations" class="nav-link" data-scroll-target="#locations">Locations</a></li>
+  <li><a href="#some-recent-and-current-projects" id="toc-some-recent-and-current-projects" class="nav-link" data-scroll-target="#some-recent-and-current-projects">Some Recent and Current Projects</a></li>
+  <li><a href="#quantum-based-navigation" id="toc-quantum-based-navigation" class="nav-link" data-scroll-target="#quantum-based-navigation">Quantum-based navigation</a></li>
+  <li><a href="#underwater-acoustic-source-localization-using-a-multi-robot-system" id="toc-underwater-acoustic-source-localization-using-a-multi-robot-system" class="nav-link" data-scroll-target="#underwater-acoustic-source-localization-using-a-multi-robot-system">Underwater acoustic source localization using a multi-robot system</a></li>
+  <li><a href="#underwater-acoustic-source-localization-using-a-multi-robot-system-1" id="toc-underwater-acoustic-source-localization-using-a-multi-robot-system-1" class="nav-link" data-scroll-target="#underwater-acoustic-source-localization-using-a-multi-robot-system-1">Underwater acoustic source localization using a multi-robot system</a></li>
+  <li><a href="#msc-thesis-programme-maritime-robotics-artificial-intelligence-and-robot-autonomy" id="toc-msc-thesis-programme-maritime-robotics-artificial-intelligence-and-robot-autonomy" class="nav-link" data-scroll-target="#msc-thesis-programme-maritime-robotics-artificial-intelligence-and-robot-autonomy">MSc Thesis Programme: Maritime Robotics, Artificial Intelligence and Robot Autonomy</a></li>
+  </ul></li>
+  <li><a href="#whats-in-this-introduction" id="toc-whats-in-this-introduction" class="nav-link" data-scroll-target="#whats-in-this-introduction">What’s in this introduction?</a></li>
+  <li><a href="#motivations" id="toc-motivations" class="nav-link" data-scroll-target="#motivations">Motivations</a>
+  <ul class="collapse">
+  <li><a href="#climate-change" id="toc-climate-change" class="nav-link" data-scroll-target="#climate-change">Climate Change</a></li>
+  <li><a href="#celebrating-marie-tharp" id="toc-celebrating-marie-tharp" class="nav-link" data-scroll-target="#celebrating-marie-tharp">Celebrating Marie Tharp</a></li>
+  </ul></li>
+  <li><a href="#finding-the-endurance" id="toc-finding-the-endurance" class="nav-link" data-scroll-target="#finding-the-endurance">Finding the Endurance</a></li>
+  <li><a href="#blackbox-recovery" id="toc-blackbox-recovery" class="nav-link" data-scroll-target="#blackbox-recovery">Blackbox recovery</a></li>
+  <li><a href="#installation-of-procution-well-jumper" id="toc-installation-of-procution-well-jumper" class="nav-link" data-scroll-target="#installation-of-procution-well-jumper">Installation of Procution Well Jumper</a></li>
+  <li><a href="#operating-rovs" id="toc-operating-rovs" class="nav-link" data-scroll-target="#operating-rovs">Operating ROVs</a>
+  <ul class="collapse">
+  <li><a href="#working-with-rovs" id="toc-working-with-rovs" class="nav-link" data-scroll-target="#working-with-rovs">Working with ROVs</a></li>
+  </ul></li>
+  <li><a href="#renewable-energy" id="toc-renewable-energy" class="nav-link" data-scroll-target="#renewable-energy">Renewable energy</a></li>
+  <li><a href="#marine-autonomy-trends" id="toc-marine-autonomy-trends" class="nav-link" data-scroll-target="#marine-autonomy-trends">Marine Autonomy Trends</a>
+  <ul class="collapse">
+  <li><a href="#early-commercial-marine-vehicles" id="toc-early-commercial-marine-vehicles" class="nav-link" data-scroll-target="#early-commercial-marine-vehicles">Early commercial marine vehicles</a></li>
+  </ul></li>
+  <li><a href="#early-autonomy" id="toc-early-autonomy" class="nav-link" data-scroll-target="#early-autonomy">Early Autonomy</a></li>
+  <li><a href="#marine-autonomy-trends-1" id="toc-marine-autonomy-trends-1" class="nav-link" data-scroll-target="#marine-autonomy-trends-1">Marine Autonomy Trends</a>
+  <ul class="collapse">
+  <li><a href="#scripted-missions" id="toc-scripted-missions" class="nav-link" data-scroll-target="#scripted-missions">Scripted Missions</a></li>
+  <li><a href="#adaptive-autonomy" id="toc-adaptive-autonomy" class="nav-link" data-scroll-target="#adaptive-autonomy">Adaptive autonomy</a></li>
+  <li><a href="#autonomy-trends" id="toc-autonomy-trends" class="nav-link" data-scroll-target="#autonomy-trends">Autonomy Trends</a></li>
+  <li><a href="#a-tangible-example" id="toc-a-tangible-example" class="nav-link" data-scroll-target="#a-tangible-example">A tangible example</a></li>
+  <li><a href="#autonomy-trends-1" id="toc-autonomy-trends-1" class="nav-link" data-scroll-target="#autonomy-trends-1">Autonomy Trends</a></li>
+  </ul></li>
+  <li><a href="#autonomous-vehicles" id="toc-autonomous-vehicles" class="nav-link" data-scroll-target="#autonomous-vehicles">Autonomous Vehicles</a></li>
+  <li><a href="#next-challenges" id="toc-next-challenges" class="nav-link" data-scroll-target="#next-challenges">Next challenges</a></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Introduction to Underwater Systems</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<p>This notebook is the opening handout for the MSc course on underwater systems (MSc Robotics and Automation of the University of Pisa, Italy). It is written so you can read it as a PDF first. If you run the notebook, the same material is there with figures, links, and a few prompts.</p>
+<p>Underwater robots sit at the intersection of mechanics, sensing, communications, navigation, and autonomy. The constraints are not subtle: radio does not work underwater, GPS does not work underwater, pressure grows quickly with depth, and even simple tasks (like “hold position” or “send a message”) become problems.</p>
+<p>A practical goal for this course is to develop a shared vocabulary for platforms (ROVs, AUVs, gliders, surface vehicles), sensing, and autonomy, and then use that vocabulary to reason about real missions and design choices.</p>
+<section id="lab-overview" class="level2">
+<h2 class="anchored" data-anchor-id="lab-overview">Lab overview</h2>
+<p>Before diving into the beautiful world of maritime robotics and underwater systems, a short introduction about our lab.</p>
+<p>We are a robotics lab that works on <strong>maritime robotics</strong>, with a focus on <strong>autonomy</strong> and <strong>AI</strong>. Much of the work follows the same loop: design an algorithm, test it in simulation, validate on real data, and, when logistics allow, run field experiments.</p>
+<p>The systems we work with range from small vehicles used for rapid prototyping to larger platforms used for extended missions. The details vary from project to project, but the underlying engineering questions recur: how to navigate without GPS, how to sense reliably in a difficult environment, how to plan missions under energy and communication constraints, and how to keep a human in the loop when the system matters.</p>
+<section id="robots-and-platforms" class="level3">
+<h3 class="anchored" data-anchor-id="robots-and-platforms">Robots and Platforms</h3>
+<p>The lab uses a mix of platforms. Some are designed for long missions and higher payload capacity; others are compact systems used to iterate quickly on sensing, control, and autonomy. This mix is deliberate: it is hard to develop robust autonomy if you only test in one operating regime. The following figures show three of the robotic vehicles we routinely use for our experiments: AUV Zeno, AUV X300, and the BlueROV.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.robot-x300.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Figure: X300/Folaga</figcaption>
+</figure>
+</div>
+<p>The picture above shows the X300 AUV, formerly known as Folaga AUV. This vehicle was developed in our lab! and it is today commercialised by Graaltech a company based in Genova. It is arguably the most successful underwater vehicle in Italy, and one of the most successful ones in Europe. It was the first maritime robot that did not coast a fortune! (it still costs 100K Euros with sensors) and this was one of the reasons for its commercial success. We will come back to this vehicle later in the course.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.Zeno_HR.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Figure: Zeno AUV</figcaption>
+</figure>
+</div>
+<p>Zeno AUV. AUV stands for Autonomous Underwater Vehicle. This robot is manufactured in Florence by a company called MDMTeam.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.robot-bluerov.jpg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Figure: BlueRov</figcaption>
+</figure>
+</div>
+<p>BlueRov is a small Remotely Operated Vehicle (ROV) manufactured by BlueRobotics. They manufacture low costs but very reliable vehicles, including a Autonomous Surface Vessel (ASV), called BlueBoat.</p>
+<p>We are also in the process of acquiring one more AUV - the Oceanscan Light AUV (LAUV) will soon join our fleet. This is a long endurance vehicle and it will enable us to do longer and more complex missions.</p>
+</section>
+<section id="locations" class="level3">
+<h3 class="anchored" data-anchor-id="locations">Locations</h3>
+<p>Field work in marine robotics is shaped by access: ports, test sites, regulations, weather windows, and the availability of vessels. The lab operates across different environments, from sheltered coastal areas suitable for early integration tests to offshore conditions that stress navigation, sensing, and mission execution.</p>
+<p>In the rest of the course, when we discuss “requirements”, keep in mind that many requirements come directly from the operating context: depth, currents, visibility, legal constraints, and the practical cost of repeating an experiment.</p>
+<p>The lab is part of the broader robotics and systems ecosystem at the University of Pisa, and it collaborates on projects where autonomy, human–robot interaction, and field validation are central.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/dii.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Figure: Our Lab and Facilities.</figcaption>
+</figure>
+</div>
+<p>The picture above shows some of the facilities that we have in the lab. We have an office in La Spezia, inside the premises of the CSSN. This gives us easy access to the water and makes it possible for us to easily test in real environments.</p>
+<p>For smaller scale water tests, we also go to “Laghetti di Campo” in Pisa. Water depth is quite shallow there though and only some experiments can be performed.</p>
+<p>This is where we run the final demo for this course and where you will have the opportunity to test your algorithms on one of our robots!</p>
+</section>
+<section id="some-recent-and-current-projects" class="level3">
+<h3 class="anchored" data-anchor-id="some-recent-and-current-projects">Some Recent and Current Projects</h3>
+<p>The following are examples of some of the projects that we have in the lab. They can give you an idea of the breadth of research that we do.</p>
+<section id="human-machine-teaming-for-the-maritime-environment" class="level4">
+<h4 class="anchored" data-anchor-id="human-machine-teaming-for-the-maritime-environment">Human-Machine Teaming For the Maritime Environment</h4>
+<p>Underwater missions often require a human operator to remain accountable while the vehicle operates with limited communication. That pushes us toward interaction and control methods that allow <strong>shared decision-making</strong>: the robot can propose actions and handle low-level execution, while a human can guide intent, intervene, and manage risk.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.project-hume.png" class="img-fluid figure-img"></p>
+<figcaption>Figure: Human-Machine Teaming For the Maritime Environment: We study how to use and operate multiple robots with fewer operators. This requies making robots more intelligent</figcaption>
+</figure>
+</div>
+<p>The picture above shows a concept that for us is really important: normal maritime robotic operations are managed by lots of operators that are responsible for a small number of vehicles (normally: 5 operators per robot). We are investigating how to make it possible to reverse that and have 1 operator controlling tens of robots!</p>
+<p>A practical challenge in real systems is integration: sensing, navigation, planning, and communications are often developed by different teams and evolve over time. One line of work in the lab is about building autonomy in a way that can be composed, tested, and replaced without rewriting the entire system.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.composable.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Figure: Concept of composable Autonomy</figcaption>
+</figure>
+</div>
+<p>This is summarised in the picture above, where the end-to-end system is fully modular and the intelligence can be moved around the system depending on objectives and resources. Note that the system interact with operators using high-level descriptions, similarly to what chatGPT does, to help operators learn and use the systems as quickly and as easily as possible.</p>
+</section>
+</section>
+<section id="quantum-based-navigation" class="level3">
+<h3 class="anchored" data-anchor-id="quantum-based-navigation">Quantum-based navigation</h3>
+<p>Navigation is a bottleneck for many marine missions, especially when GPS is unavailable or unreliable (which is most of the time underwater, and increasingly relevant on the surface as well). A research direction in the lab is to improve navigation performance by combining classical sensors with next-generation sensing, and by using learning-based models where they actually help.</p>
+<p>One important research direction that we are pursuing is using quantum sensors to improve navigation performance. These new sensors make it possible to see the world in a completely new (and weird!) way and able to overcome the limitations of traditional sensors. We are coupling quantum technology with artificial intelligence to bring about the next generation of navigation systems for maritime vehicles - as we will discuss navigation underwater is very complicated because we don’t have access to the normal way (for example, there is no GPS underwater) so this is a pretty big deal :) The picture below shows a simple schematic of how our system in built to incorporate quantum sensing and more traditional technology.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.quantum-algs.png" class="img-fluid figure-img"></p>
+<figcaption>Figure: We use quantum sensors to improve navigation performance of our robots. The picture describes the navigation stack developed at the lab to support Quantum Navigation</figcaption>
+</figure>
+</div>
+<p>Some projects are algorithmic; others are systems work where the difficult part is integration, calibration, and repeatable testing in operational conditions. The next picture shows an example from an experiment of our quantum sensing system. The sensor (on the right in the picture) was installed on a rubber boat and used to navigate in the gulf of La Spezia. This was part of a project that we run with the Centre for Maritime Research and Experimentation (CMRE) and TNO in the Netherlands.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.quantum-exp.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Figure: Our team at sea during an experiment of Quantum Navigation</figcaption>
+</figure>
+</div>
+</section>
+<section id="underwater-acoustic-source-localization-using-a-multi-robot-system" class="level3">
+<h3 class="anchored" data-anchor-id="underwater-acoustic-source-localization-using-a-multi-robot-system">Underwater acoustic source localization using a multi-robot system</h3>
+<p>Acoustics is the closest thing we have to long-range sensing and communication underwater, but it comes with multipath, time-varying propagation, and strong dependence on geometry. Multi-robot setups can improve coverage and robustness, but they also add coordination and synchronization problems.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.resilient-sensing.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Figure: Resilient Sensing. Sense-Plan-Act loop: Making robots able to perceive their environment with resilience is key to improve their operational effectiveness.</figcaption>
+</figure>
+</div>
+</section>
+<section id="underwater-acoustic-source-localization-using-a-multi-robot-system-1" class="level3">
+<h3 class="anchored" data-anchor-id="underwater-acoustic-source-localization-using-a-multi-robot-system-1">Underwater acoustic source localization using a multi-robot system</h3>
+<p>This project direction is also a good example of the “full stack” nature of underwater robotics: the algorithm is only one piece. The objective in this case was how to use multiple vehicles to localise sources of sound underwater. Vehicle motion, array geometry, clock drift, deployment logistics, and data handling can dominate performance if they are treated as afterthoughts. We will go into the details of what this all means through the course.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/0.project-damps.png" class="img-fluid figure-img" style="width:100.0%"></p>
+<figcaption>Figure: Underwater acoustic source localization using a multi-robot system (Project DAMPS)</figcaption>
+</figure>
+</div>
+</section>
+<section id="msc-thesis-programme-maritime-robotics-artificial-intelligence-and-robot-autonomy" class="level3">
+<h3 class="anchored" data-anchor-id="msc-thesis-programme-maritime-robotics-artificial-intelligence-and-robot-autonomy">MSc Thesis Programme: Maritime Robotics, Artificial Intelligence and Robot Autonomy</h3>
+<p>Finally, a few words on our MSc thesis programme. We supervise MSc theses on maritime robotics, with a strong focus on autonomy and AI. A typical thesis involves algorithm design, simulation, testing on real data, and, when possible, field work.</p>
+<p>The main research directions include human–robot teaming and shared autonomy (interfaces and control methods that let a human and an autonomous system share decisions during a mission), multi-robot collaboration (coordination and task allocation for teams of robots), mission and path planning for long-duration operations (energy, currents, risk, uncertainty, and limited communication), polar robotics (operating in cold and remote environments, with robustness constraints), and navigation and sensor fusion topics that include magnetometers and, when relevant, quantum or next-generation sensors.</p>
+<p>Some thesis projects are run with external partners. Recent collaborations include Atlas Elektronik (typically with about one month onsite, with travel and living expenses covered), Fincantieri WASS, the National Oceanography Centre (NOC), and CMRE (NATO Centre for Maritime Research and Experimentation).</p>
+<p>Students can also apply for Erasmus exchanges. Current partners include Leibniz Universität Hannover, University of Zagreb, University of Girona, and Heriot-Watt University (from 2027), among others.</p>
+<p>For details and applications, contact Prof.&nbsp;Andrea Munafo at <a href="mailto:andrea.munafo@unipi.it">andrea.munafo@unipi.it</a>.</p>
+<hr>
+</section>
+</section>
+<section id="whats-in-this-introduction" class="level2">
+<h2 class="anchored" data-anchor-id="whats-in-this-introduction">What’s in this introduction?</h2>
+<p>This introduction does four things. It starts from motivation: why we use robots to explore, monitor, and inspect the sea. It then sketches what “underwater systems” means in practice, not as a definition but as a set of constraints that are important to shape design. Finally, it maps those constraints to the main topics of the course, so that later material has a clear place to attach.</p>
+</section>
+<section id="motivations" class="level2">
+<h2 class="anchored" data-anchor-id="motivations">Motivations</h2>
+<p>Marine robotics exists because the ocean is hard to access and expensive to observe. If you need repeated measurements over large areas, or you need to inspect structures and assets without putting divers at risk, you quickly end up with robotic systems.</p>
+<p>A second motivation is scientific: many ocean processes are dynamic and spatially distributed. You rarely get what you need from a single stationary sensor. Robots let you move, sample, and adapt a mission based on what you are observing.</p>
+<!-- ### Science Questions -->
+<!--table>
+    <tr>
+    <td>
+    <figure>
+    <video controls src="./videos/Using-AI-to-Explore-Oceans.mp4" width="600" height="400" frameborder="0"></video> 
+    <figcaption>MIT 2.680 course - using AI to explore the ocean.</figcaption>        
+    </figure>    
+    </td>    
+    </tr>
+</table-->
+<!--table>
+    <tr>
+    <td>
+    <iframe width="600" height="400" src="./videos/Using AI to Explore Oceans.mp4" frameborder="0" allowfullscreen></iframe>   
+    </td>    
+    </tr>
+</table-->
+<section id="climate-change" class="level3">
+<h3 class="anchored" data-anchor-id="climate-change">Climate Change</h3>
+<p>Climate change, as we’ve seen in recent news and scientific reports, is a global phenomenon with far-reaching impacts on both terrestrial and aquatic ecosystems.</p>
+<section id="global-temperature-rise" class="level4">
+<h4 class="anchored" data-anchor-id="global-temperature-rise">Global Temperature Rise</h4>
+<p>Climate change is fundamentally driven by the increase in global average temperatures year after year. This rise in temperature is not a uniform process but varies across different regions and timescales.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/1.avg_temp_change_chart-nc.png.webp" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Figure: Change in annual average global temperature over more than 100 years</figcaption>
+</figure>
+</div>
+<p>The plot above shows global average temperature relative to the pre-industrial average (1850–1900), reproduced from <a href="https://www.bbc.com/news/science-environment-65602293">BBC | Global warming set to break key 1.5C limit for first time</a>.</p>
+<p>Zero on the vertical axis is a reference baseline (a multi-decade average leading up to the 20th century). Each bar shows a single year relative to that baseline: red bars are warmer-than-baseline years, blue bars are cooler-than-baseline years.</p>
+<p>A rise of about 1.1 °C over the last century sounds small if you think of day-to-day weather, but it corresponds to an enormous increase in stored energy in the Earth system. That energy shows up in multiple ways: changes in the frequency and intensity of extreme events, melting land ice and polar ice, sea level rise, and shifts in ocean temperature that affect ecosystems.</p>
+<p>The consequences of this temperature rise are diverse, including:</p>
+<ul>
+<li>Extreme Weather Events: Such as droughts and floods.</li>
+<li>Melting Glaciers and Polar Ice Caps: Leading to rising sea levels.</li>
+<li>Impact on Marine Life: Changes in ocean temperatures and chemistry affect marine ecosystems.</li>
+</ul>
+</section>
+<section id="the-role-of-human-activities" class="level4">
+<h4 class="anchored" data-anchor-id="the-role-of-human-activities">The Role of Human Activities</h4>
+<p>Human activities, particularly the burning of fossil fuels like coal, oil, and gas, have been central to the rise in global temperatures.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/1.Global-energy-substitution.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Figure: Global primary energy consumption by source</figcaption>
+</figure>
+</div>
+<p>Burning fossil fuels releases greenhouse gases (GHGs) like carbon dioxide (CO2), methane (CH4), and others into the atmosphere. These gases trap heat from the sun, leading to a warming effect known as the greenhouse effect.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/1.Co2-levels-800k.jpg" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Figure: Co2 levels over the last 800k years.</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/1.cO2.png" class="img-fluid figure-img"></p>
+<figcaption>Figure: CO2 levels</figcaption>
+</figure>
+</div>
+<p>Ice cores provide a long record of atmospheric composition because they trap small air bubbles as snow compacts into ice. Measurements from these bubbles show that, for roughly the last 800,000 years up to the 20th century, atmospheric CO₂ stayed within about 170–300 ppm (parts per million). Against that background, the modern rise to above 400 ppm within roughly two centuries is unusually fast.</p>
+<p>For additional context and data sources, see <a href="https://rateofchange.substack.com/p/the-rate-of-change-july-15-2019">this discussion</a> and <a href="https://www.bas.ac.uk/data/our-data/publication/ice-cores-and-climate-change/">the BAS overview</a>.</p>
+<p>The levels of CO2 in the atmosphere have been remarkably stable over millennia but have shown an unprecedented rise in the last century. Understanding this requires examining historical data:</p>
+<ul>
+<li>Ice Core Data: Scientists analyze ice cores to measure historical CO2 levels. These cores contain air bubbles that serve as time capsules, preserving atmospheric samples from the past.</li>
+<li>Trends Observed: Historical data shows a dramatic increase in CO2 levels, especially in recent decades. This rise is directly linked to human activities, particularly the burning of fossil fuels.</li>
+<li>Acceleration of CO2 Increase: The rate of increase in CO2 levels is not constant but accelerating. This acceleration implies a continually increasing rate of heat trapping in the atmosphere.</li>
+</ul>
+<p>See also <a href="https://climate.nasa.gov/news/2616/core-questions-an-introduction-to-ice-cores/">NASA | Ice Cores</a></p>
+</section>
+<section id="global-temperature-anomalies" class="level4">
+<h4 class="anchored" data-anchor-id="global-temperature-anomalies">Global Temperature Anomalies</h4>
+<p>Lobal warming is not uniform across the Earth. Variations exist due to factors like geographical location, land-sea distribution, and atmospheric circulation patterns.</p>
+<div id="37296d20-6a48-4155-8d91-a0f89de215e0" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> IPython.display <span class="im">import</span> YouTubeVideo</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>YouTubeVideo(<span class="st">'LwRTw_7NNJs'</span>, width<span class="op">=</span><span class="dv">800</span>, height<span class="op">=</span><span class="dv">600</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+
+        <iframe width="800" height="600" src="https://www.youtube.com/embed/LwRTw_7NNJs" frameborder="0" allowfullscreen=""></iframe>
+        
+</div>
+</div>
+</section>
+<section id="oceans-are-absorbing-almost-all-of-the-globes-excess-heat" class="level4">
+<h4 class="anchored" data-anchor-id="oceans-are-absorbing-almost-all-of-the-globes-excess-heat">Oceans Are Absorbing Almost All of the Globe’s Excess Heat</h4>
+<ul>
+<li>More than 90 percent of the excess heat retained by the Earth as a result of increased greenhouse gases has been absorbed by the oceans.</li>
+<li>Ocean temperatures have been consistently rising for at least three decades.</li>
+</ul>
+<p>Interested readers are referred to this NYTimes article: <a href="https://www.nytimes.com/interactive/2016/09/12/science/earth/ocean-warming-climate-change.html">Oceans Are Absorbing Almost All of the Globe’s Excess Heat</a></p>
+<p><strong>Marine Robotics and Underwater Systems are central to this problem</strong>.</p>
+<p>The Figure below shows average temperature from each decade compared with the 20th-century average.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/1.ocean-warming.webp" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption>Figure: Average temperature from each decade compared with the 20th-century average</figcaption>
+</figure>
+</div>
+</section>
+</section>
+<section id="celebrating-marie-tharp" class="level3">
+<h3 class="anchored" data-anchor-id="celebrating-marie-tharp">Celebrating Marie Tharp</h3>
+<ul>
+<li>American geologist and oceanographic cartographer who helped prove the theories of continental drift.</li>
+<li>She co-published the first world map of the ocean floors.</li>
+<li>On Nov 21, 1998, the Library of Congress named Tharp one of the greatest cartographers of the 20th century.</li>
+</ul>
+<table>
+<tbody><tr>
+<td style="width=100px">
+<figure class="figure">
+<img src="./images/1.introduction/marie-tharp.png" alt="marie-tharp" style="width: 450px;" class="figure-img">
+</figure>
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/11.the-world-ocedan-floor-tharp.jpeg" alt="World ocean floor" style="width: 700px;">
+</td></tr>
+</tbody></table>
+<p><a href="https://www.loc.gov/item/2010586277/">Manuscript painting of Heezen-Tharp “World ocean floor” map by Berann (~1955)</a></p>
+</section>
+</section>
+<section id="finding-the-endurance" class="level2">
+<h2 class="anchored" data-anchor-id="finding-the-endurance">Finding the Endurance</h2>
+<p>The wreck of Sir Ernest Shackleton’s ship ‘Endurance’ has been found off the coast of Antarctica more than a century after it sank.</p>
+<p><em>Historian Dan Snow, who is a member of the Endurance22 expedition team, said the discovery was ‘like a miracle’ and the ship is ‘almost perfectly preserved’</em></p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/9.shackelton-expedition.webp" alt="endurace" style="width: 350px;">
+</td><td>
+<img src="./images/1.introduction/8.endurance-vessel.webp" alt="black-box" style="width: 350px;">
+</td>
+</tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/7.endurance.webp" alt="black-box" style="width: 350px;">
+</td>
+<td>
+<img src="./images/1.introduction/10.auv-endurance.webp" alt="black-box" style="width: 350px;">
+</td>
+</tr></tbody></table>
+<p>see <a href="https://www.bbc.com/news/science-environment-60662541">this</a> for more!</p>
+</section>
+<section id="blackbox-recovery" class="level2">
+<h2 class="anchored" data-anchor-id="blackbox-recovery">Blackbox recovery</h2>
+<p>A useful way to frame underwater systems is to look at missions that are not “robotics research”, but still require robotics-grade technology. Aircraft blackbox recovery is one of those missions: it is time-critical, high-stakes, and happens in an environment where sensing and access are constrained.</p>
+<p>The case study below is used here to motivate three course themes: (i) the operational cost of the ocean, (ii) the role of sensing and localisation when you do not control the environment, and (iii) why autonomy becomes valuable when human-in-the-loop bandwidth is limited.</p>
+<p>Air France 447 crash from Rio to Paris, June 1st, 2009</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/3.bbc-flight.png" alt="flight-bbc" style="width: 650px;">
+</td>
+</tr></tbody></table>
+<pre><code>&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/1.black-box.jpeg" alt="black-box" style="width: 250px;">
+</td>
+<td>
+<img src="./images/1.introduction/2.image-website-of-Frances--007.webp" alt="black-box" style="width: 250px;">
+</td>
+
+</tr></tbody></table>
+<p><strong>Countries involved</strong></p>
+<p>Large-scale maritime recovery operations quickly become multi-national and multi-stakeholder. Even in a single accident, relevant parties can include the country of origin, the destination country, the state responsible for the airspace where the accident happened, the airline, engine manufacturers, insurers, and the countries of citizenship of passengers.</p>
+<p><strong>Recovery</strong></p>
+<p>The recovery effort involved assets from multiple countries. Public summaries list 13 aircraft and 2 helicopters (Brazil, France, USA, Spain), 8 ships (Brazil, France, USA), two 6000 m manned submersibles (including <em>Nautile</em>), a French nuclear submarine, three AUVs, and one ROV. The searched area is often reported as on the order of 1 million km²; for scale, the contiguous United States is about 8,080,464 km². The cost is commonly cited around 30 M€ (2009), and the recovery was completed about two years after the crash.</p>
+<p>The numbers matter less than the message: once you move to deep water and large areas, search becomes a sensing and systems problem, not just an “add more people” problem.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/4.nautile.jpeg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Figure: Nautile</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/5.abyss.jpeg" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Figure: Abyss</figcaption>
+</figure>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/1.introduction/6.remora.png" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>Figure: ROV Remora</figcaption>
+</figure>
+</div>
+</section>
+<section id="installation-of-procution-well-jumper" class="level2">
+<h2 class="anchored" data-anchor-id="installation-of-procution-well-jumper">Installation of Procution Well Jumper</h2>
+<p>Industrial underwater work is another anchor point for this course. Offshore installation tasks force you to think about manipulation, perception, control, and safety under real constraints: limited visibility, strong currents, heavy tooling, and the need to verify what happened.</p>
+<p>When we later discuss ROVs, manipulators, and autonomy, keep this type of task in mind. A lot of engineering effort goes into making operations repeatable and auditable, not “clever”.</p>
+</section>
+<section id="operating-rovs" class="level2">
+<h2 class="anchored" data-anchor-id="operating-rovs">Operating ROVs</h2>
+<p>Remotely operated vehicles (ROVs) let us work underwater without putting a person in the water. An operator is typically on a surface vessel and controls the vehicle through a tether. The tether carries power and communication, so ROV endurance is usually limited by logistics rather than battery energy.</p>
+<p>Control is often described as “video game-like” because many systems use joysticks and live video. That similarity is misleading in one important way: the environment pushes back. The vehicle moves in currents, the camera view can be poor, and the tether influences vehicle motion. Manipulation adds another layer because forces at the end-effector couple to the vehicle body.</p>
+<p>Most ROVs carry at least cameras and lights, and many carry tools such as manipulators, cutting arms, samplers, and sensors (turbidity, temperature, etc.). ROVs were developed largely for industrial inspection and intervention (pipelines, offshore platforms), and they are now widely used in scientific work and, increasingly, for public-facing exploration through live broadcast.</p>
+<table>
+<tbody><tr>
+<td style="width:650px">
+<figure class="figure">
+<img src="./images/1.introduction/12.rov-whoi-control-room.jpeg" alt="WHOI Engineer Jared Schwartz pilots the remotely operated vehicle, Saab Seaeye Falcon to investigate an unrecovered mooring anchor. (Photo by Daniel Hentz, Woods Hole Oceanographic Institution)" style="width: 650px;" class="figure-img">
+<figcaption>
+WHOI Engineer Jared Schwartz pilots the remotely operated vehicle, Saab Seaeye Falcon to investigate an unrecovered mooring anchor. (Photo by Daniel Hentz, Woods Hole Oceanographic Institution). Ref. https://www.whoi.edu/news-insights/content/flight-of-the-underwater-falcon/
+</figcaption>
+</figure>
+</td></tr>
+</tbody></table>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/13.rov-control-full-view.png" alt="13.rov-control-full-view" style="width: 350px;">
+</td>
+<td>
+<img src="./images/1.introduction/14.rov-control.png" alt="black-box" style="width: 350px;">
+</td>
+</tr></tbody></table>
+<p><strong>Controlling ROVs: the old approach</strong></p>
+<p>In early ROV operations, the offshore operator directly drove the vehicle and directly commanded the manipulator motors (often with a limited number of joints). That created predictable coordination issues: manipulator motion can disturb vehicle attitude, and stabilising the combined system is not trivial. Teams often relied on voice coordination between the pilot and the manipulator operator, plus visual feedback from cameras and observers.</p>
+<p>This is a useful baseline because it shows what autonomy and better interfaces are trying to improve: reduce operator workload, reduce coordination overhead, and make complex tasks less brittle.</p>
+<p><strong>Controlling ROVs today</strong></p>
+<p>Modern ROV systems are moving toward better stabilization, higher-quality sensing, and more structured operator interfaces. On the autonomy side, the trend is not “replace the operator”; it is to automate the parts that are repetitive or time-critical (station keeping, camera/arm coordination, collision avoidance) while keeping the human responsible for intent and safety.</p>
+<section id="working-with-rovs" class="level3">
+<h3 class="anchored" data-anchor-id="working-with-rovs">Working with ROVs</h3>
+<ul>
+<li>13 people / 24h
+<ul>
+<li>8 Pilot/Technicians (4h shift)</li>
+<li>4 Supervisors (4h shift)</li>
+<li>1 Superintendent (on call)</li>
+</ul></li>
+<li>How long onboard?
+<ul>
+<li>4 to 6 weeks</li>
+<li>ROV crews work 6h 7/7</li>
+</ul></li>
+</ul>
+<table>
+<tbody><tr>
+<td style="width:650px">
+<figure class="figure">
+<img src="./images/1.introduction/15.ROV-Jason-dark-2048x1152.jpeg" alt="ROV Jason helps recover two other underwater vehicles. (Photo by Woods Hole Oceanographic Institution)" style="width: 650px;" class="figure-img">
+<figcaption>
+Photo by Woods Hole Oceanographic Institution. Ref. https://www.whoi.edu/press-room/news-release/whois-rov-jason-assists-with-the-successful-recovery-of-two-other-underwater-vehicles/
+</figcaption>
+</figure>
+</td></tr>
+</tbody></table>
+<p><em>Ocean Exploration Trust’s ROV Hercules and Argus were stranded on the seafloor last week, but were recovered thanks to cooperation from several ocean science and exploration institutions Woods Hole, MA — On Thursday, September 2, 2021 the remotely operated vehicle (ROV) Jason succeeded in helping recover two other underwater vehicles, ROV Hercules and Argus, that were stranded on the seafloor off the coast of British Columbia last week when their tether to the surface broke. The operation came about as a result of close collaboration and mutual aid that are a hallmark of the ocean science and exploration community and the maritime community as a whole.</em></p>
+</section>
+</section>
+<section id="renewable-energy" class="level2">
+<h2 class="anchored" data-anchor-id="renewable-energy">Renewable energy</h2>
+<p>Underwater systems are not only research platforms. They are part of large economic and societal pipelines. Two recurring drivers are infrastructure that needs power and communication (often via cables), and applications where work must be done continuously and at scale.</p>
+<p>One example is fisheries and aquaculture, where monitoring, inspection, and intervention increasingly rely on marine sensing and automation.</p>
+<table>
+<tbody><tr>
+<td style="width:400px">
+<figure class="figure">
+<img src="./images/1.introduction/16.fisheries.png" alt="Fisheries" style="width: 400px;" class="figure-img">
+<figcaption>
+NTNU AMOS - Centre for Autonomous Marine Operations and Systems
+</figcaption>
+</figure>
+</td></tr>
+</tbody></table>
+<p>At a higher level, motivations are usually a blend of food production, health and environmental monitoring, security, and safety. Different applications weigh these differently, but they all push the same core technologies: robust sensing, reliable navigation, and systems that remain controllable when communication is limited.</p>
+</section>
+<section id="marine-autonomy-trends" class="level2">
+<h2 class="anchored" data-anchor-id="marine-autonomy-trends">Marine Autonomy Trends</h2>
+<p>(Adapted from <a href="https://oceanai.mit.edu/2.680/pmwiki/pmwiki.php?n=Site.Lectures">here</a>)</p>
+<figure class="figure">
+<img src="./images/1.introduction/17.autonomy-trends-11.png" alt="Autonomy Trends" style="width: 550px;" class="figure-img">
+</figure>
+<figure class="figure">
+<img src="./images/1.introduction/17.autonomy-trends-21.png" alt="Autonomy Trends" style="width: 550px;" class="figure-img">
+</figure>
+<section id="early-commercial-marine-vehicles" class="level3">
+<h3 class="anchored" data-anchor-id="early-commercial-marine-vehicles">Early commercial marine vehicles</h3>
+<p>Before “marine autonomy” became a familiar term, many commercial systems were built around simple mission execution: follow a preplanned route, record data, and return. The hardware was already sophisticated, but much of the mission logic was constrained by what could be certified, supported, and operated repeatably.</p>
+<p>This historical context is important because it explains why interfaces, protocols, and modular autonomy became central topics later on.</p>
+<p>At the turn of the century, there weren’t many commercial marine vehicles for sale</p>
+<figure class="figure">
+<img src="./images/1.introduction/18.remus-and-bluefin.png" alt="remus and bluefin" style="width: 550px;" class="figure-img">
+</figure>
+<figure class="figure">
+<img src="./images/1.introduction/19.hugin.png" alt="hugin" style="width: 550px;" class="figure-img">
+</figure>
+</section>
+</section>
+<section id="early-autonomy" class="level2">
+<h2 class="anchored" data-anchor-id="early-autonomy">Early Autonomy</h2>
+<figure class="figure">
+<img src="./images/1.introduction/20.payload-autonomy.png" alt="hugin" style="width: 550px;" class="figure-img">
+</figure>
+<ul>
+<li><p>Researcher/Scientists were not content to be limited to the vehicle manufacturer’s autonomy system.</p></li>
+<li><p>How can they run the autonomy system from the payload computer, i.e., Payload Autonomy</p></li>
+<li><p><strong>Do you see limitations or concerns with this?</strong></p></li>
+</ul>
+<p><em>Autonomy can be complex, sometime is data driven, might be not deterministic and might increase the risk of losing a vehicle. Losing an AUV might set a research group back many years.</em></p>
+</section>
+<section id="marine-autonomy-trends-1" class="level2">
+<h2 class="anchored" data-anchor-id="marine-autonomy-trends-1">Marine Autonomy Trends</h2>
+<p>A simple way to describe the last two decades is a shift from scripted missions toward adaptive and collaborative systems.</p>
+<p>In a scripted mission, most of the trajectory is fixed before launch. The robot still needs navigation, but the mission logic does not change much during execution.</p>
+<p>In adaptive or collaborative autonomy, the trajectory depends on what the robot senses and, in multi-vehicle settings, on what other vehicles are doing. The robot needs not only self-localization, but also the ability to reason about other agents and to react under uncertainty.</p>
+<p>Think of the two examples below:</p>
+<pre><code>&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/21.waypoints.png" alt="waypoints" style="height: 250px;">
+</td><td>
+<img src="./images/1.introduction/22.adaptive-autonomy.png" alt="adaptive/collaborative" style="height: 250px;">
+</td>
+
+</tr></tbody></table>
+<section id="scripted-missions" class="level3">
+<h3 class="anchored" data-anchor-id="scripted-missions">Scripted Missions</h3>
+<p>Twenty years ago, “marine autonomy” was not a common term. A typical workflow was straightforward: the robot followed a sequence of waypoints, it was recovered, and scientists offloaded data for analysis. Navigation, control, and mission software were mostly delivered as an integrated package by the vehicle manufacturer.</p>
+<p>That model has strengths. It is predictable and supportable, and it is often the right choice when operations must be repeatable.</p>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/21.waypoints.png" alt="waypoints" style="height: 250px;"><br>
+
+</td></tr>
+</tbody></table>
+<p>Think about two advantages and two limitations of this approach. Try to phrase them as engineering constraints (not simply as “it’s old”).</p>
+</section>
+<section id="adaptive-autonomy" class="level3">
+<h3 class="anchored" data-anchor-id="adaptive-autonomy">Adaptive autonomy</h3>
+<p>A decade later, sensor data was no longer treated as something you only look at after recovery. Vehicles started processing data on board and adjusting the mission during execution. Once missions become unscripted and dynamic, the design space grows quickly: what should trigger replanning, how safe is a deviation, what data is worth transmitting, and what happens when the vehicle is uncertain about its own state?</p>
+<p>This shift also changed the ecosystem. Manufacturers tended to support a subset of missions aligned with core users, and many platforms opened payload interfaces so third parties (industry, academic labs, defense labs) could deploy their own autonomy stacks.</p>
+<p>The next two pictures show this new approach:</p>
+<pre><code>    &lt;td&gt;&lt;/td&gt;
+&lt;td&gt; &lt;img src="./images/1.introduction/22.adaptive-autonomy-reacquire.png" alt="23.human-machine" style="height: 350px;"/&gt; &lt;/td&gt;
+&lt;/tr&gt;</code></pre><table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/23.adaptive-complexity.png" alt="waypoints" style="height: 350px;">
+</td><td>
+</td>
+
+</tr></tbody></table>
+</section>
+<section id="autonomy-trends" class="level3">
+<h3 class="anchored" data-anchor-id="autonomy-trends">Autonomy Trends</h3>
+<p>After more than a decade of innovation in payload software, there are now many mature options for specialised autonomy, sensing, navigation, and communications. The practical consequence is that a single mission may involve software components developed by different teams or vendors.</p>
+The figure below shows - MOOS-IvP: Increased level of adoption for <a href="https://oceanai.mit.edu/2.680/pmwiki/pmwiki.php?n=Site.Lectures">MOOS-IvP</a>
+<figure class="figure">
+<img src="./images/1.introduction/17.autonomy-trends-32.png" alt="Autonomy Trends" style="width: 750px;" class="figure-img">
+</figure>
+<p>When you can combine best-in-class components, the payoff for end users is obvious. The hard part is integration: you need protocols, message definitions, timing assumptions, and safety rules that let “systems of systems” behave as one system.</p>
+</section>
+<section id="a-tangible-example" class="level3">
+<h3 class="anchored" data-anchor-id="a-tangible-example">A tangible example</h3>
+<p>And a blog post on the <a href="https://blog.geogarage.com/2018/12/rolls-royce-demonstrates-fully.html">World’s first autonomous ferry</a></p>
+<figure class="figure">
+<img src="./images/1.introduction/17.autonomy-trends-31.png" alt="Autonomy Trends" style="width: 550px;" class="figure-img">
+</figure>
+</section>
+<section id="autonomy-trends-1" class="level3">
+<h3 class="anchored" data-anchor-id="autonomy-trends-1">Autonomy Trends</h3>
+<ul>
+<li>After more than a decade of software innovation in the payload, there are now many good options for specialized autonomy, sensing, navigation and communications</li>
+<li>Many of these software solutions come from different developers/vendors.</li>
+</ul>
+<figure class="figure">
+<img src="./images/1.introduction/17.autonomy-trends-32.png" alt="Autonomy Trends" style="width: 750px;" class="figure-img">
+</figure>
+<ul>
+<li>Great benefits for end-users when best-of-practice solutions can be combined</li>
+<li>Key challenge: how to design system protocols/messages to develop systems of autonomy systems</li>
+</ul>
+<table>
+<tbody><tr>
+<td>
+<img src="./images/1.introduction/24.human-machine.png" alt="23.human-machine" style="height: 350px;">
+</td>
+</tr>
+</tbody></table>
+</section>
+</section>
+<section id="autonomous-vehicles" class="level2">
+<h2 class="anchored" data-anchor-id="autonomous-vehicles">Autonomous Vehicles</h2>
+<p>In this course we will talk about a few platform families and what they are good at: ROVs (tethered intervention and inspection), AUVs (untethered missions with onboard autonomy), gliders (very long endurance with low-speed sampling), and uncrewed surface vehicles (communications relay, sensing, and as a partner to underwater vehicles).</p>
+</section>
+<section id="next-challenges" class="level2">
+<h2 class="anchored" data-anchor-id="next-challenges">Next challenges</h2>
+<p>The applications in marine robotics sit at the intersection of <strong>science</strong>, <strong>industry</strong>, and <strong>defense</strong>. The overlap is not only about “who pays”; it changes what the system must do well. A climate survey vehicle can accept missed communications for hours. A harbour inspection platform has to work on a schedule and near people. A search-and-rescue mission pushes for speed, reliability, and clear operator control. In practice, the same core technologies get reused across these domains, but the constraints shift.</p>
+<table>
+<tbody><tr>
+<td>
+<figure class="figure">
+<img src="./images/1.introduction/27.roles-for-robots.png" alt="Science–Industry–Defense application space" style="width: 650px;" class="figure-img">
+<figcaption>
+Marine robotics applications span science, industry, and defense, with shared technical bottlenecks.
+</figcaption>
+</figure>
+</td>
+</tr>
+</tbody></table>
+<p>Across all three domains, the next set of challenges is mainly about making systems <strong>work reliably outside demos</strong>:</p>
+<ul>
+<li><p><strong>Navigation without infrastructure.</strong> Underwater, GPS is unavailable and acoustic positioning is not always available or affordable. Long missions force you to combine inertial sensing, terrain or map cues, acoustics when present, and careful uncertainty management.</p></li>
+<li><p><strong>Limited communication and operator bandwidth.</strong> Autonomy is not a luxury feature; it compensates for low-rate, intermittent links. The hard part is designing behaviours that are safe when the vehicle is uncertain, and interfaces that let a human intervene with minimal context.</p></li>
+<li><p><strong>Energy, endurance, and payload trade-offs.</strong> Batteries, propulsion, sensors, compute, and buoyancy compete for the same mass and volume budget. “More sensing” is rarely free; it changes endurance and logistics.</p></li>
+<li><p><strong>Verification, safety, and accountability.</strong> The closer you get to ports, infrastructure, or time-critical missions, the more you need clear failure modes, logging, and predictable behaviour. Autonomy that cannot be explained or tested becomes difficult to deploy.</p></li>
+<li><p><strong>Integration at scale.</strong> Modern missions often combine components from different vendors and teams (vehicle, payload, navigation stack, mission planner). This makes interfaces, timing assumptions, and reproducible data pipelines as important as any single algorithm.</p></li>
+</ul>
+<p>These challenges set the agenda for the rest of the course: we will keep coming back to navigation, sensing, communication constraints, and the practical design choices that follow.</p>
+See <a href="./syllabus.html" target="_blank" style="font-size: 16px;">00_Syllabus.ipynb</a>
+
+<p>for more details on the course structure.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

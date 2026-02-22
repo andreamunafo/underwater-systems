@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Ocean Acoustics – underwater-systems</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-000f0825b9c55ed21d14970d810c14a9.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+<meta property="og:title" content="Ocean Acoustics – underwater-systems">
+<meta property="og:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta property="og:image" content="https://andreamunafo.github.io/underwater-systems/images/2.ocean-acoustics/3.collodon_sound_speed_measurement.jpeg">
+<meta property="og:site_name" content="underwater-systems">
+<meta name="twitter:title" content="Ocean Acoustics – underwater-systems">
+<meta name="twitter:description" content="Underwater Systems, Master Degree in Robotics and Automation Engineering, University of Pisa, Italy">
+<meta name="twitter:image" content="https://andreamunafo.github.io/underwater-systems/images/2.ocean-acoustics/3.collodon_sound_speed_measurement.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-sidebar floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">underwater-systems</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+          <div id="quarto-search" class="" title="Search"></div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./ocean_acoustics-handout_part_1.html">Ocean Acoustics</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./syllabus.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Syllabus for “Underwater Systems”</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./toc.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Table of Contents</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro-handout.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction to Underwater Systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ocean_acoustics-handout_part_1.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Ocean Acoustics</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_ocean_acoustics-handout_part_2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ocean acoustics: quantities and jargon</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_acoustic_channel.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Acoustic Channel</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ray_tracing.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Ray Tracing</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./environmental-variability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Environmental Variability</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./oceanographic_sensors.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Oceanographic Sensors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_wave_equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Wave Equation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./acoustic_systems.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Acoustic systems</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./the_sonar_equations.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The SONAR equations</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./sonar_practical_applications.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">SONAR Practical Applications</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./underwater_navigation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Underwater Navigation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Frequently Asked Questions (FAQ)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ros.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Robot Operating System (ROS)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./msc_thesis_program.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">MSc Thesis Programs: Maritime Robotics, Artificial Intelligence and Robot Autonomy</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./getting_started_with_python_and_jupyter_notebook.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Getting Started with Python and Jupyter Notebooks</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100_Template_Final_Presentation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project Presentation Template</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./100_Template_Final_Report.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final Project Report Template</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./template_weekly_update.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Weekly 5-Minute Project Update Template</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./news.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">news.html</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#acoustic-propagation-in-the-ocean" id="toc-acoustic-propagation-in-the-ocean" class="nav-link active" data-scroll-target="#acoustic-propagation-in-the-ocean">Acoustic Propagation in the Ocean</a></li>
+  <li><a href="#history-of-ocean-acoustics" id="toc-history-of-ocean-acoustics" class="nav-link" data-scroll-target="#history-of-ocean-acoustics">History of Ocean Acoustics</a></li>
+  <li><a href="#the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water" id="toc-the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water" class="nav-link" data-scroll-target="#the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water">The First Recorded Attempt to Determine the Speed of Sound in Water</a></li>
+  <li><a href="#understanding-ocean-acoustics" id="toc-understanding-ocean-acoustics" class="nav-link" data-scroll-target="#understanding-ocean-acoustics">Understanding Ocean Acoustics</a>
+  <ul class="collapse">
+  <li><a href="#sound-as-a-pressure-wave" id="toc-sound-as-a-pressure-wave" class="nav-link" data-scroll-target="#sound-as-a-pressure-wave">Sound as a Pressure Wave</a></li>
+  <li><a href="#waves" id="toc-waves" class="nav-link" data-scroll-target="#waves">Waves</a></li>
+  <li><a href="#acoustic-waves-in-the-ocean" id="toc-acoustic-waves-in-the-ocean" class="nav-link" data-scroll-target="#acoustic-waves-in-the-ocean">Acoustic waves in the ocean</a></li>
+  <li><a href="#compressional-waves" id="toc-compressional-waves" class="nav-link" data-scroll-target="#compressional-waves">Compressional waves</a></li>
+  <li><a href="#characteristics-of-sound-waves" id="toc-characteristics-of-sound-waves" class="nav-link" data-scroll-target="#characteristics-of-sound-waves">Characteristics of Sound Waves</a></li>
+  <li><a href="#angular-frequency" id="toc-angular-frequency" class="nav-link" data-scroll-target="#angular-frequency">Angular Frequency</a></li>
+  <li><a href="#wave-number" id="toc-wave-number" class="nav-link" data-scroll-target="#wave-number">Wave Number</a></li>
+  <li><a href="#waves-in-phasor-form" id="toc-waves-in-phasor-form" class="nav-link" data-scroll-target="#waves-in-phasor-form">Waves in phasor form</a></li>
+  <li><a href="#superposition-of-waves" id="toc-superposition-of-waves" class="nav-link" data-scroll-target="#superposition-of-waves">Superposition of waves</a></li>
+  <li><a href="#why-this-is-important-for-us" id="toc-why-this-is-important-for-us" class="nav-link" data-scroll-target="#why-this-is-important-for-us">Why this is important for us</a></li>
+  <li><a href="#wave-characteristics-in-one-slide" id="toc-wave-characteristics-in-one-slide" class="nav-link" data-scroll-target="#wave-characteristics-in-one-slide">Wave characteristics in one slide</a></li>
+  <li><a href="#acoustic-rays" id="toc-acoustic-rays" class="nav-link" data-scroll-target="#acoustic-rays">Acoustic Rays</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ocean Acoustics</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<div style="page-break-before: always;">
+
+</div>
+<section id="acoustic-propagation-in-the-ocean" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-propagation-in-the-ocean">Acoustic Propagation in the Ocean</h3>
+<p>Acoustic propagation describes how pressure disturbances travel through seawater. Unlike propagation in air, the ocean environment introduces strong spatial variability: temperature, salinity, and pressure change with depth, and these variations directly affect sound speed.</p>
+<p>To understand sonar systems or acoustic positioning, we first need to understand how waves behave in a homogeneous medium, and then how the ocean modifies that behaviour.</p>
+</section>
+<section id="history-of-ocean-acoustics" class="level2">
+<h2 class="anchored" data-anchor-id="history-of-ocean-acoustics">History of Ocean Acoustics</h2>
+<p>Ocean acoustics developed alongside navigation, submarine detection, and later scientific oceanography. Many of the mathematical tools used today were motivated by operational needs rather than purely theoretical curiosity.</p>
+<p>The early development of sonar systems shaped how acoustic propagation was modeled and measured, and much of that framework remains in use.</p>
+<p>Early experiments aimed to measure the speed of sound in water and to understand how signals attenuate over distance.</p>
+<p>In 1490, <strong>Leonardo da Vinci</strong> proposed detecting ships by listening to the noise they radiate into water. <em>“If you cause your ship to stop and place the head of a long tube in the water and place the other extremity to your ear, you will hear ships at great distances.” From Leonardo Da Vinci’s Notebook.</em></p>
+<p>The idea is simple and still recognizable today: sound travels efficiently in water, so a sensor coupled to the water can detect distant sources.</p>
+<p>The first successful measurements of the speed of sound in water came much later.</p>
+<p>In 1826, using the same basic intuition (couple a receiver to the water), <strong>Colladon and Sturm</strong> recorded how fast the sound of a submerged bell traveled across Lake Geneva.</p>
+<p>Their Lake Geneva experiment is often illustrated with the “two boats + underwater bell + flash” setup, which is essentially a time-of-flight measurement (see below).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/2.ocean-acoustics/3.collodon_sound_speed_measurement.jpeg" class="img-fluid figure-img"></p>
+<figcaption>sound speed measurements</figcaption>
+</figure>
+</div>
+</section>
+<section id="the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water" class="level2">
+<h2 class="anchored" data-anchor-id="the-first-recorded-attempt-to-determine-the-speed-of-sound-in-water">The First Recorded Attempt to Determine the Speed of Sound in Water</h2>
+<p>In 1826 on Lake Geneva (Switzerland), physicist <strong>Jean-Daniel Colladon</strong> and mathematician <strong>Charles-François Sturm</strong> carried out what is commonly cited as the first recorded attempt to determine the speed of sound in water.</p>
+<p>The measurement strategy was pragmatic. On the first boat they struck an underwater bell and, at the same moment, ignited gunpowder to create a flash. On the second boat, about 10 miles away, observers recorded the delay between the flash (effectively instantaneous at that range) and the arrival of the bell sound. That time delay, together with the known distance, gave an estimate of sound speed.</p>
+<p>They also measured the water temperature in the lake (8 °C). At that temperature they obtained a speed of <strong>1435 m/s</strong> in fresh water, within about <strong>3 m/s</strong> of the currently accepted value. Their published report also discussed earlier sea-water measurements made in 1820 near Marseille by <strong>François Sulpice Beudant</strong>.</p>
+<p>The point to keep in mind is not just the historical detail. The structure of the experiment—trigger a signal, detect it elsewhere, measure time-of-flight—is the same idea behind modern acoustic ranging and many positioning systems.</p>
+<p>World events later pushed ocean acoustics from “measuring constants” toward “understanding the ocean as a propagation medium”.</p>
+<ul>
+<li>World War I and the advent of the submarine drove the development of sonar and of ocean acoustics (acoustical oceanography).</li>
+</ul>
+<p>One influential figure was <strong>Maurice Ewing</strong> (see also <strong>Marie Tharp</strong> and the <strong>Lamont Geological Observatory</strong>). Ewing argued that sound could propagate over hundreds—possibly thousands—of kilometers if the source and receiver were placed appropriately.</p>
+<p>In 1945 he demonstrated this by propagating sound from a small explosion over <strong>more than 3000 km</strong>, from Eleuthera (Bahamas) to Dakar (West Africa). The map below shows how far these two points are!</p>
+<p>The experiment worked because the ocean is not acoustically uniform with depth: the vertical structure can create a waveguide.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/2.ocean-acoustics/3b.sofar.png" class="img-fluid figure-img" width="300"></p>
+<figcaption>Ewing-experiment</figcaption>
+</figure>
+</div>
+<p>Ewing’s long-range propagation took place in what he described as a ubiquitous permanent sound channel in the deep ocean. He called it the <strong>SOFAR channel</strong> (SOund Fixing And Ranging).</p>
+<p>One of the early proposed applications was search and rescue. The idea was that a downed-at-sea airman, floating in an inflated rubber boat, could drop small cartridges set to explode near the axis of the SOFAR channel (about 1200 m depth in the North Atlantic). Signals guided by the channel could then be detected far away, enabling ranging and localization.</p>
+<p>The figure below (from Applied Underwater Acoustics) shows a sound speed profile with a clear minimum at the depth of the SOFAR channel.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/2.ocean-acoustics/3b.sofar-1.png" class="img-fluid figure-img"></p>
+<figcaption>SOFAR</figcaption>
+</figure>
+</div>
+<p>Today, acoustics is used to detect and locate objects and targets; to measure the characteristics of the environment or the velocity and location of moving underwater objects; and to transmit signals.</p>
+<p>In robotics, those three roles show up repeatedly: active sonar for perception, acoustic positioning (LBL/USBL, DVL-derived bottom tracking), and acoustic modems for communication. We will expand on all these aspects through the rest of the course The figure below (from NOAA) is one example of what acoustic sensing can produce: a three-dimensional view derived from echo returns.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/2.ocean-acoustics/4.3D_echogram.jpg" class="img-fluid figure-img"></p>
+<figcaption>NOAA</figcaption>
+</figure>
+</div>
+</section>
+<section id="understanding-ocean-acoustics" class="level2">
+<h2 class="anchored" data-anchor-id="understanding-ocean-acoustics">Understanding Ocean Acoustics</h2>
+<p>We now shift from history and motivation to the basic physics. The goal is to define the quantities we will keep using: pressure, frequency, wavelength, phase, and then build the simplest wave models before adding ocean-specific complications.</p>
+<section id="sound-as-a-pressure-wave" class="level3">
+<h3 class="anchored" data-anchor-id="sound-as-a-pressure-wave">Sound as a Pressure Wave</h3>
+<p>Ocean acoustics studies sound and its behaviour in the sea. When an underwater object vibrates, it generates <strong>sound-pressure waves</strong> that alternately compress and decompress water molecules as the disturbance travels. In the simplest picture, the wave radiates away from the source in all directions, like ripples on a pond, except that the disturbance is in pressure rather than surface height.</p>
+<p>Those compressions and decompressions can be detected as pressure changes by our ears and by sensors such as a <strong>hydrophone</strong> (an underwater microphone).</p>
+<p>The basic components we will use to describe a sound wave are <strong>frequency</strong>, <strong>wavelength</strong>, and <strong>amplitude</strong>.</p>
+</section>
+<section id="waves" class="level3">
+<h3 class="anchored" data-anchor-id="waves">Waves</h3>
+<p>A wave is a self-propagating disturbance in a medium. A useful geometric object is the <strong>wavefront</strong>: the locus of points that share the same phase. Intuitively, it is the set of points reached by the perturbation at the same time.</p>
+<p>In an <strong>isotropic</strong> medium (same properties in all directions), wavefronts generated by a point source are spherical. If a sound wave emanates from a point source, then at any instant the wavefront is a sphere centred on the source: every point on that sphere has the same phase. As time passes, the sphere expands outward.</p>
+<p>Waves carry <strong>energy</strong>, <strong>momentum</strong>, and <strong>information</strong>, but they do not transport matter over long distances.</p>
+</section>
+<section id="acoustic-waves-in-the-ocean" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-waves-in-the-ocean">Acoustic waves in the ocean</h3>
+<p>It helps to distinguish the background pressure field from the perturbation created by sound.</p>
+<p><strong>Hydrostatic pressure</strong> is the pressure exerted by the stationary water column at a given depth. It comes from the weight of the fluid above the point:</p>
+<p><span class="math display">\[
+P = \rho g h
+\]</span></p>
+<p><strong>Acoustic pressure</strong> (sound pressure) is the <strong>local deviation</strong> from the ambient hydrostatic pressure caused by a propagating sound wave.</p>
+<p>In seawater, acoustic waves are pressure waves. More specifically, they are <strong>compressional waves</strong>: a disturbance of the local equilibrium pressure that propagates through the medium.</p>
+</section>
+<section id="compressional-waves" class="level3">
+<h3 class="anchored" data-anchor-id="compressional-waves">Compressional waves</h3>
+<p><strong>Compressional waves</strong> (also called longitudinal waves or primary P-waves) propagate by creating alternating regions of compression and rarefaction in the medium.</p>
+<p>Particles in the medium vibrate <strong>parallel</strong> to the direction of propagation. When one region compresses, it pushes on neighbouring regions; that compression/dilation pattern transmits through the medium and the wave advances.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="./images/2.ocean-acoustics/P-wave_animation.gif" class="img-fluid figure-img" style="width:50.0%"></p>
+<figcaption>P-wave</figcaption>
+</figure>
+</div>
+<p>Figure from University of Alicante, Spain (https://web.ua.es/en/urs/disclosure/seismic-wave-propagation.html)</p>
+<p>A planar P-wave can be pictured as a moving sequence of compressions and rarefactions. The wavefronts are planes, and the motion of the medium is along the direction the wave travels (here you can imagine the Y–Z plane pressing on the particles as the disturbance passes).</p>
+<section id="some-comments" class="level4">
+<h4 class="anchored" data-anchor-id="some-comments">Some comments</h4>
+<p>Sound is often illustrated with a sine curve. That picture is a convenient graph of pressure deviation versus time (or versus distance), not a claim that sound “is a sideways wiggle”. In that graph, peaks correspond to compression (higher pressure) and troughs correspond to rarefaction (lower pressure).</p>
+<p>The <strong>speed of sound</strong> depends on how easily the medium transmits these compressions. At a microscopic level it is influenced by the distance between molecules and the strength of intermolecular interactions. This is why sound speed tends to increase with density and temperature.</p>
+<p>In a gas, molecules are widely spaced with weak intermolecular forces, making the medium highly compressible. This high compressibility results in a relatively slow speed of sound. In contrast, sound travels fastest in solids because their rigid atomic structure provides very high elasticity (bulk modulus). Although solids and liquids are much denser than gases, which typically acts to slow sound down—their massive increase in stiffness far outweighs the effect of density, leading to significantly higher acoustic velocities. We will go deeper into these concepts later in the course.</p>
+</section>
+</section>
+<section id="characteristics-of-sound-waves" class="level3">
+<h3 class="anchored" data-anchor-id="characteristics-of-sound-waves">Characteristics of Sound Waves</h3>
+<p>To describe an acoustic pressure wave, we track how pressure varies in <strong>space</strong> and <strong>time</strong>. Sound waves are characterized by <strong>amplitude, intensity, frequency, speed, wavelength, and phase</strong>.</p>
+<p>If the pressure perturbation (with respect to equilibrium) is sinusoidal, we can write the pressure variation as:</p>
+<p><span class="math display">\[
+p(x, t) = A\sin(kx-\omega t + \phi)
+\]</span></p>
+<p>where:</p>
+<ul>
+<li><span class="math inline">\(p(x,t)\)</span> is the pressure deviation from the equilibrium (hydrostatic) pressure at position <span class="math inline">\(x\)</span> and time <span class="math inline">\(t\)</span>.</li>
+<li><span class="math inline">\(A\)</span> is the amplitude (maximum pressure deviation).</li>
+<li><span class="math inline">\(k\)</span> is the <strong>wave number</strong>, related to wavelength by <span class="math inline">\(k = 2\pi/\lambda\)</span>. It sets how rapidly the phase changes in space.</li>
+<li><span class="math inline">\(x\)</span> is position along the propagation direction.</li>
+<li><span class="math inline">\(\omega\)</span> is the <strong>angular (radian) frequency</strong>, related to frequency by <span class="math inline">\(\omega = 2\pi f\)</span>. It sets how rapidly the phase changes in time.</li>
+<li><span class="math inline">\(\phi\)</span> is the phase offset.</li>
+</ul>
+<p>The argument of the sine has two parts: a term that depends on <strong>space</strong> (through the wave number <span class="math inline">\(k\)</span>) and a term that depends on <strong>time</strong> (through the angular frequency <span class="math inline">\(\omega\)</span>).</p>
+</section>
+<section id="angular-frequency" class="level3">
+<h3 class="anchored" data-anchor-id="angular-frequency">Angular Frequency</h3>
+<p>The angular frequency <span class="math inline">\(\omega\)</span> (also called radian frequency) measures how rapidly the wave oscillates in time. It is related to the ordinary frequency <span class="math inline">\(f\)</span> by:</p>
+<p><span class="math display">\[
+\omega = 2\pi f
+\]</span></p>
+<p>Using <span class="math inline">\(c = f\lambda\)</span>, we can also write:</p>
+<p><span class="math display">\[
+\omega = \frac{2\pi c}{\lambda}
+\]</span></p>
+<p>In other words, <span class="math inline">\(f\)</span> counts cycles per second, while <span class="math inline">\(\omega\)</span> measures phase rotation in radians per second.</p>
+</section>
+<section id="wave-number" class="level3">
+<h3 class="anchored" data-anchor-id="wave-number">Wave Number</h3>
+<p>The wave number <span class="math inline">\(k\)</span> measures how rapidly the wave oscillates in space. It is related to wavelength by:</p>
+<p><span class="math display">\[
+k = \frac{2\pi}{\lambda}
+\]</span></p>
+<p>Using <span class="math inline">\(\omega = ck\)</span>, we can also write:</p>
+<p><span class="math display">\[
+k = \frac{\omega}{c}
+\]</span></p>
+<p>Shorter wavelengths correspond to larger <span class="math inline">\(k\)</span>: the phase changes more quickly as you move through space.</p>
+</section>
+<section id="waves-in-phasor-form" class="level3">
+<h3 class="anchored" data-anchor-id="waves-in-phasor-form">Waves in phasor form</h3>
+<p>For sinusoidal steady-state analysis, it is often convenient to package amplitude and phase into a single complex number (a <strong>phasor</strong>). If we represent our physical wave as a cosine:</p>
+<p><span class="math display">\[
+y(x,t) = A\cos(kx - \omega t + \phi)
+\]</span></p>
+<p>We can express this as the real part of a complex exponential:</p>
+<p><span class="math display">\[
+y(x,t) = \operatorname{Re}(Y e^{j(kx - \omega t)})
+\]</span></p>
+<p>where <span class="math inline">\(Y\)</span> is the phasor amplitude:</p>
+<p><span class="math display">\[
+Y = A e^{j\phi}
+\]</span></p>
+<p>The benefit is practical: the phasor <span class="math inline">\(Y\)</span> contains the spatial/temporal invariants (amplitude and initial phase), while the term <span class="math inline">\(e^{j(kx-\omega t}\)</span> handles the wave propagation. Complex arithmetic makes it significantly easier to calculate interference, reflection coefficients, and superposition. We can always recover the physical signal by taking the real part at the end of the analysis.</p>
+<p>In other words, the phasor amplitude <span class="math inline">\(Y\)</span> is a complex number that captures both the amplitude <span class="math inline">\(A\)</span> and the phase information <span class="math inline">\(\phi\)</span> of the wave in a single quantity. The real part of the product <span class="math inline">\(Y e^{j(kx - \omega t)}\)</span> gives the actual physical value of the wave at position <span class="math inline">\(x\)</span> and time <span class="math inline">\(t\)</span>.</p>
+<p>To obtain the phasor amplitude <span class="math inline">\(Y\)</span>, we express the cosine using Euler’s inverse formula:</p>
+<p><span class="math display">\[y(x,t) = A\cos(kx - \omega t + \phi) = \frac{A}{2}\left(e^{j(kx - \omega t + \phi)} + e^{-j(kx - \omega t + \phi)}\right)\]</span></p>
+<p>We can recover the time-domain function <span class="math inline">\(y(x, t)\)</span> by taking the real part of the positive-frequency rotating vector:</p>
+<p><span class="math display">\[y(x,t) = \operatorname{Re}(\underbrace{A e^{j\phi}}_{Y} \cdot e^{j(kx - \omega t)})\]</span></p>
+<p>In this view, <span class="math inline">\(Y\)</span> acts as a complex “container” for magnitude <span class="math inline">\(A\)</span> and phase <span class="math inline">\(\phi\)</span>, while <span class="math inline">\(e^{j(kx-\omega t)}\)</span> carries the spatial and temporal evolution. By expressing the wave in phasor form, we can more easily manipulate its properties and use complex arithmetic to analyze interference and superposition without cumbersome trigonometric identities.</p>
+<p>Let’s make the space–time interpretation of a travelling sinusoid concrete with a small Python example.</p>
+<p>A travelling sine wave changes both in time and in space. If you freeze time and look across space, you see a sinusoid as a function of position. If you freeze position and watch time, you see a sinusoid as a function of time.</p>
+<p>In the figure below, we mark a fixed point at <span class="math inline">\(x=2.5\)</span> as a red dot. As the wave propagates, the value at that point varies over time even though the point does not move.</p>
+<div id="6e67853b" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>plt.style.use(<span class="st">'seaborn-v0_8'</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co"># %matplotlib inline</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="a22ce841" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fig <span class="op">=</span> plt.figure(figsize <span class="op">=</span> (<span class="dv">8</span>,<span class="dv">8</span>))</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>times <span class="op">=</span> np.arange(<span class="dv">5</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(times)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">201</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.sin(x)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> times:</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    plt.subplot(n, <span class="dv">1</span>, t<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.sin(x <span class="op">+</span> t)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, y, <span class="st">'b'</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(x[<span class="dv">25</span>], y [<span class="dv">25</span>], <span class="st">'ro'</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    plt.ylim(<span class="op">-</span><span class="fl">1.1</span>, <span class="fl">1.1</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    plt.title(<span class="ss">f't = </span><span class="sc">{</span>t<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'location (x)'</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="02_ocean_acoustics-handout_part_1_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can also look at the same signal the other way around: fix a location <span class="math inline">\(x\)</span> and plot <span class="math inline">\(p(x,t)\)</span> as a function of time. Try this for a few values of <span class="math inline">\(x\)</span> and compare the phase shifts between locations.</p>
+</section>
+<section id="superposition-of-waves" class="level3">
+<h3 class="anchored" data-anchor-id="superposition-of-waves">Superposition of waves</h3>
+<p>When two or more waves exist in the same medium, the disturbance at any point is the <strong>algebraic sum</strong> of the disturbances produced by each wave. In the ideal linear model, waves pass through each other without being permanently altered; what changes is only the instantaneous sum.</p>
+<p>Superposition explains interference effects. If two waves of the same frequency and amplitude are <strong>in phase</strong> (crests align with crests, troughs with troughs), their amplitudes add and the result has larger amplitude (<strong>constructive interference</strong>). If they are <strong>out of phase</strong>, they partially or completely cancel (<strong>destructive interference</strong>).</p>
+<p>This idea will come back later in array processing and beamforming, where we deliberately exploit constructive/destructive interference across sensors.</p>
+<div id="e4d2cb2f" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.animation <span class="im">as</span> animation</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="dfc70d0c" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Wave parameters</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> <span class="fl">0.5</span>  <span class="co"># Amplitude</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">10</span>  <span class="co"># Wave number</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>omega <span class="op">=</span> <span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">/</span> <span class="dv">2</span>  <span class="co"># Angular frequency</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Time and space parameters</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">200</span>)  <span class="co"># Time vector</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">400</span>)  <span class="co"># Space vector</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>X, T <span class="op">=</span> np.meshgrid(x, t)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Individual wave functions</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> A <span class="op">*</span> np.sin(k <span class="op">*</span> X <span class="op">-</span> omega <span class="op">*</span> T)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>y2 <span class="op">=</span> A <span class="op">*</span> np.sin(<span class="op">-</span>k <span class="op">*</span> X <span class="op">-</span> omega <span class="op">*</span> T)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Resulting wave function (superposition of individual waves)</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> y1 <span class="op">+</span> y2</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot individual waves and resulting wave</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>ax.set_xlim(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>line1, <span class="op">=</span> ax.plot([], [], lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Wave 1'</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>line2, <span class="op">=</span> ax.plot([], [], lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Wave 2'</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>line3, <span class="op">=</span> ax.plot([], [], lw<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Resulting wave'</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>ax.legend()</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> init():</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>    line1.set_data([], [])</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>    line2.set_data([], [])</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>    line3.set_data([], [])</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> line1, line2, line3</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> animate(i):</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    line1.set_data(x, y1[i, :])</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    line2.set_data(x, y2[i, :])</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    line3.set_data(x, y[i, :])</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> line1, line2, line3</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>ani <span class="op">=</span> animation.FuncAnimation(fig, animate, frames<span class="op">=</span><span class="bu">len</span>(t), init_func<span class="op">=</span>init, blit<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.close()  <span class="co"># Prevents duplicate display of animation</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>The next code cell displays an animation. It works in the online notebook, but it does not render correctly in Quarto/PDF. If you are reading the PDF, you can skip it without losing the thread.</p>
+<p>If you are running the notebook, execute the code below to see how two travelling waves superpose in space and time:</p>
+<pre><code>## Display animation
+from IPython.display import HTML
+HTML(ani.to_jshtml())</code></pre>
+</section>
+<section id="why-this-is-important-for-us" class="level3">
+<h3 class="anchored" data-anchor-id="why-this-is-important-for-us">Why this is important for us</h3>
+<p>In the context of <strong>Underwater Systems</strong>, the principle of superposition is not merely a theoretical exercise; it is the physical mechanism behind how we detect, locate, and communicate with objects underwater.</p>
+<section id="multipath-propagation" class="level4">
+<h4 class="anchored" data-anchor-id="multipath-propagation">1. Multipath Propagation</h4>
+<p>The ocean is a bounded medium. Sound rarely travels along a single path; the receiver sees the <strong>superposition</strong> of multiple arrivals (direct, surface-reflected, and bottom-reflected):</p>
+<p><span class="math display">\[p_{total}(t) = \sum_{i=1}^{n} A_i \cos(\omega t + \phi_i)\]</span></p>
+<p>Using phasors, we can determine if these paths will result in a strong signal or a “null” caused by destructive interference. A classic example is the <strong>Lloyd’s Mirror effect</strong>, where the surface reflection creates an interference pattern that can significantly alter the received pressure level.</p>
+</section>
+<section id="array-processing-and-beamforming" class="level4">
+<h4 class="anchored" data-anchor-id="array-processing-and-beamforming">2. Array Processing and Beamforming</h4>
+<p>Modern sonar systems use an <strong>array of sensors</strong>. By controlling the phase shift of the signal at each sensor, we use constructive interference to “steer” the sensitivity of the array. The total output is the phasor sum:</p>
+<p><span class="math display">\[Y_{array} = \sum_{m=0}^{M-1} w_m e^{-j m \Delta \phi}\]</span></p>
+<p>This allows the system to focus on a specific target while using destructive interference to suppress noise coming from other directions.</p>
+<p>We will deepen these concepts later in the course.</p>
+</section>
+</section>
+<section id="wave-characteristics-in-one-slide" class="level3">
+<h3 class="anchored" data-anchor-id="wave-characteristics-in-one-slide">Wave characteristics in one slide</h3>
+<p>A single travelling wave can be described with a small set of parameters. The figures below show two common ways of “reading” a sinusoid: measuring the period in time, and measuring the wavelength in space.</p>
+<p><img src="./images/2.ocean-acoustics/5.wave-period_amplitude.jpg" class="img-fluid" width="350" alt="Wave Period Amplitude"> <img src="./images/2.ocean-acoustics/6.wave-wavelength_amplitude.jpg" class="img-fluid" width="350" alt="Wave Wavelength Amplitude"></p>
+<p><strong>Amplitude</strong> <span class="math inline">\(A\)</span> is the maximum deviation from the baseline. For acoustic pressure waves, larger amplitude corresponds to larger pressure variation (what we experience as “louder”), and in practice amplitude is often expressed on a decibel scale.</p>
+<p><strong>Period</strong> <span class="math inline">\(T\)</span> is the time required to complete one full cycle. In the figure, it is the time between adjacent peaks (or adjacent troughs).</p>
+<p><strong>Wavelength</strong> <span class="math inline">\(\lambda\)</span> is the spatial analogue of the period: it is the distance between adjacent crests (or troughs) at a fixed time.</p>
+</section>
+<section id="acoustic-rays" class="level3">
+<h3 class="anchored" data-anchor-id="acoustic-rays">Acoustic Rays</h3>
+<p>An acoustic ray is a geometric approximation: a line representing the direction along which acoustic energy propagates locally.</p>
+<p>Given a wavefront (a surface of equal phase), the associated ray direction is perpendicular to the wavefront at each point. If you draw rays normal to successive wavefronts and connect them, you obtain a <strong>ray path</strong>.</p>
+<p>This is the same construction used in optics. We use it here for intuition: it helps explain refraction, shadow zones, and convergence zones without solving the full wave equation. Later we will be explicit about when the ray approximation is valid.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/andreamunafo\.github\.io\/underwater-systems");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/andreamunafo/underwater-systems/issues/new" class="toc-action"><i class="bi bi-github"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
